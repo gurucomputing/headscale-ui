@@ -1,0 +1,11 @@
+{
+  skip_install_trust
+}
+:443 {
+  tls internal {
+    on_demand
+  }
+  file_server {
+    root ./build
+  }
+}

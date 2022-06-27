@@ -1,0 +1,32 @@
+{
+	"name": "headscale-ui",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "svelte-kit dev --https --port 443 --host 0.0.0.0",
+		"build": "svelte-kit build",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview --https --port 443 --host 0.0.0.0",
+		"stage": "/usr/bin/caddy run --adapter caddyfile --config ./Caddyfile",
+		"prepare": "svelte-kit sync",
+		"check": "svelte-check --tsconfig ./jsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./jsconfig.json --watch",
+		"lint": "prettier --check --plugin-search-dir=. .",
+		"format": "prettier --write --plugin-search-dir=. ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-static": "^1.0.0-next.34",
+		"@sveltejs/kit": "next",
+		"autoprefixer": "^10.4.4",
+		"postcss": "^8.4.12",
+		"postcss-load-config": "^3.1.4",
+		"prettier": "^2.6.2",
+		"prettier-plugin-svelte": "^2.7.0",
+		"svelte": "^3.44.0",
+		"svelte-check": "^2.7.1",
+		"svelte-preprocess": "^4.10.7",
+		"tailwindcss": "^3.0.23",
+		"typescript": "^4.7.2"
+	},
+	"type": "module"
+}

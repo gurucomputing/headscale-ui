@@ -1,0 +1,24 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hyperlink {
+  @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600 font-bold;
+}
+
+.tooltip {
+  @apply invisible absolute text-sm opacity-0;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50 transition-opacity duration-300 opacity-100;
+}
+
+.form-input {
+  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 text-sm mb-3 leading-tight focus:outline-none;
+}
+
+.btn-primary {
+  @apply mb-2 text-white text-sm font-bold py-1 px-3 rounded focus:outline-2 disabled:opacity-50;
+}
