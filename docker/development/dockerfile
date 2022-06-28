@@ -1,0 +1,57 @@
+FROM fedora:36
+
+# Arguments
+ARG OPENVSCODE_VERSION="1.68.1"
+ARG NODEJS_VERSION="16"
+# Volumes
+VOLUME /data
+
+# Ports
+# openvscode server port. Note: Runs HTTP by default
+EXPOSE 3000
+# Dev Web Server port. Runs a self signed SSL certificate
+EXPOSE 443
+
+# System Environment Variables
+ENV PATH="/opt/vscode:${PATH}"
+ENV HOME="/data/home"
+ENV SHELL="/usr/bin/fish"
+
+# User Set Environment Variables
+# Set to false if you do not want to attempt to pull a repository on first load
+ENV AUTOINITIALIZE=true
+# sets a connection token for VSCode Server. https://github.com/gitpod-io/openvscode-server#securing-access-to-your-ide
+ENV USE_CONNECTION_TOKEN=true
+#Set to a secret to have some measure of protection for vscode. Randomized if left blank
+ENV CONNECTION_TOKEN=
+# Project name. Typically the same as the project in the URL
+ENV PROJECT_NAME="headscale-ui"
+# URL for the github/git location
+ENV PROJECT_URL="https://github.com/gurucomputing/headscale-ui"
+# autostart the dev command on boot?
+ENV AUTOSTART=true
+# command to run in the background on startup
+ENV DEV_COMMAND="npm run dev"
+
+# Set the staging environment
+WORKDIR /staging/scripts
+WORKDIR /staging
+RUN chown 1000:1000 /staging
+
+# Copy across the scripts folder
+COPY scripts/* ./scripts/
+
+# Set permissions for all scripts. We do not want normal users to have write
+# access to the scripts
+RUN chown -R 0:0 scripts
+RUN chmod -R 755 scripts
+
+# Build the image. This build runs as root
+RUN /staging/scripts/1-image-build.sh
+
+# set to the non-root user
+USER nodejs
+
+WORKDIR /data
+
+ENTRYPOINT /bin/sh /staging/scripts/2-initialise.sh

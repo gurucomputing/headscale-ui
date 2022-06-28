@@ -66,7 +66,7 @@
 	{/if}
 	{#if headscaleAPITest === 'failed'}
 		<div in:fade class="max-w-lg  mx-auto p-4 border-4 text-sm text-gray-600 shadow-lg text-center">
-			<p>API test did not succeed.<br />Headscale might be down or API settings may need to be set<br />change server settings in the <a href="/settings" class="hyperlink">settings</a> page</p>
+			<p>API test did not succeed.<br />Headscale might be down or API settings may need to be set<br />change server settings in the <a href="/settings.html" class="hyperlink">settings</a> page</p>
 		</div>
 	{/if}
 {/if}
