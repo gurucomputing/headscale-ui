@@ -39,7 +39,6 @@
 					// return the api data
 					response.json().then((data) => {
 						headscaleUsers = data.namespaces;
-						console.log(headscaleUsers);
 					});
 				} else {
 					headscaleAPITest = 'failed';
