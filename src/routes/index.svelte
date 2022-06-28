@@ -1,6 +1,6 @@
 <!-- typescript -->
 <script lang="ts">
-	import UserCard from '$lib/user-view/user-card.svelte';
+	import UserCard from '$lib/index/UserCard.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 

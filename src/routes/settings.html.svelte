@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import { writable, type Writable } from 'svelte/store';
 	import { fade, fly } from 'svelte/transition';
-	import { TestAPI } from '$lib/common-functions.svelte';
+	import { TestAPI } from '$lib/common/functions.svelte';
 
 	//
 	// Variable Declarations
