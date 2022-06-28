@@ -22,9 +22,6 @@ echo "ALL ALL=NOPASSWD: /bin/chown -R 1000\:1000 /data" >> /etc/sudoers
 # install nodejs
 dnf module install -y nodejs:${NODEJS_VERSION}
 
-# enable openssh
-ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
-
 # create the non-root user
 groupadd -g 1000 nodejs
 useradd -u 1000 -g 1000 nodejs
