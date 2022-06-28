@@ -1,0 +1,43 @@
+name: Publish Image
+
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Variable Gathering
+        id: gathervars
+        run: |
+          # get a current BUILD_DATE
+          echo "::set-output name=BUILD_DATE::$(date +%Y%m%d-%H%M%S)"
+          # set version based on BUILD_DATE
+          echo "::set-output name=VERSION::$(date +%Y.%m.%d)-1"
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          build-args: |
+            BUILD_DATE=${{ steps.gathervars.outputs.BUILD_DATE }}
+            VERSION=${{ steps.gathervars.outputs.VERSION }}
+          context: ./docker/development
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.VERSION }}
+          push: true
