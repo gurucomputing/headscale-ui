@@ -11,14 +11,11 @@ While not currently embedded into the headscale binary, there is no reason why t
 ## Development
 Development can be done either by using the official development docker image, or via a normal nodejs installation.
 ### Quick Start (Docker)
-Run the following `docker` command:
-`docker run -p 443:443 -p 3000:3000 -v "$(pwd)"/data:/data ghcr.io/gurucomputing/headscale-ui:latest`
+* `docker run -p 443:443 -p 3000:3000 -v "$(pwd)"/data:/data ghcr.io/gurucomputing/headscale-ui:latest`
 
-or on a selinux enabled distro (like fedora):
-`docker run -p 443:443 -p 3000:3000 -v "$(pwd)"/data:/data:Z ghcr.io/gurucomputing/headscale-ui:latest`
 A full browser based vscode development environment will be found at `http://<your-ip>:3000/?tkn=<your authentication token>`. The authentication token will be printed in your docker logs, and must be included in the URL.
 
-> You can set a custom connection token using the $CONNECTION_TOKEN environment variable
+> You can set a custom authentication token using the $CONNECTION_TOKEN environment variable
 
 Once started, the development environment can be found at `/data/headscale-ui` inside vscode. The development server (including hot reloading) will be found at port 443. The `npm run dev` process can be accessed within tmux, accessed with `tmux a` in the vscode terminal.
 
