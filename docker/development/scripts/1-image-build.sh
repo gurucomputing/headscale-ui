@@ -7,29 +7,18 @@ set -x
 # script variables
 OPENVSCODE_URL="https://github.com/gitpod-io/openvscode-server/releases/download/openvscode-server-v$OPENVSCODE_VERSION/openvscode-server-v$OPENVSCODE_VERSION-linux-x64.tar.gz"
 OPENVSCODE_RELEASE="openvscode-server-v$OPENVSCODE_VERSION-linux-x64"
+CADDY_URL="https://caddyserver.com/api/download?os=linux&arch=amd64"
 
 # install dependencies
-# ncurses         basic command line QOL improvements
-# tmux            used for monitoring secondary processes
-# git             It's git!
-# fish            prettier shell
-# caddy           file server for stage testing
-dnf install -y ncurses tmux git fish caddy
-
-# Add the ability to set file permissions on /data to the non-privileged user
-echo "ALL ALL=NOPASSWD: /bin/chown -R 1000\:1000 /data" >> /etc/sudoers
-
-# install nodejs
-dnf module install -y nodejs:${NODEJS_VERSION}
-
-# create the non-root user
-groupadd -g 1000 nodejs
-useradd -u 1000 -g 1000 nodejs
+# tmux     used for monitoring secondary processes
+# sudo     for running specific commands as root
+apt-get update
+apt-get install -y tmux sudo
 
 # set the default shell to the chosen shell
-usermod --shell ${SHELL} nodejs
+usermod --shell ${SHELL} node
 
-# Add the ability to set file permissions to the non-privileged user
+# Add the ability to set file permissions on /data to the non-privileged user
 echo "ALL ALL=NOPASSWD: /bin/chown -R 1000\:1000 /data" >> /etc/sudoers
 
 # install openVSCode
@@ -42,6 +31,11 @@ curl -LJO "$OPENVSCODE_URL"
 tar -xzf "$OPENVSCODE_RELEASE.tar.gz"
 mv $OPENVSCODE_RELEASE openvscode-server
 rm -f "$OPENVSCODE_RELEASE.tar.gz"
+
+### download caddy
+curl -LJO "$CADDY_URL"
+chmod +x caddy_linux_amd64
+mv caddy_linux_amd64 /usr/bin/caddy
 
 # create data and home directories
 mkdir -p /data/home

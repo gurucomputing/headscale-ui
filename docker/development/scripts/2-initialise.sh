@@ -29,7 +29,7 @@ then
 fi
 
 #attempt to initialize and run a repository
-if [[ "$AUTOINITIALIZE" == "true" ]]
+if [ "$AUTOINITIALIZE" = "true" ]
 then
     # check if there is a copy of ${PROJECT_NAME}, if not assume this is a fresh install
     if ! [ -d /data/${PROJECT_NAME} ]
@@ -45,7 +45,7 @@ then
         cd /data/${PROJECT_NAME}
     fi
 
-    if [[ "$AUTOSTART" == "true" ]]
+    if [ "$AUTOSTART" = "true" ]
     then
         # run the sub process
         tmux new-session -d "${DEV_COMMAND}; sh"
@@ -53,14 +53,9 @@ then
 fi
 
 # run the main process.
-if [[ "$USE_CONNECTION_TOKEN" == "false" ]]
+if [ "$USE_CONNECTION_TOKEN" = "false" ]
 then
     /opt/openvscode-server/bin/openvscode-server --host 0.0.0.0 --without-connection-token
 else
-    if [[ "$CONNECTION_TOKEN" == "" ]]
-    then
-        CONNECTION_TOKEN=$(echo $RANDOM | md5sum | head -c 20)
-        echo "connection token is not set, randomising to $CONNECTION_TOKEN"
-    fi
     /opt/openvscode-server/bin/openvscode-server --host 0.0.0.0 --connection-token=${CONNECTION_TOKEN}
 fi

@@ -1,8 +1,7 @@
-FROM fedora:36
+FROM node:latest
 
 # Arguments
 ARG OPENVSCODE_VERSION="1.68.1"
-ARG NODEJS_VERSION="16"
 # Volumes
 VOLUME /data
 
@@ -15,7 +14,7 @@ EXPOSE 443
 # System Environment Variables
 ENV PATH="/opt/vscode:${PATH}"
 ENV HOME="/data/home"
-ENV SHELL="/usr/bin/fish"
+ENV SHELL="/bin/bash"
 
 # User Set Environment Variables
 # Set to false if you do not want to attempt to pull a repository on first load
@@ -50,7 +49,7 @@ RUN chmod -R 755 scripts
 RUN /staging/scripts/1-image-build.sh
 
 # set to the non-root user
-USER nodejs
+USER node
 
 WORKDIR /data
 
