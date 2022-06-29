@@ -4,8 +4,8 @@
 	let cardExpanded = false;
 </script>
 
-<div in:fade on:click={() => cardExpanded = !cardExpanded} class="grid grid-cols-1 divide-y p-2 max-w-screen-lg border-2 mx-4 border-gray-100 rounded-md text-sm text-gray-600 shadow">
-	<div class="flex justify-between">
+<div in:fade class="grid grid-cols-1 divide-y p-2 max-w-screen-lg border-2 mx-4 border-gray-100 rounded-md text-sm text-gray-600 shadow">
+	<div on:click={() => cardExpanded = !cardExpanded} class="flex justify-between">
 		<span class="font-bold">{user.id}: {user.name}</span>
 		{#if !cardExpanded}
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
