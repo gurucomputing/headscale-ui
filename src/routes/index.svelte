@@ -2,7 +2,7 @@
 <script lang="ts">
 	import UserCard from '$lib/index/UserCard.svelte';
 	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 
 	//
 	// Component Variables

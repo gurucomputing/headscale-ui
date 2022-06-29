@@ -18,6 +18,7 @@
 		{/if}
 	</div>
 	{#if cardExpanded}
-		<div transition:slide class="pt-2 pl-2"><p><span class="font-bold">User Created: </span><span class="font-normal">{new Date(user.createdAt)}</span></p></div>
+		<!-- we put a conditional on the outro transition so page changes do not trigger the animation -->
+		<div in:slide out:slide={{ duration: cardExpanded ? 0 : 500 }} class="pt-2 pl-2"><p><span class="font-bold">User Created: </span><span class="font-normal">{new Date(user.createdAt)}</span></p></div>
 	{/if}
 </div>

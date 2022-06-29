@@ -18,7 +18,8 @@
 		{/if}
 	</div>
 	{#if cardExpanded}
-		<div transition:slide class="pt-2 pl-2">
+		<!-- we put a conditional on the outro transition so page changes do not trigger the animation -->
+		<div in:slide out:slide={{ duration: cardExpanded ? 0 : 500 }} class="pt-2 pl-2">
 			<p><span class="font-bold">Device Last Seen: </span><span class="font-normal">{new Date(device.lastSeen)}</span></p>
 			<p><span class="font-bold">IP Addresses: </span><span class="font-normal">{device.ipAddresses}</span></p>
 		</div>
