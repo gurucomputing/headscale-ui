@@ -48,7 +48,7 @@ then
     if [ "$AUTOSTART" = "true" ]
     then
         # run the sub process
-        tmux new-session -d "${DEV_COMMAND}; sh"
+        tmux new-session -d "${DEV_COMMAND}; bash -i"
     fi
 fi
 
