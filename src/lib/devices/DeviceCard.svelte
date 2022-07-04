@@ -4,7 +4,7 @@
 	let cardExpanded = false;
 </script>
 
-<div in:fade class="grid grid-cols-1 divide-y p-2 max-w-screen-lg border-2 mx-4 border-gray-100 rounded-md text-sm text-gray-600 shadow">
+<div in:fade class="card-primary">
 	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex justify-between">
 		<span class="font-bold">{device.id}: {device.name}</span>
 		{#if !cardExpanded}

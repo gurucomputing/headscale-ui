@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { writable } from 'svelte/store';

@@ -1,8 +1,9 @@
 <!-- typescript -->
 <script lang="ts">
+	import CreateUser from '$lib/index/CreateUser.svelte';
 	import UserCard from '$lib/index/UserCard.svelte';
 	import { onMount } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	//
 	// Component Variables
@@ -55,13 +56,14 @@
 
 <!-- html -->
 {#if componentLoaded}
-	<div in:fade class="px-4 py-4">
-		<h1 class="text-2xl bold green-400 mb-4">User View</h1>
+	<div in:fade class="px-4 pt-4">
+		<h1 class="text-2xl bold green-400">User View</h1>
 	</div>
 	{#if headscaleAPITest === 'succeeded'}
 		<!-- instantiate user based components -->
+		<CreateUser />
 		{#each headscaleUsers as user}
-			<UserCard user={user} />
+			<UserCard {user} />
 		{/each}
 	{/if}
 	{#if headscaleAPITest === 'failed'}
