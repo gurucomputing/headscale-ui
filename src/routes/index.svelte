@@ -21,9 +21,7 @@
 	// note that headscale API refers to users as namespaces still. This variable will hold our user's array
 	let headscaleUsers = [{ id: '', name: '', createdAt: '' }];
 
-	// We define the meat of our script in onMount as doing so forces client side rendering.
-	// Doing so also does not perform any actions until components are initialized
-	onMount(async () => {
+	function getUsers() {
 		// attempt to pull list of users
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -48,7 +46,12 @@
 			.catch((error) => {
 				headscaleAPITest = 'failed';
 			});
+	}
 
+	// We define the meat of our script in onMount as doing so forces client side rendering.
+	// Doing so also does not perform any actions until components are initialized
+	onMount(async () => {
+		getUsers();
 		// load the page
 		componentLoaded = true;
 	});
@@ -61,7 +64,7 @@
 	</div>
 	{#if headscaleAPITest === 'succeeded'}
 		<!-- instantiate user based components -->
-		<CreateUser />
+		<CreateUser refreshUsers={() => getUsers()}/>
 		{#each headscaleUsers as user}
 			<UserCard {user} />
 		{/each}

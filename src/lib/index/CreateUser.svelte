@@ -8,6 +8,8 @@
 	let newUserCardVisible = false;
 	// The Form used for validating input
 	let newUserForm: HTMLFormElement;
+	// function for refreshing users from parent
+	export let refreshUsers = () => {}
 
 	
 	function createUser(): void {
@@ -28,7 +30,9 @@
 				.then((response) => {
 					if (response.ok) {
 						response.json().then((data) => {
-							console.log(data);
+							refreshUsers();
+							newUserCardVisible = false;
+							userName = '';
 						});
 					} else {
 						response.json().then((data) => {
