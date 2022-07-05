@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
+	import { alert } from '$lib/common/stores.js';
+
 	// name for user creation
 	let userName = '';
 	// whether the new card html element is visible
 	let newUserCardVisible = false;
 	// The Form used for validating input
 	let newUserForm: HTMLFormElement;
-
 	function createUser(): void {
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -37,6 +38,7 @@
 					console.log(error);
 				});
 		} else {
+			$alert = "Use lower case letters, periods, or dashes only"
 		}
 	}
 </script>
