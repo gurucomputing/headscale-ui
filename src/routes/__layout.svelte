@@ -1,6 +1,7 @@
 <script>
 	import '../app.css';
 	import Nav from '$lib/common/nav.svelte';
+	import Alert from '$lib/common/Alert.svelte'
 </script>
 
 <main class="flex flex-col">
@@ -9,6 +10,7 @@
 		<Nav />
 		<!-- main window -->
 		<div class="flex flex-1 flex-col">
+			<Alert></Alert>
 			<!-- header -->
 			<!-- <div class="flex bg-gray-100 h-12 p-4">Header</div> -->
 			<!-- content -->
