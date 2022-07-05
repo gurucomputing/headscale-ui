@@ -12,7 +12,7 @@
 			visible = false;
 		} else {
 			visible = true;
-			if (ms > 0) timeout = window.setTimeout(() => {visible = false; $alert = ''}, ms); // and hide it after ms milliseconds
+			if (ms > 0) timeout = window.setTimeout(() => {$alert = ''}, ms); // and hide it after ms milliseconds
 		}
 	};
 	$: onMessageChange($alert, ms); // whenever the alert store or the ms props changes run onMessageChange
@@ -20,7 +20,7 @@
 </script>
 
 {#if visible}
-	<div transition:slide class="absolute top-0 left-1/2 transform -translate-x-1/2 p-4 text-lg text-center shadow-xl rounded-b-lg bg-gray-200 max-w-lg" on:click={() => (visible = false)}>
+	<div transition:slide class="absolute top-0 left-1/2 transform bg-gray-100 -translate-x-1/2 p-4 text-lg text-center shadow-xl rounded-b-lg max-w-lg" on:click={() => {$alert = ''}}>
 		<p>{$alert}</p>
 	</div>
 {/if}
