@@ -21,8 +21,8 @@
 	// note that headscale API refers to users as namespaces still. This variable will hold our user's array
 	let headscaleUsers = [{ id: '', name: '', createdAt: '' }];
 
+	
 	function getUsers() {
-		// attempt to pull list of users
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 		fetch(headscaleURL + endpointURL, {
@@ -64,7 +64,7 @@
 	</div>
 	{#if headscaleAPITest === 'succeeded'}
 		<!-- instantiate user based components -->
-		<CreateUser refreshUsers={() => getUsers()}/>
+		<CreateUser getUsers={() => getUsers()}/>
 		{#each headscaleUsers as user}
 			<UserCard {user} />
 		{/each}

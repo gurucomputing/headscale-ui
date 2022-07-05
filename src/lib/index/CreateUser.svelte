@@ -9,10 +9,10 @@
 	// The Form used for validating input
 	let newUserForm: HTMLFormElement;
 	// function for refreshing users from parent
-	export let refreshUsers = () => {}
+	export let getUsers = () => {}
 
 	
-	function createUser(): void {
+	function newUser(): void {
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 		let endpointURL = '/api/v1/namespace';
@@ -30,7 +30,7 @@
 				.then((response) => {
 					if (response.ok) {
 						response.json().then((data) => {
-							refreshUsers();
+							getUsers();
 							newUserCardVisible = false;
 							userName = '';
 						});
@@ -58,7 +58,7 @@
 			<input bind:value={userName} class="card-input lowercase" required pattern="[a-zA-Z\-\.]+" placeholder="name" />
 		</form>
 		<div>
-			<button on:click={() => createUser()}
+			<button on:click={() => newUser()}
 				><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 inline rounded-full hover:bg-gray-300" fill="none" viewBox="0 0 24 24" stroke="black" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 				</svg></button
