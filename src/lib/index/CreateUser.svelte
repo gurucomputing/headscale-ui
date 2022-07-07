@@ -53,7 +53,7 @@
 <div in:fade class="p-4"><button on:click={() => (newUserCardVisible = true)} class="btn-primary bg-teal-700 hover:bg-teal-900 " type="button">+ New User</button></div>
 {#if newUserCardVisible}
 	<div in:fade out:fade={{ duration: newUserCardVisible ? 0 : 500 }} class="card-pending">
-		<form class="relative" bind:this={newUserForm}>
+		<form on:submit|preventDefault={newUser} class="relative" bind:this={newUserForm}>
 			<!-- Input has to be lower case, but we will force lower case on submit -->
 			<input bind:value={userName} class="card-input lowercase" required pattern="[a-zA-Z\-\.]+" placeholder="name" />
 		</form>

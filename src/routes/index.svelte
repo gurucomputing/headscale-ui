@@ -66,7 +66,7 @@
 		<!-- instantiate user based components -->
 		<CreateUser getUsers={() => getUsers()}/>
 		{#each headscaleUsers as user}
-			<UserCard {user} />
+			<UserCard getUsers={() => getUsers()} {user} />
 		{/each}
 	{/if}
 	{#if headscaleAPITest === 'failed'}
