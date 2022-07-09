@@ -1,6 +1,7 @@
 <!-- typescript -->
 <script lang="ts">
 	import DeviceCard from '$lib/devices/DeviceCard.svelte';
+	import CreateDevice from '$lib/devices/CreateDevice.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
@@ -38,6 +39,7 @@
 					// return the api data
 					response.json().then((data) => {
 						headscaleDevices = data.machines;
+						console.log(headscaleDevices);
 					});
 				} else {
 					headscaleAPITest = 'failed';
@@ -54,11 +56,12 @@
 
 <!-- html -->
 {#if componentLoaded}
-	<div in:fade class="px-4 py-4">
-		<h1 class="text-2xl bold green-400 mb-4">Device View</h1>
+	<div in:fade class="px-4 pt-4">
+		<h1 class="text-2xl bold">Device View</h1>
 	</div>
 	{#if headscaleAPITest === 'succeeded'}
 		<!-- instantiate device based components -->
+		<CreateDevice/>
 		{#each headscaleDevices as device}
 			<DeviceCard device={device} />
 		{/each}
