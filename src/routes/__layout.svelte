@@ -1,16 +1,26 @@
-<script>
+<script lang="ts">
 	import '../app.css';
 	import Nav from '$lib/common/nav.svelte';
-	import Alert from '$lib/common/Alert.svelte'
+	import Alert from '$lib/common/Alert.svelte';
+	import { headscaleThemeStore } from '$lib/common/stores.js'
+	import { onMount } from 'svelte';
+
+	onMount(async () => {
+		headscaleThemeStore.set(localStorage.getItem('headscaleTheme') || 'hsui');
+		// subscribe to the navbar state and update the local storage where needed
+		headscaleThemeStore.subscribe((val) => localStorage.setItem('headscaleTheme', val));
+	});
+
+	// NOTE: the element that is using one of the theme attributes must be in the DOM on mount
 </script>
 
-<main class="flex flex-col" data-theme="hsui">
+<main data-theme={$headscaleThemeStore} class="flex flex-col">
 	<div class="flex h-screen">
 		<!-- sidebar -->
 		<Nav />
 		<!-- main window -->
 		<div class="flex flex-1 min-w-0 flex-col bg-base-100">
-			<Alert></Alert>
+			<Alert />
 			<!-- header -->
 			<!-- <div class="flex bg-gray-100 h-12 p-4">Header</div> -->
 			<!-- content -->
