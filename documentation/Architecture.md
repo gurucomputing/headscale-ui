@@ -17,7 +17,7 @@ Dependencies are kept to a minimum and kept to large, actively maintained reposi
 
 ### Dev Dependencies
 * [SvelteKit](https://kit.svelte.dev/) - The HTML/JS Framework and Toolkit
-* [Tailwind CSS](https://tailwindcss.com/) - The CSS Framework
-* [Post CSS](https://postcss.org/) - for compiling tailwind
+* [Tailwind CSS](https://tailwindcss.com/) - CSS Framework
+* [DaisyUI](https://daisyui.com/) - CSS Theme and Components
 * [Typescript](https://www.typescriptlang.org/) - for static type checking
 * [Prettier](https://prettier.io/) - for Code Formatting
