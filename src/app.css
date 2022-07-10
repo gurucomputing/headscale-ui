@@ -3,20 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
-.hyperlink {
-  @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600 font-bold;
-}
-
 .form-input {
   @apply shadow appearance-none border rounded w-full bg-base-100 py-2 px-3 text-base-content text-sm mb-3 leading-tight focus:outline-none;
 }
 
 .card-primary {
-  @apply grid grid-cols-1 divide-y p-2 max-w-screen-lg border-2 mx-4 border-base-300 rounded-md text-sm text-base-content shadow
+  @apply grid grid-cols-1 divide-y p-2 max-w-screen-lg border mx-4 border-base-content rounded-md text-sm text-base-content shadow
 }
 
 .card-pending {
-  @apply flex justify-between p-1 mb-4 max-w-screen-lg border-2 border-dashed mx-4 border-base-300 rounded-md text-sm text-base-content shadow
+  @apply flex justify-between p-1 mb-4 max-w-screen-lg border border-dashed mx-4 border-base-content rounded-md text-sm text-base-content shadow
 }
 
 .card-input {
