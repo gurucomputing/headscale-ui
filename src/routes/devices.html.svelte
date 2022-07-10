@@ -4,6 +4,8 @@
 	import CreateDevice from '$lib/devices/CreateDevice.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { headscaleURLStore } from '$lib/common/stores.js';
+	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
 
 	//
 	// Component Variables
@@ -24,13 +26,11 @@
 	// Doing so also does not perform any actions until components are initialized
 	onMount(async () => {
 		// attempt to pull list of users
-		let headscaleURL = localStorage.getItem('headscaleURL') || '';
-		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		fetch(headscaleURL + endpointURL, {
+		fetch($headscaleURLStore + endpointURL, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${headscaleAPIKey}`
+				Authorization: `Bearer ${$headscaleAPIKeyStore}`
 			}
 		})
 			.then((response) => {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { alert } from '$lib/common/stores.js';
+	import { alertStore } from '$lib/common/stores.js';
 
   // whether the new card html element is visible
 	let newDeviceCardVisible = false;

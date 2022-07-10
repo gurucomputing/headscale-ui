@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { onMount } from 'svelte';
-	import { writable, type Writable } from 'svelte/store';
+	import { headscaleURLStore } from '$lib/common/stores.js';
+	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
 
 	// Server Settings
-	let headscaleURLStore: Writable<string>;
-	let headscaleURL: string;
-	let headscaleAPIKeyStore: Writable<string>;
-	let headscaleAPIKey: string;
+	let headscaleURL = $headscaleURLStore;
+	let headscaleAPIKey = $headscaleAPIKeyStore;
 	let serverSettingsForm: HTMLFormElement;
 	let apiStatus = 'untested';
 
@@ -34,20 +32,6 @@
 			$headscaleAPIKeyStore = headscaleAPIKey;
 		}
 	}
-
-	onMount(async () => {
-		// get the current URL and APIKey state from the local store
-		headscaleURL = localStorage.getItem('headscaleURL') || '';
-		headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-
-		// set the current subscription values to the initial value
-		headscaleURLStore = writable(headscaleURL);
-		headscaleAPIKeyStore = writable(headscaleAPIKey);
-
-		// subscribe to the URL and APIKey state and update the local storage where needed
-		headscaleURLStore.subscribe((val) => localStorage.setItem('headscaleURL', val));
-		headscaleAPIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));
-	});
 
 	function ClearServerSettings() {
 		headscaleURL = '';

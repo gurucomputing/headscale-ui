@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { alert } from '$lib/common/stores.js';
+	import { alertStore } from '$lib/common/stores.js';
+	import { headscaleURLStore } from '$lib/common/stores.js';
+	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
+
 
 	// name for user creation
 	let userName = '';
@@ -13,15 +16,13 @@
 
 	
 	function newUser(): void {
-		let headscaleURL = localStorage.getItem('headscaleURL') || '';
-		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 		let endpointURL = '/api/v1/namespace';
 		if (newUserForm.reportValidity()) {
-			fetch(headscaleURL + endpointURL, {
+			fetch(headscaleURLStore + endpointURL, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKey}`
+					Authorization: `Bearer ${headscaleAPIKeyStore}`
 				},
 				body: JSON.stringify({
 					name: userName.toLowerCase()
@@ -36,7 +37,7 @@
 						});
 					} else {
 						response.json().then((data) => {
-							$alert = data.message;
+							$alertStore = data.message;
 						});
 					}
 				})
@@ -44,7 +45,7 @@
 					console.log(error);
 				});
 		} else {
-			$alert = "Use lower case letters, periods, or dashes only"
+			$alertStore = "Use lower case letters, periods, or dashes only"
 		}
 	}
 </script>

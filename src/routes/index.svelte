@@ -4,6 +4,8 @@
 	import UserCard from '$lib/index/UserCard.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { headscaleURLStore } from '$lib/common/stores.js';
+	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
 
 	//
 	// Component Variables
@@ -23,13 +25,11 @@
 
 	
 	function getUsers() {
-		let headscaleURL = localStorage.getItem('headscaleURL') || '';
-		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		fetch(headscaleURL + endpointURL, {
+		fetch($headscaleURLStore + endpointURL, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${headscaleAPIKey}`
+				Authorization: `Bearer ${$headscaleAPIKeyStore}`
 			}
 		})
 			.then((response) => {

@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { fade, slide } from 'svelte/transition';
+	import { headscaleURLStore } from '$lib/common/stores.js';
+	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
+	import { alertStore } from '$lib/common/stores.js';
+
 	// function for refreshing users from parent
 	export let getUsers = () => {};
-	import { alert } from '$lib/common/stores.js';
-
 	export let user = { id: '', name: '', createdAt: '' };
 	let cardExpanded = false;
 	let cardEditing = false;
@@ -18,16 +20,14 @@
 	}
 
 	function editUser() {
-		let headscaleURL = localStorage.getItem('headscaleURL') || '';
-		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 		let endpointURL = '/api/v1/namespace/' + user.name + '/rename/' + userName;
 
 		if (editUserForm.reportValidity()) {
-			fetch(headscaleURL + endpointURL, {
+			fetch($headscaleURLStore + endpointURL, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKey}`
+					Authorization: `Bearer ${$headscaleAPIKeyStore}`
 				}
 			})
 				.then((response) => {
@@ -38,7 +38,7 @@
 						});
 					} else {
 						response.json().then((data) => {
-							$alert = data.message;
+							$alertStore = data.message;
 						});
 					}
 				})
@@ -46,19 +46,17 @@
 					console.log(error);
 				});
 		} else {
-			$alert = 'Use lower case letters, periods, or dashes only';
+			$alertStore = 'Use lower case letters, periods, or dashes only';
 		}
 	}
 
 	function removeUser() {
-		let headscaleURL = localStorage.getItem('headscaleURL') || '';
-		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 		let endpointURL = '/api/v1/namespace/' + user.name;
-		fetch(headscaleURL + endpointURL, {
+		fetch($headscaleURLStore + endpointURL, {
 			method: 'DELETE',
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${headscaleAPIKey}`
+				Authorization: `Bearer ${$headscaleAPIKeyStore}`
 			}
 		})
 			.then((response) => {
@@ -69,7 +67,7 @@
 					});
 				} else {
 					response.json().then((data) => {
-						$alert = data.message;
+						$alertStore = data.message;
 					});
 				}
 			})
