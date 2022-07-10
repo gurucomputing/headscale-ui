@@ -20,7 +20,7 @@
 </script>
 
 {#if visible}
-	<div transition:slide class="absolute top-0 left-1/2 transform bg-gray-100 -translate-x-1/2 p-4 text-lg text-center shadow-xl rounded-b-lg max-w-lg" on:click={() => {$alert = ''}}>
+	<div transition:slide class="absolute alert text-lg left-1/2 transform -translate-x-1/2 justify-center shadow-lg max-w-lg" on:click={() => {$alert = ''}}>
 		<p>{$alert}</p>
 	</div>
 {/if}

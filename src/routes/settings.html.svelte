@@ -78,20 +78,19 @@
 		<div in:fade class="px-4 py-4 w-4/5">
 			<!-- Server Settings -->
 			<form bind:this={serverSettingsForm}>
-				<h1 class="text-2xl bold green-400 mb-4">Server Settings</h1>
-				<label class="block text-gray-700 text-sm font-bold mb-2" for="url"> Headscale URL </label>
+				<h1 class="text-2xl bold text-primary mb-4">Server Settings</h1>
+				<label class="block text-secondary text-sm font-bold mb-2" for="url"> Headscale URL </label>
 				<input bind:value={headscaleURL} class="form-input" type="url" required pattern={String.raw`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)`} placeholder="https://hs.yourdomain.com.au" />
-				<p class="text-xs text-gray-400 text-italics mb-8">URL for your headscale server instance</p>
-				<label class="block text-gray-700 text-sm font-bold mb-2" for="password"> Headscale API Key </label>
+				<p class="text-xs text-base-content text-italics mb-8">URL for your headscale server instance</p>
+				<label class="block text-secondary text-sm font-bold mb-2" for="password"> Headscale API Key </label>
 				<input bind:value={headscaleAPIKey} minlength="54" maxlength="54" class="form-input" type="password" required placeholder="******************" />
-				<p class="text-xs text-gray-400 text-italics mb-8">Generate an API key for your headscale instance and place it here.</p>
-				<span class="has-tooltip">
-					<span class="tooltip rounded shadow-lg p-1 bg-gray-200 -mt-16">Note: API Key and URL currently save to localStorage (IE: Your Browser)<br />Make sure you are using a trusted computer</span>
-					<!-- disable the SaveServerSettings button if nothing has changed from stored values, or the dependent inputs do not validate -->
-					<button disabled={headscaleAPIKey === $headscaleAPIKeyStore && headscaleURL === $headscaleURLStore} on:click={() => SaveServerSettings()} class="btn-primary bg-green-700 hover:bg-green-900" type="button">Save Server Settings</button>
-				</span>
-				<button on:click={() => ClearServerSettings()} class="btn-primary bg-teal-700 hover:bg-teal-900 " type="button">Clear Server Settings</button>
-				<button on:click={() => TestServerSettings()} class="btn-primary bg-sky-700 hover:bg-sky-900 " type="button">Test Server Settings</button>
+				<p class="text-xs text-base-content text-italics mb-8">Generate an API key for your headscale instance and place it here.</p>
+				<!-- disable the SaveServerSettings button if nothing has changed from stored values, or the dependent inputs do not validate -->
+				<div class="tooltip" data-tip="Note: API Key and URL currently save to localStorage (IE: Your Browser) Make sure you are using a trusted computer">
+					<button disabled={headscaleAPIKey === $headscaleAPIKeyStore && headscaleURL === $headscaleURLStore} on:click={() => SaveServerSettings()} class="btn btn-sm btn-accent capitalize" type="button">Save Server Settings</button>
+				</div>
+				<button on:click={() => ClearServerSettings()} class="btn btn-sm btn-primary capitalize" type="button">Clear Server Settings</button>
+				<button on:click={() => TestServerSettings()} class="btn btn-sm btn-secondary capitalize" type="button">Test Server Settings</button>
 				{#if headscaleAPITest === 'succeeded'}
 					<svg in:fly={{ x: 10, duration: 600 }} xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="green" stroke-width="2">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

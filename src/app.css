@@ -7,30 +7,18 @@
   @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600 font-bold;
 }
 
-.tooltip {
-  @apply invisible absolute text-sm opacity-0;
-}
-
-.has-tooltip:hover .tooltip {
-  @apply visible z-50 transition-opacity duration-300 opacity-100;
-}
-
 .form-input {
-  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 text-sm mb-3 leading-tight focus:outline-none;
-}
-
-.btn-primary {
-  @apply mb-2 text-white text-sm font-bold py-1 px-3 rounded focus:outline-2 disabled:opacity-50;
+  @apply shadow appearance-none border rounded w-full py-2 px-3 text-base-content text-sm mb-3 leading-tight focus:outline-none;
 }
 
 .card-primary {
-  @apply grid grid-cols-1 divide-y p-2 max-w-screen-lg border-2 mx-4 border-gray-100 rounded-md text-sm text-gray-600 shadow
+  @apply grid grid-cols-1 divide-y p-2 max-w-screen-lg border-2 mx-4 border-base-300 rounded-md text-sm text-base-content shadow
 }
 
 .card-pending {
-  @apply flex justify-between p-1 mb-4 max-w-screen-lg border-2 border-dashed mx-4 border-gray-400 rounded-md text-sm text-gray-600 shadow
+  @apply flex justify-between p-1 mb-4 max-w-screen-lg border-2 border-dashed mx-4 border-base-300 rounded-md text-sm text-base-content shadow
 }
 
 .card-input {
-  @apply shadow appearance-none border rounded w-64 py-1 px-3 text-gray-700 text-sm leading-tight focus:outline-none;
+  @apply shadow appearance-none border rounded w-64 py-1 px-3 text-base-content text-sm leading-tight focus:outline-none;
 }

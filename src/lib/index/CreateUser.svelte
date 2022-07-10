@@ -50,7 +50,7 @@
 </script>
 
 <!-- html -->
-<div in:fade class="p-4"><button on:click={() => (newUserCardVisible = true)} class="btn-primary bg-teal-700 hover:bg-teal-900 " type="button">+ New User</button></div>
+<div in:fade class="p-4"><button on:click={() => (newUserCardVisible = true)} class="btn btn-primary btn-sm capitalize" type="button">+ New User</button></div>
 {#if newUserCardVisible}
 	<div in:fade out:fade={{ duration: newUserCardVisible ? 0 : 500 }} class="card-pending">
 		<form on:submit|preventDefault={newUser} class="relative" bind:this={newUserForm}>

@@ -18,6 +18,7 @@
 		"@sveltejs/adapter-static": "^1.0.0-next.34",
 		"@sveltejs/kit": "next",
 		"autoprefixer": "^10.4.4",
+		"daisyui": "^2.19.0",
 		"postcss": "^8.4.12",
 		"postcss-load-config": "^3.1.4",
 		"prettier": "^2.6.2",
@@ -28,5 +29,8 @@
 		"tailwindcss": "^3.0.23",
 		"typescript": "^4.7.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@tailwindcss/typography": "github:tailwindcss/typography"
+	}
 }

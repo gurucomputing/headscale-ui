@@ -29,13 +29,13 @@
 
 <!-- let the page initialize before showing the nav bar -->
 {#if componentLoaded}
-	<aside class="bg-gray-100 shadow-xl w-14" class:navCollapsed={$navExpanded == 'collapsed'} class:navExpanded={$navExpanded == 'expanded'} transition:fade>
+	<aside class="bg-base-200 shadow-xl w-14" class:navCollapsed={$navExpanded == 'collapsed'} class:navExpanded={$navExpanded == 'expanded'} transition:fade>
 		<!-- sidebar menu items -->
 		<p class="nav-item" on:click={() => ($navExpanded == 'collapsed' ? ($navExpanded = 'expanded') : ($navExpanded = 'collapsed'))}>
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
 			</svg>
-			<span class="indent-4 text-emerald-900 font-extrabold">Headscale</span>
+			<span class="indent-4 text-primary font-extrabold">Headscale</span>
 		</p>
 
 		<div />
@@ -77,6 +77,6 @@
 	}
 
 	.nav-item {
-		@apply flex items-center text-sm py-4 px-4 h-12 overflow-hidden text-gray-700 text-ellipsis cursor-default whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-400 transition duration-300 ease-in-out;
+		@apply flex items-center text-sm py-4 px-4 h-12 overflow-hidden text-base-content stroke-base-content text-ellipsis cursor-default whitespace-nowrap rounded hover:bg-base-300 transition duration-300 ease-in-out;
 	}
 </style>
