@@ -66,7 +66,7 @@
 	<input bind:value={headscaleAPIKey} minlength="54" maxlength="54" class="form-input" type="password" required placeholder="******************" />
 	<p class="text-xs text-base-content text-italics mb-8">Generate an API key for your headscale instance and place it here.</p>
 	<!-- disable the SaveServerSettings button if nothing has changed from stored values, or the dependent inputs do not validate -->
-	<div class="tooltip" data-tip="Note: API Key and URL currently save to localStorage (IE: Your Browser) Make sure you are using a trusted computer">
+	<div class="tooltip z-10" data-tip="Note: API Key and URL currently save to localStorage (IE: Your Browser) Make sure you are using a trusted computer">
 		<button disabled={headscaleAPIKey === $headscaleAPIKeyStore && headscaleURL === $headscaleURLStore} on:click={() => SaveServerSettings()} class="btn btn-sm btn-accent capitalize" type="button">Save Server Settings</button>
 	</div>
 	<button on:click={() => ClearServerSettings()} class="btn btn-sm btn-primary capitalize" type="button">Clear Server Settings</button>
