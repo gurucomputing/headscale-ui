@@ -57,7 +57,7 @@
 <!-- html -->
 {#if componentLoaded}
 	<div in:fade class="px-4 pt-4">
-		<h1 class="text-2xl bold">Device View</h1>
+		<h1 class="text-2xl bold text-primary">Device View</h1>
 	</div>
 	{#if headscaleAPITest === 'succeeded'}
 		<!-- instantiate device based components -->
