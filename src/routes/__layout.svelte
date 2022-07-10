@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 
 	onMount(async () => {
+		// initialize from the local storage
 		headscaleThemeStore.set(localStorage.getItem('headscaleTheme') || 'hsui');
 		// subscribe to the navbar state and update the local storage where needed
 		headscaleThemeStore.subscribe((val) => localStorage.setItem('headscaleTheme', val));
