@@ -18,11 +18,11 @@
 	function newUser(): void {
 		let endpointURL = '/api/v1/namespace';
 		if (newUserForm.reportValidity()) {
-			fetch(headscaleURLStore + endpointURL, {
+			fetch($headscaleURLStore + endpointURL, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKeyStore}`
+					Authorization: `Bearer ${$headscaleAPIKeyStore}`
 				},
 				body: JSON.stringify({
 					name: userName.toLowerCase()
