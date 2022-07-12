@@ -4,8 +4,7 @@
 	import UserCard from '$lib/index/UserCard.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { headscaleURLStore } from '$lib/common/stores.js';
-	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
+	import { getUsers } from '$lib/common/apiFunctions.svelte';
 
 	//
 	// Component Variables
@@ -17,41 +16,20 @@
 	// page state variables
 	let headscaleAPITest = 'untested';
 
-	// endpoint url for getting users
-	let endpointURL = '/api/v1/namespace';
-
 	// note that headscale API refers to users as namespaces still. This variable will hold our user's array
 	let headscaleUsers = [{ id: '', name: '', createdAt: '' }];
-
-	
-	function getUsers() {
-		fetch($headscaleURLStore + endpointURL, {
-			method: 'GET',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${$headscaleAPIKeyStore}`
-			}
-		})
-			.then((response) => {
-				if (response.ok) {
-					headscaleAPITest = 'succeeded';
-					// return the api data
-					response.json().then((data) => {
-						headscaleUsers = data.namespaces;
-					});
-				} else {
-					headscaleAPITest = 'failed';
-				}
-			})
-			.catch((error) => {
-				headscaleAPITest = 'failed';
-			});
-	}
 
 	// We define the meat of our script in onMount as doing so forces client side rendering.
 	// Doing so also does not perform any actions until components are initialized
 	onMount(async () => {
-		getUsers();
+		getUsers()
+			.then((users) => {
+				headscaleUsers = users;
+				headscaleAPITest = 'succeeded';
+			})
+			.catch(() => {
+				headscaleAPITest = 'failed';
+			});
 		// load the page
 		componentLoaded = true;
 	});
@@ -64,7 +42,7 @@
 	</div>
 	{#if headscaleAPITest === 'succeeded'}
 		<!-- instantiate user based components -->
-		<CreateUser getUsers={() => getUsers()}/>
+		<CreateUser getUsers={() => getUsers()} />
 		{#each headscaleUsers as user}
 			<UserCard getUsers={() => getUsers()} {user} />
 		{/each}
