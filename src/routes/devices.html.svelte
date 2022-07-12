@@ -39,7 +39,7 @@
 					// return the api data
 					response.json().then((data) => {
 						headscaleDevices = data.machines;
-						console.log(headscaleDevices);
+						// console.log(headscaleDevices);
 					});
 				} else {
 					headscaleAPITest = 'failed';

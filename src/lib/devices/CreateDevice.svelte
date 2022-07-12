@@ -1,14 +1,23 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { alertStore } from '$lib/common/stores.js';
+	import { getUsers } from '$lib/common/apiFunctions.svelte';
+	import { onMount } from 'svelte';
 
 	// whether the new card html element is visible
 	let newDeviceCardVisible = false;
 	let deviceCreateForm: HTMLFormElement;
 	let newDeviceKey = '';
+	let headscaleUsers = [{ id: '', name: '', createdAt: '' }];
 
 	let tabs = ['Default Configuration', 'With Preauth Keys', 'With OIDC'];
 	let activeTab = 0;
+
+	onMount(async () => {
+		getUsers().then((users) => {
+			headscaleUsers = users;
+		}).catch((error) => {$alertStore = error});
+	});
 </script>
 
 <!-- html -->
@@ -31,7 +40,7 @@
 		<!-- Default Configuration -->
 		{#if activeTab == 0}
 			<div in:fade class="m-2">
-				<p>Install Tailscale with the client pointing to your domain (see <a target="_blank" class="link link-primary" href="https://github.com/juanfont/headscale/tree/main/docs">headscale client documentation</a>). Log in using the tray icon, and your browser should give you instructions with a key.</p>
+				<p>Install Tailscale with the client pointing to your domain (see <a target="_blank" class="link link-primary" href="https://github.com/juanfont/headscale/tree/main/docs">headscale client documentation</a>). Log in using the tray icon, and your browser should give you instructions with a key. Copy the key below:</p>
 				<div class="mockup-code m-2">
 					<pre><code>headscale -n NAMESPACE nodes register --key &lt;your device key&gt;</code></pre>
 				</div>
@@ -42,7 +51,13 @@
 					</div>
 					<div class="flex-none">
 						<label class="block text-secondary text-sm font-bold mb-2" for="select">Select User</label>
-						<input bind:value={newDeviceKey} minlength="54" class="card-input mr-4" type="text" required placeholder="******************" />
+						<select class="select select-bordered select-sm w-full max-w-xs">
+							{#each headscaleUsers as user}
+							<option>{user.name}</option>
+							{/each}
+						</select>
+					</div>
+					<div class="flex-none pt-6">
 						<button
 							><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-1 inline rounded-full hover:bg-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
