@@ -1,31 +1,15 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { alertStore } from '$lib/common/stores.js';
-	import { getUsers } from '$lib/common/apiFunctions.svelte';
-	import { onMount } from 'svelte';
+	import { headscaleUserStore } from '$lib/common/stores';
 
 	// whether the new card html element is visible
 	let newDeviceCardVisible = false;
 	let deviceCreateForm: HTMLFormElement;
 	let newDeviceKey = '';
-	let headscaleUsers = [{ id: '', name: '', createdAt: '' }];
 
 	let tabs = ['Default Configuration', 'With Preauth Keys', 'With OIDC'];
 	let activeTab = 0;
 
-	function setHeadscaleUsers() {
-		getUsers()
-			.then((users) => {
-				headscaleUsers = users;
-			})
-			.catch((error) => {
-				$alertStore = error;
-			});
-	}
-
-	onMount(async () => {
-		setHeadscaleUsers();
-	});
 </script>
 
 <!-- html -->
@@ -39,6 +23,7 @@
 </div>
 
 {#if newDeviceCardVisible == true}
+
 	<div in:fade class="p-2 max-w-screen-lg border border-dashed border-base-content mx-4 rounded-md text-sm text-base-content shadow mb-10">
 		<div class="tabs">
 			{#each tabs as tab, index}
@@ -55,18 +40,14 @@
 				<form class="flex flex-wrap" bind:this={deviceCreateForm}>
 					<div class="flex-none mr-4">
 						<label class="block text-secondary text-sm font-bold mb-2" for="text">Device Key</label>
-						<input bind:value={newDeviceKey} minlength="54" class="card-input mt-2" type="text" required placeholder="******************" />
+						<input bind:value={newDeviceKey} minlength="54" class="card-input" type="text" required placeholder="******************" />
 					</div>
 					<div class="flex-none">
 						<label class="block text-secondary text-sm font-bold mb-2" for="select"
-							>Select User <button type="button" on:click={() => setHeadscaleUsers()}
-								><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-								</svg></button
-							></label
+							>Select User</label
 						>
 						<select class="card-select mr-3">
-							{#each headscaleUsers as user}
+							{#each $headscaleUserStore as user}
 								<option>{user.name}</option>
 							{/each}
 						</select>
