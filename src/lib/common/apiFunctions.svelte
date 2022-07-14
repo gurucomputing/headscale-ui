@@ -91,6 +91,36 @@
 			});
 	}
 
+	export async function newUser(newUsername: string): Promise<any> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/namespace';
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					Authorization: `Bearer ${headscaleAPIKey}`
+				},
+				body: JSON.stringify({
+					name: newUsername.toLowerCase()
+				})
+			})
+			.then((response) => {
+				if (response.ok) {
+					return response
+				} else {
+					throw new Error(response.status + " when trying to create user. " + response.statusText);
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+	}
+
 	export async function getDevices(): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade, slide } from 'svelte/transition';
-	import { headscaleURLStore, headscaleAPIKeyStore, headscaleUserStore, alertStore } from '$lib/common/stores.js';
+	import { headscaleUserStore, alertStore } from '$lib/common/stores.js';
 	import { getUsers, editUser, removeUser } from '$lib/common/apiFunctions.svelte';
 
 	// function for refreshing users from parent
