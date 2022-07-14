@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { fade, slide } from 'svelte/transition';
-	import { headscaleURLStore } from '$lib/common/stores.js';
-	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
-	import { alertStore } from '$lib/common/stores.js';
-	import { getUsers } from '$lib/common/apiFunctions.svelte';
-	import { headscaleUserStore } from '$lib/common/stores';
+	import { headscaleURLStore, headscaleAPIKeyStore, headscaleUserStore, alertStore } from '$lib/common/stores.js';
+	import { getUsers, editUser, removeUser } from '$lib/common/apiFunctions.svelte';
 
 	// function for refreshing users from parent
 	export let user = { id: '', name: '', createdAt: '' };
@@ -12,80 +9,51 @@
 	let cardEditing = false;
 	let cardDeleting = false;
 	let editUserForm: HTMLFormElement;
-	let userName = '';
+	let newUserName = '';
 
 	function editingUser() {
 		// cardExpanded = true;
 		cardEditing = true;
-		userName = user.name;
+		newUserName = user.name;
 	}
 
-	function editUser() {
-		let endpointURL = '/api/v1/namespace/' + user.name + '/rename/' + userName;
-
+	function editUserAction() {
 		if (editUserForm.reportValidity()) {
-			fetch($headscaleURLStore + endpointURL, {
-				method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					Authorization: `Bearer ${$headscaleAPIKeyStore}`
-				}
-			})
+			editUser(user.name, newUserName)
 				.then((response) => {
-					if (response.ok) {
-						response.json().then((data) => {
-							getUsers()
-								.then((users) => {
-									$headscaleUserStore = users;
-								})
-								.catch((error) => {
-									$alertStore = error;
-								});
-							cardEditing = false;
+					cardEditing = false;
+					// refresh users after editing
+					getUsers()
+						.then((users) => {
+							$headscaleUserStore = users;
+						})
+						.catch((error) => {
+							$alertStore = error;
 						});
-					} else {
-						response.json().then((data) => {
-							$alertStore = data.message;
-						});
-					}
 				})
 				.catch((error) => {
-					console.log(error);
+					$alertStore = error;
 				});
 		} else {
 			$alertStore = 'Use lower case letters, periods, or dashes only';
 		}
 	}
 
-	function removeUser() {
-		let endpointURL = '/api/v1/namespace/' + user.name;
-		fetch($headscaleURLStore + endpointURL, {
-			method: 'DELETE',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${$headscaleAPIKeyStore}`
-			}
-		})
+	function removeUserAction() {
+		removeUser(user.name)
 			.then((response) => {
-				if (response.ok) {
-					response.json().then((data) => {
-						cardDeleting = false;
-						getUsers()
-								.then((users) => {
-									$headscaleUserStore = users;
-								})
-								.catch((error) => {
-									$alertStore = error;
-								});
+				cardDeleting = false;
+				// refresh users after editing
+				getUsers()
+					.then((users) => {
+						$headscaleUserStore = users;
+					})
+					.catch((error) => {
+						$alertStore = error;
 					});
-				} else {
-					response.json().then((data) => {
-						$alertStore = data.message;
-					});
-				}
 			})
 			.catch((error) => {
-				console.log(error);
+				$alertStore = error;
 			});
 	}
 </script>
@@ -95,9 +63,9 @@
 		{#if !cardEditing}
 			<span class="font-bold">{user.id}: {user.name}</span>
 		{:else}
-			<form bind:this={editUserForm} on:submit|preventDefault={editUser}>
+			<form bind:this={editUserForm} on:submit|preventDefault={editUserAction}>
 				<!-- Input has to be lower case, but we will force lower case on submit -->
-				<input on:click|stopPropagation bind:value={userName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z\-\.]+" placeholder="name" />
+				<input on:click|stopPropagation bind:value={newUserName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z\-\.]+" placeholder="name" />
 			</form>
 		{/if}
 		<div>
@@ -111,7 +79,7 @@
 					>
 				{:else}
 					<!-- edit accept symbol -->
-					<button in:fade on:click|stopPropagation={editUser} class="mr-4"
+					<button in:fade on:click|stopPropagation={editUserAction} class="mr-4"
 						><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 						</svg></button
@@ -136,7 +104,7 @@
 				<!-- Delete Warning -->
 				<span in:fade class="font-bold text-red-400">Deleting {user.name}. Confirm </span>
 				<!-- Delete confirm symbol -->
-				<button in:fade on:click|stopPropagation={() => removeUser()}
+				<button in:fade on:click|stopPropagation={() => removeUserAction()}
 					><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 					</svg></button
