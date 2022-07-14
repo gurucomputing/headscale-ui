@@ -3,7 +3,8 @@
 	import { alertStore } from '$lib/common/stores.js';
 	import { headscaleURLStore } from '$lib/common/stores.js';
 	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
-
+	import { getUsers } from '$lib/common/apiFunctions.svelte';
+	import { headscaleUserStore } from '$lib/common/stores';
 
 	// name for user creation
 	let userName = '';
@@ -11,10 +12,7 @@
 	let newUserCardVisible = false;
 	// The Form used for validating input
 	let newUserForm: HTMLFormElement;
-	// function for refreshing users from parent
-	export let getUsers = () => {}
 
-	
 	function newUser(): void {
 		let endpointURL = '/api/v1/namespace';
 		if (newUserForm.reportValidity()) {
@@ -31,7 +29,13 @@
 				.then((response) => {
 					if (response.ok) {
 						response.json().then((data) => {
-							getUsers();
+							getUsers()
+								.then((users) => {
+									$headscaleUserStore = users;
+								})
+								.catch((error) => {
+									$alertStore = error;
+								});
 							newUserCardVisible = false;
 							userName = '';
 						});
@@ -45,7 +49,7 @@
 					console.log(error);
 				});
 		} else {
-			$alertStore = "Use lower case letters, periods, or dashes only"
+			$alertStore = 'Use lower case letters, periods, or dashes only';
 		}
 	}
 </script>
@@ -64,7 +68,11 @@
 					<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 				</svg></button
 			>
-			<button on:click={() => {newUserCardVisible = false; userName = ''}}
+			<button
+				on:click={() => {
+					newUserCardVisible = false;
+					userName = '';
+				}}
 				><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 inline rounded-full hover:bg-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
 				</svg></button

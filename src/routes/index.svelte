@@ -2,6 +2,7 @@
 <script lang="ts">
 	import CreateUser from '$lib/index/CreateUser.svelte';
 	import UserCard from '$lib/index/UserCard.svelte';
+	import { headscaleUserStore } from '$lib/common/stores';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { getUsers } from '$lib/common/apiFunctions.svelte';
@@ -16,15 +17,12 @@
 	// page state variables
 	let headscaleAPITest = 'untested';
 
-	// note that headscale API refers to users as namespaces still. This variable will hold our user's array
-	let headscaleUsers = [{ id: '', name: '', createdAt: '' }];
-
 	// We define the meat of our script in onMount as doing so forces client side rendering.
 	// Doing so also does not perform any actions until components are initialized
 	onMount(async () => {
 		getUsers()
 			.then((users) => {
-				headscaleUsers = users;
+				$headscaleUserStore = users;
 				headscaleAPITest = 'succeeded';
 			})
 			.catch(() => {
@@ -42,9 +40,9 @@
 	</div>
 	{#if headscaleAPITest === 'succeeded'}
 		<!-- instantiate user based components -->
-		<CreateUser getUsers={() => getUsers()} />
-		{#each headscaleUsers as user}
-			<UserCard getUsers={() => getUsers()} {user} />
+		<CreateUser />
+		{#each $headscaleUserStore as user}
+			<UserCard {user} />
 		{/each}
 	{/if}
 	{#if headscaleAPITest === 'failed'}

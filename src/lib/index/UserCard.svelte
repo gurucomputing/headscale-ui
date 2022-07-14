@@ -3,9 +3,10 @@
 	import { headscaleURLStore } from '$lib/common/stores.js';
 	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
 	import { alertStore } from '$lib/common/stores.js';
+	import { getUsers } from '$lib/common/apiFunctions.svelte';
+	import { headscaleUserStore } from '$lib/common/stores';
 
 	// function for refreshing users from parent
-	export let getUsers = () => {};
 	export let user = { id: '', name: '', createdAt: '' };
 	let cardExpanded = false;
 	let cardEditing = false;
@@ -33,7 +34,13 @@
 				.then((response) => {
 					if (response.ok) {
 						response.json().then((data) => {
-							getUsers();
+							getUsers()
+								.then((users) => {
+									$headscaleUserStore = users;
+								})
+								.catch((error) => {
+									$alertStore = error;
+								});
 							cardEditing = false;
 						});
 					} else {
@@ -63,7 +70,13 @@
 				if (response.ok) {
 					response.json().then((data) => {
 						cardDeleting = false;
-						getUsers();
+						getUsers()
+								.then((users) => {
+									$headscaleUserStore = users;
+								})
+								.catch((error) => {
+									$alertStore = error;
+								});
 					});
 				} else {
 					response.json().then((data) => {
