@@ -51,7 +51,7 @@
 					</div>
 					<div class="flex-none">
 						<label class="block text-secondary text-sm font-bold mb-2" for="select">Select User</label>
-						<select class="select select-bordered select-sm w-full max-w-xs">
+						<select class="card-select mr-3">
 							{#each headscaleUsers as user}
 							<option>{user.name}</option>
 							{/each}

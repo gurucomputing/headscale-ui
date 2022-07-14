@@ -18,3 +18,7 @@
 .card-input {
   @apply shadow appearance-none border rounded w-64 py-1 px-3 bg-base-100 text-base-content text-sm leading-tight focus:outline-none;
 }
+
+.card-select {
+  @apply shadow border rounded w-64 py-1 px-3 bg-base-100 text-base-content text-sm leading-tight focus:outline-2;
+}
