@@ -1,14 +1,40 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { headscaleUserStore } from '$lib/common/stores';
+	import { headscaleUserStore, headscaleDeviceStore } from '$lib/common/stores';
+	import { getDevices, newDevice } from '$lib/common/apiFunctions.svelte';
+	import { alertStore } from '$lib/common/stores.js'
 
 	// whether the new card html element is visible
 	let newDeviceCardVisible = false;
-	let deviceCreateForm: HTMLFormElement;
+	let newDeviceForm: HTMLFormElement;
 	let newDeviceKey = '';
+	let selectedUser = '';
 
 	let tabs = ['Default Configuration', 'With Preauth Keys', 'With OIDC'];
 	let activeTab = 0;
+
+	function newDeviceAction() {
+		if (newDeviceForm.reportValidity()) {
+			newDevice(newDeviceKey, selectedUser)
+				.then((response) => {
+					newDeviceCardVisible = false;
+					newDeviceKey = '';
+					// refresh devices after editing
+					getDevices()
+						.then((devices) => {
+							$headscaleDeviceStore = devices;
+						})
+						.catch((error) => {
+							$alertStore = error;
+						});
+				})
+				.catch((error) => {
+					$alertStore = error;
+				});
+		} else {
+			$alertStore = 'provide a valid key';
+		}
+	}
 
 </script>
 
@@ -37,7 +63,7 @@
 				<div class="mockup-code m-2">
 					<pre><code>headscale -n NAMESPACE nodes register --key &lt;your device key&gt;</code></pre>
 				</div>
-				<form class="flex flex-wrap" bind:this={deviceCreateForm}>
+				<form class="flex flex-wrap" bind:this={newDeviceForm} on:submit|preventDefault={newDeviceAction}>
 					<div class="flex-none mr-4">
 						<label class="block text-secondary text-sm font-bold mb-2" for="text">Device Key</label>
 						<input bind:value={newDeviceKey} minlength="54" class="card-input" type="text" required placeholder="******************" />
@@ -46,7 +72,7 @@
 						<label class="block text-secondary text-sm font-bold mb-2" for="select"
 							>Select User</label
 						>
-						<select class="card-select mr-3">
+						<select class="card-select mr-3" required bind:value={selectedUser}>
 							{#each $headscaleUserStore as user}
 								<option>{user.name}</option>
 							{/each}
@@ -58,7 +84,7 @@
 								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg></button
 						>
-						<button
+						<button type="button"
 							><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-1 inline rounded-full hover:bg-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg></button

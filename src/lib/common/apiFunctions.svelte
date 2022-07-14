@@ -24,6 +24,7 @@
 					// return the api data
 					headscaleUsersResponse = response;
 				} else {
+					response.text().then(text => { console.error(text) })
 					throw new Error(response.status + " when trying to generate user list. " + response.statusText);
 				}
 			})
@@ -56,6 +57,7 @@
 				if (response.ok) {
 					return response
 				} else {
+					response.text().then(text => { console.error(text) })
 					throw new Error(response.status + " when trying to edit user. " + response.statusText);
 				}
 			})
@@ -83,7 +85,8 @@
 				if (response.ok) {
 					return response
 				} else {
-					throw new Error(response.status + " when trying to delete user. " + response.statusText);
+					response.text().then(text => { console.error(text) })
+					throw new Error(response.status + " when trying to delete user. Are all assoicated devices removed? ");
 				}
 			})
 			.catch((error) => {
@@ -113,6 +116,7 @@
 				if (response.ok) {
 					return response
 				} else {
+					response.text().then(text => { console.error(text) })
 					throw new Error(response.status + " when trying to create user. " + response.statusText);
 				}
 			})
@@ -145,7 +149,8 @@
 					// return the api data
 					headscaleDeviceResponse = response;
 				} else {
-					throw new Error(response.status + " when trying to generate user list. " + response.statusText);
+					response.text().then(text => { console.error(text) })
+					throw new Error(response.status + " when trying to generate device list. " + response.statusText);
 				}
 			})
 			.catch((error) => {
@@ -156,5 +161,33 @@
 			headscaleDevices = data.machines;
 		});
 		return headscaleDevices;
+	}
+
+	export async function newDevice(key: string, userName: string): Promise<any> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/machine/register';
+
+		await fetch(headscaleURL + endpointURL + "?namespace=" + userName + "&key=" + key, {
+			method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					Authorization: `Bearer ${headscaleAPIKey}`
+				}
+			})
+			.then((response) => {
+				if (response.ok) {
+					return response
+				} else {
+					response.text().then(text => { console.error(text) })
+					throw new Error(response.status + " when trying to create device. " + response.statusText);
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
 	}
 </script>
