@@ -2,6 +2,7 @@
 	import { fly } from 'svelte/transition';
 	import { headscaleURLStore } from '$lib/common/stores.js';
 	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
+	import { getUsers } from '$lib/common/apiFunctions.svelte';
 
 	// Server Settings
 	let headscaleURL = $headscaleURLStore;
@@ -9,19 +10,12 @@
 	let serverSettingsForm: HTMLFormElement;
 	let apiStatus = 'untested';
 
-	async function TestServerSettings() {
-		// using /api/v1/machine until headscale provides an endpoint to test a key against
-		await fetch(headscaleURL + '/api/v1/machine', {
-			method: 'GET',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${headscaleAPIKey}`
-			}
-		})
-			.then((response) => {
+	function TestServerSettings() {
+		getUsers()
+			.then(() => {
 				apiStatus = 'succeeded';
 			})
-			.catch((error) => {
+			.catch(() => {
 				apiStatus = 'failed';
 			});
 	}

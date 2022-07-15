@@ -35,7 +35,13 @@
 </script>
 
 <!-- html -->
-<div in:fade class="p-4"><button on:click={() => (newUserCardVisible = true)} class="btn btn-primary btn-sm capitalize" type="button">+ New User</button></div>
+<div in:fade class="p-4">
+{#if newUserCardVisible == false}
+	<button on:click={() => (newUserCardVisible = true)} class="btn btn-primary btn-sm capitalize" type="button">+ New User</button>
+{:else}
+	<button on:click={() => (newUserCardVisible = false)} class="btn btn-secondary btn-sm capitalize" type="button">- Hide New User</button>
+{/if}
+</div>
 {#if newUserCardVisible}
 	<div in:fade out:fade={{ duration: newUserCardVisible ? 0 : 500 }} class="card-pending">
 		<form on:submit|preventDefault={newUserAction} class="relative" bind:this={newUserForm}>
