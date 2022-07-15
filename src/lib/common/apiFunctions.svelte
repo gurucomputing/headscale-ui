@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-	// function to get a list of users from the endpoint. Returns an array of users
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
@@ -25,7 +24,7 @@
 					headscaleUsersResponse = response;
 				} else {
 					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to generate user list. " + response.statusText);
+					throw new Error(response.status + " when trying to generate user list. " );
 				}
 			})
 			.catch((error) => {
@@ -58,7 +57,7 @@
 					return response
 				} else {
 					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to edit user. " + response.statusText);
+					throw new Error(response.status + " when trying to edit user. " );
 				}
 			})
 			.catch((error) => {
@@ -117,7 +116,7 @@
 					return response
 				} else {
 					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to create user. " + response.statusText);
+					throw new Error(response.status + " when trying to create user. " );
 				}
 			})
 			.catch((error) => {
@@ -150,7 +149,7 @@
 					headscaleDeviceResponse = response;
 				} else {
 					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to generate device list. " + response.statusText);
+					throw new Error(response.status + " when trying to generate device list. " );
 				}
 			})
 			.catch((error) => {
@@ -183,7 +182,7 @@
 					return response
 				} else {
 					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to create device. " + response.statusText);
+					throw new Error(response.status + " when trying to create device. " );
 				}
 			})
 			.catch((error) => {
