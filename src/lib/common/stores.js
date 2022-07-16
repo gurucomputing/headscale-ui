@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { Device } from '$lib/common/classes';
+import { Device, User } from '$lib/common/classes';
 
 // used to store the value of an alert across all components
 export const alertStore = writable('');
@@ -11,5 +11,5 @@ export const headscaleThemeStore = writable('');
 export const headscaleURLStore = writable('');
 export const headscaleAPIKeyStore = writable('');
 // stores user and device data
-export const headscaleUserStore = writable([{ id: '', name: '', createdAt: '' }]);
+export const headscaleUserStore = writable([new User()]);
 export const headscaleDeviceStore = writable([new Device()]);
