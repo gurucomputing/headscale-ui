@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
 import { Device, User } from "$lib/common/classes";
-import { alertStore } from "$lib/common/stores.js";
 
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
