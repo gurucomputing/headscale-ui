@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
 import { Device, User } from "$lib/common/classes";
+import { alertStore } from "$lib/common/stores.js";
 
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
@@ -25,8 +26,7 @@ import { Device, User } from "$lib/common/classes";
 					// return the api data
 					headscaleUsersResponse = response;
 				} else {
-					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to generate user list. " );
+					return response.text().then(text => { throw JSON.parse(text).message });
 				}
 			})
 			.catch((error) => {
@@ -58,8 +58,7 @@ import { Device, User } from "$lib/common/classes";
 				if (response.ok) {
 					return response
 				} else {
-					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to edit user. " );
+					return response.text().then(text => { throw JSON.parse(text).message });
 				}
 			})
 			.catch((error) => {
@@ -86,8 +85,7 @@ import { Device, User } from "$lib/common/classes";
 				if (response.ok) {
 					return response
 				} else {
-					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to delete user. Are all assoicated devices removed? ");
+					return response.text().then(text => { throw JSON.parse(text).message });
 				}
 			})
 			.catch((error) => {
@@ -117,8 +115,7 @@ import { Device, User } from "$lib/common/classes";
 				if (response.ok) {
 					return response
 				} else {
-					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to create user. " );
+					return response.text().then(text => { throw JSON.parse(text).message });
 				}
 			})
 			.catch((error) => {
@@ -150,8 +147,7 @@ import { Device, User } from "$lib/common/classes";
 					// return the api data
 					headscaleDeviceResponse = response;
 				} else {
-					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to generate device list. " );
+					return response.text().then(text => { throw JSON.parse(text).message });
 				}
 			})
 			.catch((error) => {
@@ -183,8 +179,7 @@ import { Device, User } from "$lib/common/classes";
 				if (response.ok) {
 					return response
 				} else {
-					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to create device. " );
+					return response.text().then(text => { throw JSON.parse(text).message });
 				}
 			})
 			.catch((error) => {
@@ -197,7 +192,7 @@ import { Device, User } from "$lib/common/classes";
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
-		// endpoint url for editing users
+		// endpoint url for removing devices
 		let endpointURL = '/api/v1/machine/' + deviceID;
 
 		await fetch(headscaleURL + endpointURL, {
@@ -211,8 +206,7 @@ import { Device, User } from "$lib/common/classes";
 				if (response.ok) {
 					return response
 				} else {
-					response.text().then(text => { console.error(text) })
-					throw new Error(response.status + " when trying to delete machine.");
+					return response.text().then(text => { throw JSON.parse(text).message });
 				}
 			})
 			.catch((error) => {
