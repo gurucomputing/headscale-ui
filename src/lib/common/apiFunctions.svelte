@@ -158,6 +158,33 @@ import { Device, User } from "$lib/common/classes";
 		});
 		return headscaleDevices;
 	}
+	
+	export async function getPreauthKeys(userName: string): Promise<any> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/preauthkey';
+
+		await fetch(headscaleURL + endpointURL + "?namespace=" + userName, {
+			method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					Authorization: `Bearer ${headscaleAPIKey}`
+				}
+			})
+			.then((response) => {
+				if (response.ok) {
+					return response.json().then((data) => { console.log(data); })
+				} else {
+					return response.text().then(text => { throw JSON.parse(text).message });
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+	}
 
 	export async function newDevice(key: string, userName: string): Promise<any> {
 		// variables in local storage

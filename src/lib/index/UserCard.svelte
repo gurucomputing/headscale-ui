@@ -2,6 +2,7 @@
 	import { fade, slide } from 'svelte/transition';
 	import EditUser from '$lib/index/EditUser.svelte';
 	import RemoveUser from '$lib/index/RemoveUser.svelte';
+	import PreauthKeys from '$lib/index/PreauthKeys.svelte';
 	import { User } from '$lib/common/classes';
 
 	// function for refreshing users from parent
@@ -40,6 +41,7 @@
 							<th>User Creation Date</th>
 							<td>{new Date(user.createdAt)}</td>
 						</tr>
+						<PreauthKeys {user}></PreauthKeys>
 					</tbody>
 				</table>
 			</div>
