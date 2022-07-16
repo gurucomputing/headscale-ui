@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-import { Device, User } from "$lib/common/classes";
+	import { Device, PreAuthKey, User } from '$lib/common/classes';
 
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
@@ -10,7 +10,7 @@ import { Device, User } from "$lib/common/classes";
 		let endpointURL = '/api/v1/namespace';
 
 		//returning variables
-		let headscaleUsers = new User;
+		let headscaleUsers = new User();
 		let headscaleUsersResponse: Response = new Response();
 
 		await fetch(headscaleURL + endpointURL, {
@@ -25,7 +25,9 @@ import { Device, User } from "$lib/common/classes";
 					// return the api data
 					headscaleUsersResponse = response;
 				} else {
-					return response.text().then(text => { throw JSON.parse(text).message });
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
 				}
 			})
 			.catch((error) => {
@@ -48,16 +50,18 @@ import { Device, User } from "$lib/common/classes";
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKey}`
-				}
-			})
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			}
+		})
 			.then((response) => {
 				if (response.ok) {
-					return response
+					return response;
 				} else {
-					return response.text().then(text => { throw JSON.parse(text).message });
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
 				}
 			})
 			.catch((error) => {
@@ -75,16 +79,18 @@ import { Device, User } from "$lib/common/classes";
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'DELETE',
-				headers: {
-					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKey}`
-				}
-			})
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			}
+		})
 			.then((response) => {
 				if (response.ok) {
-					return response
+					return response;
 				} else {
-					return response.text().then(text => { throw JSON.parse(text).message });
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
 				}
 			})
 			.catch((error) => {
@@ -102,19 +108,21 @@ import { Device, User } from "$lib/common/classes";
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKey}`
-				},
-				body: JSON.stringify({
-					name: newUsername.toLowerCase()
-				})
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			},
+			body: JSON.stringify({
+				name: newUsername.toLowerCase()
 			})
+		})
 			.then((response) => {
 				if (response.ok) {
-					return response
+					return response;
 				} else {
-					return response.text().then(text => { throw JSON.parse(text).message });
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
 				}
 			})
 			.catch((error) => {
@@ -146,7 +154,9 @@ import { Device, User } from "$lib/common/classes";
 					// return the api data
 					headscaleDeviceResponse = response;
 				} else {
-					return response.text().then(text => { throw JSON.parse(text).message });
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
 				}
 			})
 			.catch((error) => {
@@ -158,8 +168,8 @@ import { Device, User } from "$lib/common/classes";
 		});
 		return headscaleDevices;
 	}
-	
-	export async function getPreauthKeys(userName: string): Promise<any> {
+
+	export async function getPreauthKeys(userName: string): Promise<PreAuthKey[]> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -167,23 +177,34 @@ import { Device, User } from "$lib/common/classes";
 		// endpoint url for editing users
 		let endpointURL = '/api/v1/preauthkey';
 
-		await fetch(headscaleURL + endpointURL + "?namespace=" + userName, {
+		//returning variables
+		let headscalePreAuthKey = [new PreAuthKey()];
+		let headscalePreAuthKeyResponse: Response = new Response();
+
+		await fetch(headscaleURL + endpointURL + '?namespace=' + userName, {
 			method: 'GET',
-				headers: {
-					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKey}`
-				}
-			})
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			}
+		})
 			.then((response) => {
 				if (response.ok) {
-					return response.json().then((data) => { console.log(data); })
+					headscalePreAuthKeyResponse = response;
 				} else {
-					return response.text().then(text => { throw JSON.parse(text).message });
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
 				}
 			})
 			.catch((error) => {
 				throw error;
 			});
+
+		await headscalePreAuthKeyResponse.json().then((data) => {
+			headscalePreAuthKey = data.preAuthKeys;
+		});
+		return headscalePreAuthKey;
 	}
 
 	export async function newDevice(key: string, userName: string): Promise<any> {
@@ -194,18 +215,20 @@ import { Device, User } from "$lib/common/classes";
 		// endpoint url for editing users
 		let endpointURL = '/api/v1/machine/register';
 
-		await fetch(headscaleURL + endpointURL + "?namespace=" + userName + "&key=" + key, {
+		await fetch(headscaleURL + endpointURL + '?namespace=' + userName + '&key=' + key, {
 			method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKey}`
-				}
-			})
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			}
+		})
 			.then((response) => {
 				if (response.ok) {
-					return response
+					return response;
 				} else {
-					return response.text().then(text => { throw JSON.parse(text).message });
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
 				}
 			})
 			.catch((error) => {
@@ -223,16 +246,18 @@ import { Device, User } from "$lib/common/classes";
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'DELETE',
-				headers: {
-					Accept: 'application/json',
-					Authorization: `Bearer ${headscaleAPIKey}`
-				}
-			})
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			}
+		})
 			.then((response) => {
 				if (response.ok) {
-					return response
+					return response;
 				} else {
-					return response.text().then(text => { throw JSON.parse(text).message });
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
 				}
 			})
 			.catch((error) => {
