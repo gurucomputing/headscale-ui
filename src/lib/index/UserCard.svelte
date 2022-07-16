@@ -2,9 +2,10 @@
 	import { fade, slide } from 'svelte/transition';
 	import { headscaleUserStore, alertStore } from '$lib/common/stores.js';
 	import { getUsers, editUser, removeUser } from '$lib/common/apiFunctions.svelte';
+	import { User } from '$lib/common/classes';
 
 	// function for refreshing users from parent
-	export let user = { id: '', name: '', createdAt: '' };
+	export let user = new User();
 	let cardExpanded = false;
 	let cardEditing = false;
 	let cardDeleting = false;

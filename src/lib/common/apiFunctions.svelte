@@ -1,4 +1,6 @@
 <script context="module" lang="ts">
+import { Device, User } from "$lib/common/classes";
+
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
@@ -8,7 +10,7 @@
 		let endpointURL = '/api/v1/namespace';
 
 		//returning variables
-		let headscaleUsers = [{ name: '', id: '', createdAt: '' }];
+		let headscaleUsers = new User;
 		let headscaleUsersResponse: Response = new Response();
 
 		await fetch(headscaleURL + endpointURL, {
@@ -133,7 +135,7 @@
 		let endpointURL = '/api/v1/machine';
 
 		//returning variables
-		let headscaleDevices = [{ id: '', name: '', lastSeen: '', ipAddresses: [''] }];
+		let headscaleDevices = new Device();
 		let headscaleDeviceResponse: Response = new Response();
 
 		await fetch(headscaleURL + endpointURL, {
