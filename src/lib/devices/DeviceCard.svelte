@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Device } from '$lib/common/classes';
 	import { fade, slide } from 'svelte/transition';
-	
+
 	export let device = new Device();
 	let cardExpanded = false;
 </script>
@@ -24,9 +24,30 @@
 	{#if cardExpanded}
 		<!-- we put a conditional on the outro transition so page changes do not trigger the animation -->
 		<div in:slide out:slide={{ duration: cardExpanded ? 0 : 500 }} class="pt-2 pl-2">
-			<p><span class="font-bold">Device Last Seen: </span><span class="font-normal">{new Date(device.lastSeen)}</span></p>
-			<p><span class="font-bold">IP Addresses: </span><span class="font-normal">{device.ipAddresses}</span></p>
-			<p><span class="font-bold">Assigned User: </span><span class="font-normal">{device.namespace.name}</span></p>
+			<div class="overflow-x-auto">
+				<table class="table table-compact w-full">
+					<tbody>
+						<tr>
+							<th>Device Last Seen</th>
+							<td>{new Date(device.lastSeen)}</td>
+						</tr>
+						<tr>
+							<th>IP Addresses</th>
+							<td>
+								<ul>
+									{#each device.ipAddresses as address}
+										<li>{address}</li>
+									{/each}
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<th>Assigned User</th>
+							<td>{device.namespace.name}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	{/if}
 </div>

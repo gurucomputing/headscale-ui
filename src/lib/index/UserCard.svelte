@@ -135,7 +135,16 @@
 	{#if cardExpanded}
 		<!-- we put a conditional on the outro transition so page changes do not trigger the animation -->
 		<div in:slide out:slide={{ duration: cardExpanded ? 0 : 500 }} class="pt-2 pl-2">
-			<span class="font-bold">User Created: </span><span class="font-normal">{new Date(user.createdAt)}</span>
+			<div class="overflow-x-auto">
+				<table class="table table-compact w-full">
+					<tbody>
+						<tr>
+							<th>User Creation Date</th>
+							<td>{new Date(user.createdAt)}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	{/if}
 </div>
