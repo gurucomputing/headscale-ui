@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { getPreauthKeys } from '$lib/common/apiFunctions.svelte';
 	import { PreAuthKey, User } from '$lib/common/classes';
 	import { alertStore } from '$lib/common/stores';
@@ -6,6 +6,13 @@
 	// function for refreshing users from parent
 	export let user = new User();
 	let keyList = [new PreAuthKey()];
+
+	function testExpiry(keyExpiry: string): string {
+		if((new Date(keyExpiry)).getTime() > (new Date()).getTime()) {
+			return "text-success"
+		}
+		return "text-error"
+	}
 
 	function getPreauthKeysAction() {
 		getPreauthKeys(user.name)
@@ -27,9 +34,9 @@
 		></th
 	>
 	<td
-		><ul>
+		><ul class="list-disc list-inside">
 			{#each keyList as key}
-				<li>{key.key}</li>
+			<li><span class="{testExpiry(key.expiration)}">{key.key} </span></li>
 			{/each}
 		</ul></td
 	>

@@ -34,7 +34,7 @@
 						<tr>
 							<th>IP Addresses</th>
 							<td>
-								<ul>
+								<ul class="list-disc list-inside">
 									{#each device.ipAddresses as address}
 										<li>{address}</li>
 									{/each}
