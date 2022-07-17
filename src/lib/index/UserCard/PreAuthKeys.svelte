@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { getPreauthKeys } from '$lib/common/apiFunctions.svelte';
 	import { PreAuthKey, User } from '$lib/common/classes';
-	import { alertStore } from '$lib/common/stores';
+	import { alertStore, preAuthHideStore } from '$lib/common/stores';
 
 	// function for refreshing users from parent
 	export let user = new User();
 	let keyList = [new PreAuthKey()];
-	let hideExpired = false;
+	let preAuthHide = ($preAuthHideStore == 'true');
 
 	// If the key hasn't expired or key hasn't been used, flag as green, otherwise flag as red
 	function testExpiry(keyExpiry: string, keyUsed: boolean): string {
@@ -40,9 +40,10 @@
 			>
 		</div>
 		<div class="border rounded p-1 -mx-2 w-fit">
-			<input type="checkbox" bind:checked={hideExpired} class="checkbox checkbox-xs" /><span
+			<input type="checkbox" bind:checked="{preAuthHide}" on:change="{() => {preAuthHide ? $preAuthHideStore = 'true': $preAuthHideStore = 'false'}}" class="checkbox checkbox-xs text-base-content" /><span
 				on:click={() => {
-					hideExpired = !hideExpired;
+					$preAuthHideStore == 'true' ? $preAuthHideStore = 'false' : $preAuthHideStore = 'true';
+					preAuthHide = ($preAuthHideStore == 'true');
 				}}
 				class="font-normal ml-2">Hide Expired/Used Keys</span
 			>
@@ -57,7 +58,7 @@
 						<tr><td>Refresh to see contents</td></tr>
 					{:else}
 						<!-- hide if key is expired or used (and not reusable) and checkbox is checked -->
-						<tr class:hidden={hideExpired && ((key.used && !key.reusable) || new Date(key.expiration).getTime() < new Date().getTime())}>
+						<tr class:hidden={preAuthHide && ((key.used && !key.reusable) || new Date(key.expiration).getTime() < new Date().getTime())}>
 							<th>{key.id}</th>
 							<td
 								><code class="border p-1 rounded">{key.key}</code>
