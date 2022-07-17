@@ -13,11 +13,11 @@
 		headscaleURLStore.set(localStorage.getItem('headscaleURL') || '');
 		headscaleAPIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
 
-		preAuthHideStore.set(localStorage.getItem('headscalePreAuthHide') || 'false');
+		preAuthHideStore.set((localStorage.getItem('headscalePreAuthHide') || 'false') == 'true');
 
 		// subscribe to store's state and update the local storage where needed
 		headscaleThemeStore.subscribe((val) => localStorage.setItem('headscaleTheme', val));
-		preAuthHideStore.subscribe((val) => localStorage.setItem('headscalePreAuthHide', val));
+		preAuthHideStore.subscribe((val) => localStorage.setItem('headscalePreAuthHide', val ? 'true' : 'false'));
 
 		headscaleURLStore.subscribe((val) => localStorage.setItem('headscaleURL', val));
 		headscaleAPIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));

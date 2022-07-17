@@ -11,7 +11,7 @@ export const headscaleThemeStore = writable('');
 export const headscaleURLStore = writable('');
 export const headscaleAPIKeyStore = writable('');
 // stores preauth key preference
-export const preAuthHideStore = writable('');
+export const preAuthHideStore = writable(false);
 // stores user and device data
 export const headscaleUserStore = writable([new User()]);
 export const headscaleDeviceStore = writable([new Device()]);
