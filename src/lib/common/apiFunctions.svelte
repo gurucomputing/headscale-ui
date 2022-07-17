@@ -207,11 +207,10 @@
 		return headscalePreAuthKey;
 	}
 
-	export async function newPreAuthKey(userName: string): Promise<any> {
+	export async function newPreAuthKey(userName: string, expiry: string, reusable: boolean, ephemeral: boolean): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		
 		// endpoint url for editing users
 		let endpointURL = '/api/v1/preauthkey';
 
@@ -222,7 +221,10 @@
 				Authorization: `Bearer ${headscaleAPIKey}`
 			},
 			body: JSON.stringify({
-				namespace: userName
+				namespace: userName,
+				expiration: expiry,
+				reusable: reusable,
+				ephemeral: ephemeral
 			})
 		})
 			.then((response) => {

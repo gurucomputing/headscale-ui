@@ -1,23 +1,13 @@
 <script lang="ts">
-	import { getPreauthKeys, newPreAuthKey } from '$lib/common/apiFunctions.svelte';
+	import { getPreauthKeys } from '$lib/common/apiFunctions.svelte';
 	import { PreAuthKey, User } from '$lib/common/classes';
 	import { alertStore, preAuthHideStore } from '$lib/common/stores';
 	import NewPreAuthKey from './PreAuthKeys/NewPreAuthKey.svelte';
 
 	// function for refreshing users from parent
 	export let user = new User();
-	let keyList = [new PreAuthKey()];
+	export let keyList = [new PreAuthKey];
 	let newPreAuthKeyShow = false;
-
-	function NewPreAuthKeyAction() {
-		newPreAuthKey(user.name)
-			.then(() => {
-				getPreauthKeysAction();
-			})
-			.catch((error) => {
-				$alertStore = error;
-			});
-	}
 
 	function getPreauthKeysAction() {
 		getPreauthKeys(user.name)
@@ -72,7 +62,7 @@
 	</th>
 	<td>
 		{#if newPreAuthKeyShow}
-			<NewPreAuthKey />
+			<NewPreAuthKey bind:newPreAuthKeyShow {user} bind:keyList />
 		{/if}
 		<table class="table table-compact w-full">
 			<tbody>

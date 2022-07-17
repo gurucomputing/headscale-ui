@@ -10,16 +10,6 @@ export class Device {
   }
 }
 
-export class User {
-  public id: string = '';
-  public name: string = '';
-  public createdAt: string = '';
-
-  public constructor(init?: Partial<Device>) {
-    Object.assign(this, init);
-  }
-}
-
 export class PreAuthKey {
   public namespace: string = '';
   public id: string = '';
@@ -30,7 +20,16 @@ export class PreAuthKey {
   public ephemeral: boolean = false;
   public used: boolean = false;
 
-  public constructor(init?: Partial<Device>) {
+  public constructor(init?: Partial<PreAuthKey>) {
+    Object.assign(this, init);
+  }
+}
+
+export class User {
+  public id: string = '';
+  public name: string = '';
+  public createdAt: string = '';
+  public constructor(init?: Partial<User>) {
     Object.assign(this, init);
   }
 }
