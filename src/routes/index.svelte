@@ -1,6 +1,6 @@
 <!-- typescript -->
 <script lang="ts">
-	import CreateUser from '$lib/index/UserCard/CreateUser.svelte';
+	import CreateUser from '$lib/index/CreateUser.svelte';
 	import UserCard from '$lib/index/UserCard.svelte';
 	import { headscaleUserStore, apiTestStore } from '$lib/common/stores';
 	import { onMount } from 'svelte';

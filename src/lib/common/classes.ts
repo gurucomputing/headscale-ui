@@ -28,6 +28,7 @@ export class PreAuthKey {
   public expiration: string = '';
   public reusable: boolean = false;
   public ephemeral: boolean = false;
+  public used: boolean = false;
 
   public constructor(init?: Partial<Device>) {
     Object.assign(this, init);

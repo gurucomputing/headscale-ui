@@ -203,6 +203,7 @@
 
 		await headscalePreAuthKeyResponse.json().then((data) => {
 			headscalePreAuthKey = data.preAuthKeys;
+			console.log(headscalePreAuthKey);
 		});
 		return headscalePreAuthKey;
 	}

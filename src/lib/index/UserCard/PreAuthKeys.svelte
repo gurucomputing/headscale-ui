@@ -7,11 +7,14 @@
 	export let user = new User();
 	let keyList = [new PreAuthKey()];
 
-	function testExpiry(keyExpiry: string): string {
-		if((new Date(keyExpiry)).getTime() > (new Date()).getTime()) {
-			return "text-success"
+	// If the key hasn't expired or key hasn't been used, flag as green, otherwise flag as red
+	function testExpiry(keyExpiry: string, keyUsed: boolean): string {
+		if (new Date(keyExpiry).getTime() > new Date().getTime()) {
+			if (!keyUsed) {
+				return 'text-success';
+			}
 		}
-		return "text-error"
+		return 'text-error';
 	}
 
 	function getPreauthKeysAction() {
@@ -36,7 +39,7 @@
 	<td
 		><ul class="list-disc list-inside">
 			{#each keyList as key}
-			<li><span class="{testExpiry(key.expiration)}">{key.key} </span></li>
+				<li><span class="{testExpiry(key.expiration, key.used)}">{key.key} </span></li>
 			{/each}
 		</ul></td
 	>
