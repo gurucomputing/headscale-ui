@@ -23,7 +23,7 @@ export class User {
 export class PreAuthKey {
   public namespace: string = '';
   public id: string = '';
-  public key: string = 'Refresh to see list of keys';
+  public key: string = 'placeholder';
   public createdAt: string = '';
   public expiration: string = '';
   public reusable: boolean = false;
