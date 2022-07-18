@@ -29,7 +29,6 @@
 		// attempt to pull list of devices
 		getDevices()
 			.then((devices) => {
-				console.log(devices);
 				$headscaleDeviceStore = devices;
 				$apiTestStore = 'succeeded';
 			})

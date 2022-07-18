@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Device } from '$lib/common/classes';
 	import { fade, slide } from 'svelte/transition';
+	import MoveDevice from './DeviceCard/MoveDevice.svelte';
 
 	export let device = new Device();
 	let cardExpanded = false;
@@ -43,7 +44,7 @@
 						</tr>
 						<tr>
 							<th>Assigned User</th>
-							<td>{device.namespace.name}</td>
+							<MoveDevice {device}></MoveDevice>
 						</tr>
 					</tbody>
 				</table>
