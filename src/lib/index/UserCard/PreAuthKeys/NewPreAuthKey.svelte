@@ -17,6 +17,7 @@
     let formattedDate = new Date(expiry).toISOString();
 		newPreAuthKey(user.name, formattedDate, reusable, ephemeral)
 			.then(() => {
+				newPreAuthKeyShow = false;
 				getPreauthKeysAction();
 			})
 			.catch((error) => {

@@ -101,6 +101,9 @@
 								{#if key.reusable}
 									<div class="btn btn-xs capitalize bg-secondary text-secondary-content mx-1">reusable</div>
 								{/if}
+								{#if key.ephemeral}
+									<div class="btn btn-xs capitalize bg-accent text-accent-content mx-1">ephemeral</div>
+								{/if}
 							</td>
 							<td>
 								<!-- Allow ability to expire if not expired -->
