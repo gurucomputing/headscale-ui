@@ -241,6 +241,39 @@
 			});
 	}
 
+	export async function removePreAuthKey(userName: string, preAuthKey: string): Promise<any> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for removing devices
+		let endpointURL = '/api/v1/preauthkey/expire';
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			},
+			body: JSON.stringify({
+				namespace: userName,
+				key: preAuthKey
+			})
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response;
+				} else {
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+	}
+
 	export async function newDevice(key: string, userName: string): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
@@ -298,6 +331,4 @@
 				throw error;
 			});
 	}
-
-	
 </script>
