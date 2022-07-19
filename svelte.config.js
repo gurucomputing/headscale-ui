@@ -12,7 +12,6 @@ const config = {
 			precompress: false
 		})
 	},
-
 	preprocess: [
 		preprocess({
 			postcss: true
