@@ -3,24 +3,31 @@
 	import { fade, slide } from 'svelte/transition';
 	import MoveDevice from './DeviceCard/MoveDevice.svelte';
 	import RemoveDevice from './DeviceCard/RemoveDevice.svelte';
+	import RenameDevice from './DeviceCard/RenameDevice.svelte';
 
 	export let device = new Device();
 	let cardExpanded = false;
+	let cardEditing = false;
 </script>
 
 <div in:fade class="card-primary">
 	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex justify-between">
-		<span class="font-bold">{device.id}: {device.name}</span>
+		<span class="font-bold">
+			{#if cardEditing == false}
+				{device.id}: {device.name}
+			{/if}
+			<RenameDevice bind:cardEditing {device} /></span
+		>
 		<div>
-			<RemoveDevice {device}></RemoveDevice>
-			<button>
+			<RemoveDevice {device} />
+			<button type="button">
 				{#if !cardExpanded}
-				<!-- Icon: chevron down -->
+					<!-- Icon: chevron down -->
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
 					</svg>
 				{:else}
-				<!-- Icon: chevron up -->
+					<!-- Icon: chevron up -->
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
 					</svg>
@@ -50,7 +57,7 @@
 						</tr>
 						<tr>
 							<th>Assigned User</th>
-							<MoveDevice {device}></MoveDevice>
+							<MoveDevice {device} />
 						</tr>
 					</tbody>
 				</table>

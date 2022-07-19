@@ -1,28 +1,28 @@
 <script lang="ts">
-	import { fade, slide, fly } from 'svelte/transition';
-	import { getUsers, editUser } from '$lib/common/apiFunctions.svelte';
-	import { headscaleUserStore, alertStore } from '$lib/common/stores.js';
-	import { User } from '$lib/common/classes';
+	import { fade, slide } from 'svelte/transition';
+	import { getDevices, renameDevice } from '$lib/common/apiFunctions.svelte';
+	import { headscaleDeviceStore, alertStore } from '$lib/common/stores.js';
+	import { Device } from '$lib/common/classes';
 
-	let cardEditing = false;
 	let editUserForm: HTMLFormElement;
-	let newUserName = '';
-	export let user = new User();
+	let newDeviceName = '';
+  export let cardEditing = false;
+	export let device = new Device();
 
-	function editingUser() {
+	function editingDevice() {
 		cardEditing = true;
-		newUserName = user.name;
+		newDeviceName = device.name;
 	}
 
-	function editUserAction() {
+	function renameDeviceAction() {
 		if (editUserForm.reportValidity()) {
-			editUser(user.name, newUserName)
+			renameDevice(device.id, newDeviceName)
 				.then((response) => {
 					cardEditing = false;
 					// refresh users after editing
-					getUsers()
-						.then((users) => {
-							$headscaleUserStore = users;
+					getDevices()
+						.then((devices) => {
+							$headscaleDeviceStore = devices;
 						})
 						.catch((error) => {
 							$alertStore = error;
@@ -38,19 +38,18 @@
 </script>
 
 {#if !cardEditing}
-	<span class="font-bold">{user.id}: {user.name}</span>
   <!-- edit symbol -->
-	<button type="button" on:click|stopPropagation={() => editingUser()} class="ml-2"
+	<button type="button" on:click|stopPropagation={() => editingDevice()} class="ml-2"
 		><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
 		</svg></button
 	>
 {:else}
-	<form bind:this={editUserForm} on:submit|preventDefault={editUserAction}>
+	<form bind:this={editUserForm} on:submit|preventDefault={renameDeviceAction}>
 		<!-- Input has to be lower case, but we will force lower case on submit -->
-		<input in:slide on:click|stopPropagation bind:value={newUserName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z\-\.]+" placeholder="name" />
+		<input in:slide on:click|stopPropagation bind:value={newDeviceName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z\-\.]+" placeholder="name" />
     <!-- edit accept symbol -->
-	<button in:fade on:click|stopPropagation={editUserAction} class=""
+	<button in:fade on:click|stopPropagation={renameDeviceAction} class=""
   ><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg></button
