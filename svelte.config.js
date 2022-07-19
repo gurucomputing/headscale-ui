@@ -10,7 +10,10 @@ const config = {
 		adapter: adapter({
 			fallback: 'index.html',
 			precompress: false
-		})
+		}),
+		paths: {
+			base: "/web"
+		}
 	},
 	preprocess: [
 		preprocess({
