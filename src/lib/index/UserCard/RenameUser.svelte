@@ -14,7 +14,7 @@
 		newUserName = user.name;
 	}
 
-	function editUserAction() {
+	function renameUserAction() {
 		if (editUserForm.reportValidity()) {
 			editUser(user.name, newUserName)
 				.then((response) => {
@@ -46,11 +46,11 @@
 		</svg></button
 	>
 {:else}
-	<form bind:this={editUserForm} on:submit|preventDefault={editUserAction}>
+	<form bind:this={editUserForm} on:submit|preventDefault={renameUserAction}>
 		<!-- Input has to be lower case, but we will force lower case on submit -->
 		<input in:slide on:click|stopPropagation bind:value={newUserName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z\-\.]+" placeholder="name" />
     <!-- edit accept symbol -->
-	<button in:fade on:click|stopPropagation={editUserAction} class=""
+	<button in:fade on:click|stopPropagation class=""
   ><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg></button
