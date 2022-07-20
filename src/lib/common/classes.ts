@@ -13,7 +13,7 @@ export class Device {
 export class PreAuthKey {
   public namespace: string = '';
   public id: string = '';
-  public key: string = 'placeholder';
+  public key: string = '';
   public createdAt: string = '';
   public expiration: string = '';
   public reusable: boolean = false;

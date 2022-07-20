@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Device } from '$lib/common/classes';
 	import { fade, slide } from 'svelte/transition';
+	import DeviceRoutes from './DeviceCard/DeviceRoutes.svelte';
 	import MoveDevice from './DeviceCard/MoveDevice.svelte';
 	import RemoveDevice from './DeviceCard/RemoveDevice.svelte';
 	import RenameDevice from './DeviceCard/RenameDevice.svelte';
@@ -58,6 +59,9 @@
 						<tr>
 							<th>Assigned User</th>
 							<MoveDevice {device} />
+						</tr>
+						<tr>
+							<DeviceRoutes />
 						</tr>
 					</tbody>
 				</table>
