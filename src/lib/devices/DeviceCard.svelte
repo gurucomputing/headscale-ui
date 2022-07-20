@@ -61,7 +61,7 @@
 							<MoveDevice {device} />
 						</tr>
 						<tr>
-							<DeviceRoutes />
+							<DeviceRoutes {device} />
 						</tr>
 					</tbody>
 				</table>

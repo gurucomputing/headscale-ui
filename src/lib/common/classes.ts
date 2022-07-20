@@ -10,6 +10,15 @@ export class Device {
   }
 }
 
+export class Route {
+  advertisedRoutes: string[] = [''];
+  enabledRoutes: string[] = [''];
+
+  public constructor(init?: Partial<Route>) {
+    Object.assign(this, init);
+  }
+}
+
 export class PreAuthKey {
   public namespace: string = '';
   public id: string = '';
