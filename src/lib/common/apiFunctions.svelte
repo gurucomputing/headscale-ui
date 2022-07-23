@@ -166,6 +166,7 @@
 		await headscaleDeviceResponse.json().then((data) => {
 			headscaleDevices = data.machines;
 		});
+		// console.log(headscaleDevices);
 		return headscaleDevices;
 	}
 

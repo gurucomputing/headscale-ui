@@ -2,7 +2,10 @@ export class Device {
   public id: string = '';
   public name: string = '';
   public lastSeen: string = '';
-  public ipAddresses: [string] = ['']
+  public ipAddresses: string[] = []
+  public forcedTags: string[] = []
+  public validTags: string[] = []
+  public invalidTags: string[] = []
   public namespace: { name: string } = { name: '' }
 
   public constructor(init?: Partial<Device>) {
@@ -11,8 +14,8 @@ export class Device {
 }
 
 export class Route {
-  advertisedRoutes: string[] = [''];
-  enabledRoutes: string[] = [''];
+  advertisedRoutes: string[] = [];
+  enabledRoutes: string[] = [];
 
   public constructor(init?: Partial<Route>) {
     Object.assign(this, init);

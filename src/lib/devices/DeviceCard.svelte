@@ -2,6 +2,7 @@
 	import { Device } from '$lib/common/classes';
 	import { fade, slide } from 'svelte/transition';
 	import DeviceRoutes from './DeviceCard/DeviceRoutes.svelte';
+import DeviceTags from './DeviceCard/DeviceTags.svelte';
 	import MoveDevice from './DeviceCard/MoveDevice.svelte';
 	import RemoveDevice from './DeviceCard/RemoveDevice.svelte';
 	import RenameDevice from './DeviceCard/RenameDevice.svelte';
@@ -12,14 +13,17 @@
 </script>
 
 <div in:fade class="card-primary">
-	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex justify-between">
-		<span class="font-bold">
+	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex">
+		<span class="font-bold w-full">
 			{#if cardEditing == false}
 				{device.id}: {device.name}
 			{/if}
-			<RenameDevice bind:cardEditing {device} /></span
+			<RenameDevice bind:cardEditing {device} />
+			<DeviceTags {device}></DeviceTags>
+			
+			</span
 		>
-		<div>
+		<div class="grow min-w-fit">
 			<RemoveDevice {device} />
 			<button type="button">
 				{#if !cardExpanded}
