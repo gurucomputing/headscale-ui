@@ -69,6 +69,39 @@
 			});
 	}
 
+	export async function updateTags(deviceID: string, tags: string[]): Promise<any> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/machine/' + deviceID + '/tags';
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			},
+			body: JSON.stringify({
+				tags: tags
+			})
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response;
+				} else {
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+	}
+
+
 	export async function removeUser(currentUsername: string): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
@@ -166,7 +199,6 @@
 		await headscaleDeviceResponse.json().then((data) => {
 			headscaleDevices = data.machines;
 		});
-		// console.log(headscaleDevices);
 		return headscaleDevices;
 	}
 
