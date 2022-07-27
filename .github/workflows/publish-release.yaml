@@ -22,10 +22,11 @@ jobs:
 
           # setting tags
           if echo "$VERSION" | grep -q "beta"; then
-            TAGS="beta, $VERSION, latest"
+          
+            TAGS="ghcr.io/${{ github.repository }}:beta, ghcr.io/${{ github.repository }}:$VERSION, ghcr.io/${{ github.repository }}:latest"
             PRIMARY_TAG=latest
           else
-            TAGS="release, latest, $VERSION"
+            TAGS="ghcr.io/${{ github.repository }}:release, ghcr.io/${{ github.repository }}:latest, ghcr.io/${{ github.repository }}:$VERSION"
             PRIMARY_TAG=latest
           fi
           echo "::set-output name=TAG::$TAGS"
@@ -46,7 +47,7 @@ jobs:
             VERSION=${{ steps.gathervars.outputs.VERSION }}
           context: ./docker/production
           tags: |
-            ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.TAG }}
+            ${{ steps.gathervars.outputs.TAG }}
           push: true
 
       - name: Extract build out of docker image
