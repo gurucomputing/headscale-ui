@@ -21,10 +21,10 @@ jobs:
 
           # setting tags
           if jq -r '.version' ./package.json | grep -q "beta"; then
-            TAGS=beta, $VERSION, latest
+            TAGS="beta, $VERSION, latest"
             PRIMARY_TAG=latest
           else
-            TAGS=release, latest, $VERSION
+            TAGS="release, latest, $VERSION"
             PRIMARY_TAG=latest
           fi
           echo "::set-output name=TAG::$TAGS"
