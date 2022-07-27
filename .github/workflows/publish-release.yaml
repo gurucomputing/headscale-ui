@@ -16,11 +16,12 @@ jobs:
         id: gathervars
         run: |
           # get a current BUILD_DATE
+          VERSION=$(jq -r '.version' ./package.json)
           echo "::set-output name=BUILD_DATE::$(date +%Y%m%d-%H%M%S)"
-          echo "::set-output name=VERSION::$(jq -r '.version' ./package.json)"
+          echo "::set-output name=VERSION::$VERSION"
 
           # setting tags
-          if jq -r '.version' ./package.json | grep -q "beta"; then
+          if echo "$VERSION" | grep -q "beta"; then
             TAGS="beta, $VERSION, latest"
             PRIMARY_TAG=latest
           else
