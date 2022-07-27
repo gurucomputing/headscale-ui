@@ -13,6 +13,10 @@ const config = {
 		}),
 		paths: {
 			base: "/web"
+		},
+		csp: {
+			mode: "hash",
+			directives: { "script-src": ["self"] },
 		}
 	},
 	preprocess: [
