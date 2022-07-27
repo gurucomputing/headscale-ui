@@ -57,7 +57,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker Image
-      - uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v2
         with:
           build-args: |
             BUILD_DATE=${{ steps.gathervars.outputs.BUILD_DATE }}
@@ -66,7 +66,9 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.TAG }}
           push: true
-      - uses: shrink/actions-docker-extract@v1
+
+      - name: Extract build out of docker image
+        uses: shrink/actions-docker-extract@v1
         id: extract
         with:
           image: ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.PRIMARY_TAG }}
@@ -89,7 +91,8 @@ jobs:
           draft: true
           prerelease: false
         
-      - uses: actions/upload-release-asset@v1.0.1
+      - name: upload asset to releases  
+        uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -98,7 +101,8 @@ jobs:
           asset_name: headscale-ui.zip
           asset_content_type: application/zip
 
-      - uses: eregon/publish-release@v1
+      - name: publish release
+        uses: eregon/publish-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
