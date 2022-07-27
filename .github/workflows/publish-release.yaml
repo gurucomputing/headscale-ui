@@ -17,18 +17,12 @@ jobs:
       - name: Variable Gathering
         id: gathervars
         run: |
-          # get the package version
-          echo 'PACKAGE_JSON<<EOF' >> $GITHUB_ENV
-          cat ./package.json >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-          echo '${{ fromJson(env.PACKAGE_JSON).version }}'
-
           # get a current BUILD_DATE
           echo "::set-output name=BUILD_DATE::$(date +%Y%m%d-%H%M%S)"
-          echo "::set-output name=VERSION::${{ fromJson(env.PACKAGE_JSON).version }}"
+          echo "::set-output name=VERSION::$(jq -r '.version' ./package.json)"
 
           # setting tags
-          if echo "${{ fromJson(env.PACKAGE_JSON).version }}" | grep -q "beta"; then
+          if jq -r '.version' ./package.json | grep -q "beta"; then
             TAGS=beta
             PRIMARY_TAG=beta
           else
