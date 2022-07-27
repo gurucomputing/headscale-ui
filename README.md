@@ -78,7 +78,7 @@ hs.yourdomain.com.au {
 ## Development
 Development can be done either by using the official development docker image, or via a normal nodejs installation.
 ### Quick Start (Docker)
-* `docker run -p 443:443 -p 3000:3000 -v "$(pwd)"/data:/data ghcr.io/gurucomputing/headscale-ui:latest`
+* `docker run -p 443:443 -p 3000:3000 -v "$(pwd)"/data:/data ghcr.io/gurucomputing/headscale-ui-dev:latest`
 
 A full browser based vscode development environment will be found at `http://<your-ip>:3000/?tkn=<your authentication token>`. The authentication token will be printed in your docker logs, and must be included in the URL.
 
