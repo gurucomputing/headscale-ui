@@ -1,7 +1,7 @@
 FROM node:latest
 
 # Arguments
-ARG OPENVSCODE_VERSION="1.68.1"
+ARG OPENVSCODE_VERSION="1.69.2"
 # Volumes
 VOLUME /data
 

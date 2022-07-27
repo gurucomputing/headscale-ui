@@ -21,7 +21,7 @@ jobs:
           echo "::set-output name=VERSION::$(date +%Y.%m.%d)-development"
 
           # setting tags
-          "::set-output name=TAG::development"
+          echo "::set-output name=TAG::development"
 
       - name: Checkout Repository
         uses: actions/checkout@v2
