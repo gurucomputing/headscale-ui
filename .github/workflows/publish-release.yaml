@@ -9,6 +9,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      deployments: write
 
     steps:
       - name: Checkout Repository
