@@ -41,6 +41,6 @@ jobs:
             VERSION=${{ steps.gathervars.outputs.VERSION }}
           context: ./docker/development
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.VERSION }}
+            ghcr.io/${{ github.repository }}-dev:latest
+            ghcr.io/${{ github.repository }}-dev:${{ steps.gathervars.outputs.VERSION }}
           push: true
