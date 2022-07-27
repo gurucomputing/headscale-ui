@@ -23,10 +23,6 @@ services:
   headscale-ui:
     image: ghcr.io/gurucomputing/headscale-ui:latest
     container_name: headscale-ui
-    security_opt:
-      - label:disable
-    networks:
-      - reverseproxy-nw
     # ports:
       # - 9443:443
 ```
