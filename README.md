@@ -53,11 +53,11 @@ If you do not want to configure headscale-ui on the same subdomain as headscale,
 ```
 hs.yourdomain.com.au {
   @hs-options {
-    host hs.gurucomputing.com.au
+    host hs.yourdomain.com.au
     method OPTIONS
   }
   @hs-other {
-    host hs.gurucomputing.com.au
+    host hs.yourdomain.com.au
   }
   handle @hs-options {
     header {
