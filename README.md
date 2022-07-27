@@ -1,6 +1,8 @@
 # Headscale-UI
 A web frontend for the [headscale](https://github.com/juanfont/headscale) Tailscale-compatible coordination server.
 
+![](documentation/assets/headscale-ui-demo.gif)
+
 ## Installation
 Headscale-UI is currently released as a static site: just take the release and host with your favorite web server. Headscale-UI expects to be served from the `/web` path to avoid overlap with headscale on the same domain. Note that due to CORS (see https://github.com/juanfont/headscale/issues/623), headscale UI *must* be served on the same subdomain, or CORS headers injected via reverse proxy.
 
