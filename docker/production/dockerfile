@@ -43,7 +43,7 @@ WORKDIR /staging
 # Copy across the scripts folder
 COPY scripts/* ./scripts/
 # Copy default caddy config from project root
-COPY ../../Caddyfile /staging/Caddyfile
+COPY ./Caddyfile /staging/Caddyfile
 COPY --from=build /staging/${PROJECT_NAME}/build /web
 
 RUN apk add --no-cache caddy

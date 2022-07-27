@@ -2,7 +2,7 @@
 
 #----#
 # placeholder for testing
-while true; do sleep 1; done
+# while true; do sleep 1; done
 #----#
 
 # check if /data/Caddyfile exists, copy across if not
@@ -13,4 +13,4 @@ then
 fi
 
 echo "Starting Caddy"
-/usr/bin/caddy run --adapter caddyfile --config /data/Caddyfile
+/usr/sbin/caddy run --adapter caddyfile --config /data/Caddyfile
