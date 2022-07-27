@@ -1,0 +1,105 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Variable Gathering
+        id: gathervars
+        run: |
+          # get the package version
+          echo 'PACKAGE_JSON<<EOF' >> $GITHUB_ENV
+          cat ./package.json >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+          echo '${{ fromJson(env.PACKAGE_JSON).version }}'
+
+          # get a current BUILD_DATE
+          echo "::set-output name=BUILD_DATE::$(date +%Y%m%d-%H%M%S)"
+          echo "::set-output name=VERSION::${{ fromJson(env.PACKAGE_JSON).version }}"
+
+          # setting tags
+          if echo "${{ fromJson(env.PACKAGE_JSON).version }}" | grep -q "beta"; then
+            TAGS=beta
+            PRIMARY_TAG=beta
+          else
+            TAGS=release, latest
+            PRIMARY_TAG=latest
+          fi
+          echo "::set-output name=TAG::$TAGS"
+          echo "::set-output name=PRIMARY_TAG::$PRIMARY_TAG"
+
+      - name: Create Draft Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.gathervars.outputs.VERSION }}
+          release_name: headscale-ui
+          draft: true
+          prerelease: false
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker Image
+      - uses: docker/build-push-action@v2
+        with:
+          build-args: |
+            BUILD_DATE=${{ steps.gathervars.outputs.BUILD_DATE }}
+            VERSION=${{ steps.gathervars.outputs.VERSION }}
+          context: ./docker/production
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.TAG }}
+          push: true
+      - uses: shrink/actions-docker-extract@v1
+        id: extract
+        with:
+          image: ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.PRIMARY_TAG }}
+          path: /opt/headscale-ui
+          
+      - name: create release asset
+        run: |
+          cd "${{ steps.extract.outputs.destination }}"
+          mv headscale-ui web
+          7z a headscale-ui.zip web
+
+      - name: Create Draft Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.gathervars.outputs.VERSION }}
+          release_name: headscale-ui
+          draft: true
+          prerelease: false
+        
+      - uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.extract.outputs.destination }}/headscale-ui.zip
+          asset_name: headscale-ui.zip
+          asset_content_type: application/zip
+
+      - uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.create_release.outputs.id }}

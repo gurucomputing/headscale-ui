@@ -1,13 +1,13 @@
 {
 	"name": "headscale-ui",
-	"version": "0.2",
+	"version": "2022.07.27-beta",
 	"scripts": {
 		"dev": "vite dev --https --port 443 --host 0.0.0.0",
 		"build": "vite build",
 		"package": "vite package",
 		"preview": "vite preview --https --port 443 --host 0.0.0.0",
 		"stage": "/usr/bin/caddy run --adapter caddyfile --config ./Caddyfile",
-		"prepare": "vite sync",
+		"prepare": "svelte-kit sync",
 		"check": "svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./jsconfig.json --watch",
 		"lint": "prettier --check --plugin-search-dir=. .",

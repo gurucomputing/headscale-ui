@@ -1,8 +1,10 @@
 .DS_Store
 node_modules
 /build
+/web
 /.svelte-kit
 /package
 .env
 .env.*
 !.env.example
+*.tar.gz

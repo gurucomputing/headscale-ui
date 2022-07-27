@@ -1,4 +1,4 @@
-name: Publish Image
+name: Publish Dev Image
 
 on:
   workflow_dispatch:
@@ -18,7 +18,10 @@ jobs:
           # get a current BUILD_DATE
           echo "::set-output name=BUILD_DATE::$(date +%Y%m%d-%H%M%S)"
           # set version based on BUILD_DATE
-          echo "::set-output name=VERSION::$(date +%Y.%m.%d)-1"
+          echo "::set-output name=VERSION::$(date +%Y.%m.%d)-development"
+
+          # setting tags
+          "::set-output name=TAG::development"
 
       - name: Checkout Repository
         uses: actions/checkout@v2
