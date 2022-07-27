@@ -55,12 +55,11 @@ jobs:
         id: extract
         with:
           image: ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.PRIMARY_TAG }}
-          path: /opt/headscale-ui
+          path: web
           
       - name: create release asset
         run: |
           cd "${{ steps.extract.outputs.destination }}"
-          mv headscale-ui web
           7z a headscale-ui.zip web
 
       - name: Create Draft Release
