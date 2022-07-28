@@ -35,7 +35,7 @@
 	>
 {:else}
 	<!-- Delete Warning -->
-	<span in:fade class="font-bold text-red-400">Deleting {Device.name}. Confirm </span>
+	<span in:fade class="font-bold text-red-400">Deleting {device.name}. Confirm </span>
 	<!-- Delete confirm symbol -->
 	<button in:fade on:click|stopPropagation={() => removeDeviceAction()}
 		><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
