@@ -69,6 +69,7 @@ jobs:
           path: web
           
       - name: create release asset
+        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         run: |
           cd "${{ steps.extract.outputs.destination }}"
           7z a headscale-ui.zip web
