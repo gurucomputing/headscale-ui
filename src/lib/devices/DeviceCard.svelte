@@ -16,7 +16,7 @@ import DeviceTags from './DeviceCard/DeviceTags.svelte';
 	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex">
 		<span class="font-bold w-full">
 			{#if cardEditing == false}
-				{device.id}: {device.name}
+				{device.id}: {device.givenName}
 			{/if}
 			<RenameDevice bind:cardEditing {device} />
 			<DeviceTags {device}></DeviceTags>

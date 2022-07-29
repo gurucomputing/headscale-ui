@@ -11,7 +11,7 @@
 
 	function editingDevice() {
 		cardEditing = true;
-		newDeviceName = device.name;
+		newDeviceName = device.givenName;
 	}
 
 	function renameDeviceAction() {

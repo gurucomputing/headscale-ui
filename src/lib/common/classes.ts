@@ -1,6 +1,7 @@
 export class Device {
   public id: string = '';
   public name: string = '';
+  public givenName: string = '';
   public lastSeen: string = '';
   public ipAddresses: string[] = []
   public forcedTags: string[] = []
