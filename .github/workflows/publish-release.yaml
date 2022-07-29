@@ -15,6 +15,7 @@ jobs:
       - name: Variable Gathering
         id: gathervars
         run: |
+          NOT_PREVIOUSLY_PUBLISHED=0
           # get a current BUILD_DATE
           VERSION=$(jq -r '.version' ./package.json)
           echo "::set-output name=BUILD_DATE::$(date +%Y%m%d-%H%M%S)"
@@ -31,6 +32,9 @@ jobs:
           fi
           echo "::set-output name=TAG::$TAGS"
           echo "::set-output name=PRIMARY_TAG::$PRIMARY_TAG"
+          # check if version has already been published
+          $(docker manifest inspect ghcr.io/${{ github.repository }}:$VERSION > /dev/null) || NOT_PREVIOUSLY_PUBLISHED=1
+          echo "::set-output name=NOT_PREVIOUSLY_PUBLISHED::$NOT_PREVIOUSLY_PUBLISHED"
 
       - name: Update Version in Code
         run: |
@@ -38,6 +42,7 @@ jobs:
 
       - name: Log in to the Container registry
         uses: docker/login-action@v1
+        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -45,6 +50,7 @@ jobs:
 
       - name: Build and push Docker Image
         uses: docker/build-push-action@v2
+        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         with:
           build-args: |
             BUILD_DATE=${{ steps.gathervars.outputs.BUILD_DATE }}
@@ -56,6 +62,7 @@ jobs:
 
       - name: Extract build out of docker image
         uses: shrink/actions-docker-extract@v1
+        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         id: extract
         with:
           image: ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.PRIMARY_TAG }}
@@ -69,6 +76,7 @@ jobs:
       - name: Create Draft Release
         id: create_release
         uses: actions/create-release@v1
+        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -79,6 +87,7 @@ jobs:
         
       - name: upload asset to releases  
         uses: actions/upload-release-asset@v1.0.1
+        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -89,6 +98,7 @@ jobs:
 
       - name: publish release
         uses: eregon/publish-release@v1
+        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
