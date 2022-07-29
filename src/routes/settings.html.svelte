@@ -23,6 +23,8 @@
 			<ServerSettings />
 			<div class="p-4"></div>
 			<ThemeSettings />
+			<div class="p-4"></div>
+			<h1 class="text-2xl bold text-primary mb-4">Version</h1><b>insert-version</b>
 		</div>
 	{/if}
 </body>
