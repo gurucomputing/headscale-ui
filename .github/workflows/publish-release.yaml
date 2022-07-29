@@ -32,6 +32,10 @@ jobs:
           echo "::set-output name=TAG::$TAGS"
           echo "::set-output name=PRIMARY_TAG::$PRIMARY_TAG"
 
+      - name: Update Version in Code
+        run: |
+          sed -i 's/insert-version/${{ steps.gathervars.outputs.VERSION }}/g' ./src/routes/settings.html.svelte
+
       - name: Log in to the Container registry
         uses: docker/login-action@v1
         with:
