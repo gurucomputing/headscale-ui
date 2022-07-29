@@ -12,7 +12,7 @@ import DeviceTags from './DeviceCard/DeviceTags.svelte';
 	let cardEditing = false;
 </script>
 
-<div in:fade class="card-primary">
+<div class="card-primary">
 	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex">
 		<span class="font-bold w-full">
 			{#if cardEditing == false}

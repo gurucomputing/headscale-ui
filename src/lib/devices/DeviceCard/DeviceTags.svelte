@@ -2,7 +2,6 @@
 	import NewDeviceTag from './DeviceTags/NewDeviceTag.svelte';
 	import { Device } from '$lib/common/classes';
 	import { updateTags, getDevices } from '$lib/common/apiFunctions.svelte';
-	import { fade } from 'svelte/transition';
 	import { headscaleDeviceStore, alertStore } from '$lib/common/stores.js';
 	export let device = new Device();
 
@@ -30,7 +29,7 @@
 <span><NewDeviceTag {device}/></span>
 
 {#each device.forcedTags as tag}
-	<span in:fade class="mb-1 mr-1 btn btn-xs btn-primary normal-case">{tag.replace("tag:","")}
+	<span class="mb-1 mr-1 btn btn-xs btn-primary normal-case">{tag.replace("tag:","")}
 	<!-- Cancel symbol -->
 	<button on:click|stopPropagation={() => {updateTagsAction(tag)}}
 	class="ml-1"
@@ -42,6 +41,6 @@
 {/each}
 
 {#each device.validTags as tag}
-	<span in:fade class="mb-1 mr-1 btn btn-xs btn-secondary normal-case">{tag.replace("tag:","")}</span>
+	<span class="mb-1 mr-1 btn btn-xs btn-secondary normal-case">{tag.replace("tag:","")}</span>
 {/each}
 

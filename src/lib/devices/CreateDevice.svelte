@@ -40,7 +40,7 @@
 
 <!-- html -->
 <!-- device creation visibility button -->
-<div in:fade class="p-4">
+<div class="p-4">
 	{#if newDeviceCardVisible == false}
 		<button on:click={() => (newDeviceCardVisible = true)} class="btn btn-primary btn-sm capitalize" type="button">+ New Device</button>
 	{:else}

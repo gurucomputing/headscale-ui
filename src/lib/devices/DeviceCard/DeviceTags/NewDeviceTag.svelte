@@ -39,7 +39,7 @@
 	class="btn btn-xs border-dotted border-2 btn-primary opacity-60 normal-case"
 >
 	{#if !editingTag}
-		<span in:fade>+ tag</span>
+		<span>+ tag</span>
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
 		<form
