@@ -34,7 +34,7 @@ jobs:
 
       - name: Update Version in Code
         run: |
-          sed -i 's/insert-version/${{ steps.gathervars.outputs.VERSION }}/g' src/routes/settings.html.svelte
+          sed -i 's/insert-version/${{ steps.gathervars.outputs.VERSION }}/g' ./src/routes/settings.html.svelte
 
       - name: Log in to the Container registry
         uses: docker/login-action@v1
