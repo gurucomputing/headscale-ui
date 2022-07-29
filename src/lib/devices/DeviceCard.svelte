@@ -65,6 +65,10 @@ import DeviceTags from './DeviceCard/DeviceTags.svelte';
 							<MoveDevice {device} />
 						</tr>
 						<tr>
+							<th>Device Name</th>
+							<td>{device.name}</td>
+						</tr>
+						<tr>
 							<DeviceRoutes {device} />
 						</tr>
 					</tbody>
