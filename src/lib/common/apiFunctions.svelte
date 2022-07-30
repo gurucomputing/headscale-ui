@@ -163,7 +163,7 @@
 			});
 	}
 
-	export async function getDevices() {
+	export async function getDevices(): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -177,6 +177,7 @@
 		let headscaleDevices = [new Device()];
 		let headscaleDeviceResponse: Response = new Response();
 
+		// attempt to get the user data
 		await fetch(headscaleURL + endpointURL, {
 			method: 'GET',
 			headers: {
@@ -190,12 +191,14 @@
 					headscaleDeviceResponse = response;
 				} else {
 					return response.text().then((text) => {
-						throw JSON.parse(text).message;
+						apiTestStore.set('failed');
+						throw text;
 					});
 				}
 			})
 			.catch((error) => {
-				apiTestStore.set(error);
+				apiTestStore.set('failed');
+				throw error;
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
@@ -205,7 +208,8 @@
 				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] > b[sortKey as keyof Device] ? -1 : 1));
 			}
 		});
-		headscaleDeviceStore.set(headscaleDevices)
+		// set the store
+		headscaleDeviceStore.set(headscaleDevices);
 	}
 
 	export async function getDeviceRoutes(deviceID: string): Promise<Route> {
