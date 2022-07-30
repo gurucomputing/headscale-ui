@@ -2,7 +2,7 @@
 	import { updateTags, getDevices } from '$lib/common/apiFunctions.svelte';
 	import { Device } from '$lib/common/classes';
 	import { fade } from 'svelte/transition';
-	import { headscaleDeviceStore, alertStore} from '$lib/common/stores.js';
+	import { alertStore } from '$lib/common/stores.js';
 
 	let editingTag = false;
 	let newTag = '';

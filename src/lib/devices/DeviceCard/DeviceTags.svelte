@@ -2,7 +2,7 @@
 	import NewDeviceTag from './DeviceTags/NewDeviceTag.svelte';
 	import { Device } from '$lib/common/classes';
 	import { updateTags, getDevices } from '$lib/common/apiFunctions.svelte';
-	import { headscaleDeviceStore, alertStore } from '$lib/common/stores.js';
+	import { alertStore } from '$lib/common/stores.js';
 	export let device = new Device();
 
 	function updateTagsAction(tag: String) {

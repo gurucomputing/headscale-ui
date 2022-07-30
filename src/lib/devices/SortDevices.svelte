@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getDevices } from '$lib/common/apiFunctions.svelte';
-	import { headscaleDeviceStore, headscaleDeviceSortDirectionStore, alertStore } from '$lib/common/stores';
+	import { headscaleDeviceSortDirectionStore, headscaleDeviceSortStore } from '$lib/common/stores.js';
 
 	function sortAction() {
 		if ($headscaleDeviceSortDirectionStore == 'ascending') {
@@ -34,8 +34,8 @@
 	</button>
 
 	<span class="btn-group">
-		<button class="btn btn-xs btn-active">ID</button>
-		<button class="btn btn-xs capitalize">Device Name</button>
-		<button class="btn btn-xs capitalize">Last Seen</button>
+		<button class:btn-active="{$headscaleDeviceSortStore == 'id'}" on:click="{() => {$headscaleDeviceSortStore = 'id'; getDevices()}}" class="btn btn-xs">ID</button>
+		<button class:btn-active="{$headscaleDeviceSortStore == 'givenName'}" on:click="{() => {$headscaleDeviceSortStore = 'givenName'; getDevices()}}" class="btn btn-xs capitalize">Device Name</button>
+		<button class:btn-active="{$headscaleDeviceSortStore == 'lastSeen'}" on:click="{() => {$headscaleDeviceSortStore = 'lastSeen'; getDevices()}}" class="btn btn-xs capitalize">Last Seen</button>
 	</span>
 </span>
