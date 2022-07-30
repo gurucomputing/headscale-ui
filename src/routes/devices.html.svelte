@@ -5,7 +5,7 @@
 	import SortDevices from '$lib/devices/SortDevices.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { apiTestStore, headscaleUserStore, headscaleDeviceStore } from '$lib/common/stores.js';
+	import { apiTestStore, headscaleDeviceStore } from '$lib/common/stores.js';
 	import { getUsers, getDevices } from '$lib/common/apiFunctions.svelte';
 	import { base } from '$app/paths';
 
@@ -22,14 +22,7 @@
 	// Doing so also does not perform any actions until components are initialized
 	onMount(async () => {
 		// update user list
-		getUsers()
-			.then((users) => {
-				$headscaleUserStore = users;
-				$apiTestStore = 'succeeded';
-			})
-			.catch(() => {
-				$apiTestStore = 'failed';
-			});
+		getUsers();
 		// attempt to pull list of devices
 		getDevices();
 		// load the page

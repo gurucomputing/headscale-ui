@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { alertStore, headscaleUserStore } from '$lib/common/stores.js';
+	import { alertStore } from '$lib/common/stores.js';
 	import { getUsers, newUser } from '$lib/common/apiFunctions.svelte';
 
 	// name for user creation
@@ -17,13 +17,7 @@
 					newUserCardVisible = false;
 					newUserName = '';
 					// refresh users after editing
-					getUsers()
-						.then((users) => {
-							$headscaleUserStore = users;
-						})
-						.catch((error) => {
-							$alertStore = error;
-						});
+					getUsers();
 				})
 				.catch((error) => {
 					$alertStore = error;

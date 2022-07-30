@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { headscaleDeviceSortStore, headscaleDeviceSortDirectionStore, headscaleThemeStore } from '$lib/common/stores.js';
+	import { headscaleDeviceSortStore, headscaleDeviceSortDirectionStore, headscaleUserSortStore, headscaleUserSortDirectionStore, headscaleThemeStore } from '$lib/common/stores.js';
 	import { headscaleURLStore } from '$lib/common/stores.js';
 	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
 	import { preAuthHideStore } from '$lib/common/stores.js';
@@ -15,6 +15,12 @@
 		headscaleDeviceSortStore.subscribe((val) => localStorage.setItem('headscaleDeviceSort', val));
 		headscaleDeviceSortDirectionStore.set(localStorage.getItem('headscaleDeviceSortDirection') || 'ascending');
 		headscaleDeviceSortDirectionStore.subscribe((val) => localStorage.setItem('headscaleDeviceSortDirection', val));
+
+		// stores user sort preferences
+		headscaleUserSortStore.set(localStorage.getItem('headscaleUserSort') || 'id');
+		headscaleUserSortStore.subscribe((val) => localStorage.setItem('headscaleUserSort', val));
+		headscaleUserSortDirectionStore.set(localStorage.getItem('headscaleUserSortDirection') || 'ascending');
+		headscaleUserSortDirectionStore.subscribe((val) => localStorage.setItem('headscaleUserSortDirection', val));
 
 		// stores URL and API key
 		headscaleURLStore.set(localStorage.getItem('headscaleURL') || '');

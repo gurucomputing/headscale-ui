@@ -1,17 +1,19 @@
 <script context="module" lang="ts">
 	import { Device, PreAuthKey, Route, User } from '$lib/common/classes';
-	import { headscaleDeviceStore, alertStore, apiTestStore } from '$lib/common/stores.js'
+	import { headscaleDeviceStore, headscaleUserStore, apiTestStore } from '$lib/common/stores.js'
 
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let sortKey = localStorage.getItem('headscaleUserSort') || '';
+		let sortDirection = localStorage.getItem('headscaleUserSortDirection') || '';
 
 		// endpoint url for getting users
 		let endpointURL = '/api/v1/namespace';
 
 		//returning variables
-		let headscaleUsers = new User();
+		let headscaleUsers = [new User()];
 		let headscaleUsersResponse: Response = new Response();
 
 		await fetch(headscaleURL + endpointURL, {
@@ -27,18 +29,26 @@
 					headscaleUsersResponse = response;
 				} else {
 					return response.text().then((text) => {
-						throw JSON.parse(text).message;
+						apiTestStore.set('failed');
+						throw text;
 					});
 				}
 			})
 			.catch((error) => {
+				apiTestStore.set('failed');
 				throw error;
 			});
 
 		await headscaleUsersResponse.json().then((data) => {
-			headscaleUsers = data.namespaces;
+			if (sortDirection == 'ascending') {
+				headscaleUsers = data.namespaces.sort((a: User, b: User) => (a[sortKey as keyof User] < b[sortKey as keyof User] ? -1 : 1));
+			} else {
+				headscaleUsers = data.namespaces.sort((a: User, b: User) => (a[sortKey as keyof User] > b[sortKey as keyof User] ? -1 : 1));
+			}
 		});
-		return headscaleUsers;
+		// Set the store
+		apiTestStore.set('succeeded');
+		headscaleUserStore.set(headscaleUsers);
 	}
 
 	export async function editUser(currentUsername: string, newUsername: string): Promise<any> {
@@ -167,8 +177,8 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		let sortKey = localStorage.getItem('headscaleDeviceSort');
-		let sortDirection = localStorage.getItem('headscaleDeviceSortDirection');
+		let sortKey = localStorage.getItem('headscaleDeviceSort') || '';
+		let sortDirection = localStorage.getItem('headscaleDeviceSortDirection') || '';
 
 		// endpoint url for getting users
 		let endpointURL = '/api/v1/machine';
@@ -208,7 +218,8 @@
 				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] > b[sortKey as keyof Device] ? -1 : 1));
 			}
 		});
-		// set the store
+		// set the stores
+		apiTestStore.set('succeeded');
 		headscaleDeviceStore.set(headscaleDevices);
 	}
 

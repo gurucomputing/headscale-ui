@@ -18,3 +18,5 @@ export const headscaleDeviceStore = writable([new Device()]);
 // stores sorting preferences
 export const headscaleDeviceSortStore = writable('id');
 export const headscaleDeviceSortDirectionStore = writable('ascending');
+export const headscaleUserSortStore = writable('id');
+export const headscaleUserSortDirectionStore = writable('ascending');

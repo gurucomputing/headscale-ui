@@ -19,14 +19,7 @@
 	// Doing so also does not perform any actions until components are initialized
 	onMount(async () => {
 		// update user list
-		getUsers()
-			.then((users) => {
-				$headscaleUserStore = users;
-				$apiTestStore = 'succeeded';
-			})
-			.catch(() => {
-				$apiTestStore = 'failed';
-			});
+		getUsers();
 		// load the page
 		componentLoaded = true;
 	});
