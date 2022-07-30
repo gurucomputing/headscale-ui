@@ -9,6 +9,8 @@
 	import { getUsers, getDevices } from '$lib/common/apiFunctions.svelte';
 	import { base } from '$app/paths';
 
+	let newDeviceCardVisible = false;
+
 	//
 	// Component Variables
 	//
@@ -50,7 +52,22 @@
 		</div>
 		{#if $apiTestStore === 'succeeded'}
 			<!-- instantiate device based components -->
-			<table><tr><td><CreateDevice /></td><td><SortDevices /></td></tr></table>
+			<table>
+				<tr
+					><td
+						><!-- device creation visibility button -->
+						<div class="p-4">
+							{#if newDeviceCardVisible == false}
+								<button on:click={() => (newDeviceCardVisible = true)} class="btn btn-primary btn-sm capitalize" type="button">+ New Device</button>
+							{:else}
+								<button on:click={() => (newDeviceCardVisible = false)} class="btn btn-secondary btn-sm capitalize" type="button">- Hide New Device</button>
+							{/if}
+						</div></td
+					><td><SortDevices /></td></tr
+				>
+			</table>
+
+			<CreateDevice bind:newDeviceCardVisible />
 			{#each $headscaleDeviceStore as device}
 				<DeviceCard {device} />
 			{/each}

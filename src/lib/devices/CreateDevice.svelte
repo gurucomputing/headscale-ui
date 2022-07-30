@@ -6,7 +6,7 @@
 	import { base } from '$app/paths';
 
 	// whether the new card html element is visible
-	let newDeviceCardVisible = false;
+	export let newDeviceCardVisible = false;
 	let newDeviceForm: HTMLFormElement;
 	let newDeviceKey = '';
 	let selectedUser = '';
@@ -39,14 +39,6 @@
 </script>
 
 <!-- html -->
-<!-- device creation visibility button -->
-<div class="p-4">
-	{#if newDeviceCardVisible == false}
-		<button on:click={() => (newDeviceCardVisible = true)} class="btn btn-primary btn-sm capitalize" type="button">+ New Device</button>
-	{:else}
-		<button on:click={() => (newDeviceCardVisible = false)} class="btn btn-secondary btn-sm capitalize" type="button">- Hide New Device</button>
-	{/if}
-</div>
 
 {#if newDeviceCardVisible == true}
 	<div in:fade out:fade={{ duration: newDeviceCardVisible ? 0 : 500 }} class="p-2 max-w-screen-lg border border-dashed border-base-content mx-4 rounded-md text-sm text-base-content shadow mb-10">

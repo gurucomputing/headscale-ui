@@ -11,24 +11,25 @@
 	function updateTagsAction() {
 		let tagList = device.forcedTags;
 		tagList.push(`tag:${newTag}`);
-    // remove duplicates
-    tagList = [...new Set(tagList)];
+		// remove duplicates
+		tagList = [...new Set(tagList)];
 
-		updateTags(device.id, tagList).then((response) => {
-      editingTag = false;
-      newTag = '';
-			// refresh devices after editing
-			getDevices()
-				.then((devices) => {
-					$headscaleDeviceStore = devices;
-				})
-				.catch((error) => {
-					$alertStore = error;
-				});
-		})
-    .catch((error) => {
-      $alertStore = error;
-    });
+		updateTags(device.id, tagList)
+			.then((response) => {
+				editingTag = false;
+				newTag = '';
+				// refresh devices after editing
+				getDevices()
+					.then((devices) => {
+						$headscaleDeviceStore = devices;
+					})
+					.catch((error) => {
+						$alertStore = error;
+					});
+			})
+			.catch((error) => {
+				$alertStore = error;
+			});
 	}
 </script>
 
@@ -42,9 +43,7 @@
 		<span>+ tag</span>
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
-		<form
-			on:submit|preventDefault={updateTagsAction}
-		>
+		<form on:submit|preventDefault={updateTagsAction}>
 			<input bind:value={newTag} autofocus required class="bg-primary w-16" />
 			<button in:fade class="ml-1">
 				<!-- checkmark symbol -->
@@ -58,7 +57,7 @@
 				in:fade
 				on:click|stopPropagation={() => {
 					editingTag = false;
-          newTag = '';
+					newTag = '';
 				}}
 				class="ml-1"
 				><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
