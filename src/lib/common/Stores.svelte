@@ -13,8 +13,8 @@
 		// stores device sort preferences
 		headscaleDeviceSortStore.set(localStorage.getItem('headscaleDeviceSort') || 'id');
 		headscaleDeviceSortStore.subscribe((val) => localStorage.setItem('headscaleDeviceSort', val));
-		headscaleDeviceSortStore.set(localStorage.getItem('headscaleDeviceSortDirection') || 'ascending');
-		headscaleDeviceSortStore.subscribe((val) => localStorage.setItem('headscaleDeviceSortDirection', val));
+		headscaleDeviceSortDirectionStore.set(localStorage.getItem('headscaleDeviceSortDirection') || 'ascending');
+		headscaleDeviceSortDirectionStore.subscribe((val) => localStorage.setItem('headscaleDeviceSortDirection', val));
 
 		// stores URL and API key
 		headscaleURLStore.set(localStorage.getItem('headscaleURL') || '');
