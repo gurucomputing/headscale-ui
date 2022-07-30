@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { headscaleThemeStore } from '$lib/common/stores.js';
+	import { headscaleDeviceSortStore, headscaleDeviceSortDirectionStore, headscaleThemeStore } from '$lib/common/stores.js';
 	import { headscaleURLStore } from '$lib/common/stores.js';
 	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
 	import { preAuthHideStore } from '$lib/common/stores.js';
@@ -8,17 +8,23 @@
 	onMount(async () => {
 		// stores headscale theme
 		headscaleThemeStore.set(localStorage.getItem('headscaleTheme') || 'hsui');
+		headscaleThemeStore.subscribe((val) => localStorage.setItem('headscaleTheme', val));
+
+		// stores device sort preferences
+		headscaleDeviceSortStore.set(localStorage.getItem('headscaleDeviceSort') || 'id');
+		headscaleDeviceSortStore.subscribe((val) => localStorage.setItem('headscaleDeviceSort', val));
+		headscaleDeviceSortStore.set(localStorage.getItem('headscaleDeviceSortDirection') || 'ascending');
+		headscaleDeviceSortStore.subscribe((val) => localStorage.setItem('headscaleDeviceSortDirection', val));
 
 		// stores URL and API key
 		headscaleURLStore.set(localStorage.getItem('headscaleURL') || '');
-		headscaleAPIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
-
-		preAuthHideStore.set((localStorage.getItem('headscalePreAuthHide') || 'false') == 'true');
-
-		// subscribe to store's state and update the local storage where needed
-		headscaleThemeStore.subscribe((val) => localStorage.setItem('headscaleTheme', val));
-		preAuthHideStore.subscribe((val) => localStorage.setItem('headscalePreAuthHide', val ? 'true' : 'false'));
 		headscaleURLStore.subscribe((val) => localStorage.setItem('headscaleURL', val));
+		headscaleAPIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
 		headscaleAPIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));
+
+		// stores whether preauthkeys get hidden when expired/used
+		preAuthHideStore.set((localStorage.getItem('headscalePreAuthHide') || 'false') == 'true');
+		preAuthHideStore.subscribe((val) => localStorage.setItem('headscalePreAuthHide', val ? 'true' : 'false'));
+		
 	});
 </script>

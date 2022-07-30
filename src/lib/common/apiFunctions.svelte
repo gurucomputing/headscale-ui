@@ -163,7 +163,7 @@
 			});
 	}
 
-	export async function getDevices(): Promise<any> {
+	export async function getDevices(sortKey: string, sortDirection: string): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -172,7 +172,7 @@
 		let endpointURL = '/api/v1/machine';
 
 		//returning variables
-		let headscaleDevices = new Device();
+		let headscaleDevices = [new Device()];
 		let headscaleDeviceResponse: Response = new Response();
 
 		await fetch(headscaleURL + endpointURL, {
@@ -197,7 +197,11 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			headscaleDevices = data.machines;
+			if(sortDirection == 'ascending') {
+				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] < b[sortKey as keyof Device]) ? -1 : 1);
+			} else {
+				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] > b[sortKey as keyof Device]) ? -1 : 1);
+			}
 		});
 		return headscaleDevices;
 	}

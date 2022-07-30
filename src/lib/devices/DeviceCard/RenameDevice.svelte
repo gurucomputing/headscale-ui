@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade, slide } from 'svelte/transition';
 	import { getDevices, renameDevice } from '$lib/common/apiFunctions.svelte';
-	import { headscaleDeviceStore, alertStore } from '$lib/common/stores.js';
+	import { headscaleDeviceStore, alertStore, headscaleDeviceSortStore, headscaleDeviceSortDirectionStore } from '$lib/common/stores.js';
 	import { Device } from '$lib/common/classes';
 
 	let editUserForm: HTMLFormElement;
@@ -20,7 +20,7 @@
 				.then((response) => {
 					cardEditing = false;
 					// refresh users after editing
-					getDevices()
+					getDevices($headscaleDeviceSortStore, $headscaleDeviceSortDirectionStore)
 						.then((devices) => {
 							$headscaleDeviceStore = devices;
 						})

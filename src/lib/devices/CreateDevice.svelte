@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { headscaleUserStore, headscaleDeviceStore } from '$lib/common/stores';
+	import { headscaleUserStore, headscaleDeviceStore, headscaleDeviceSortStore, headscaleDeviceSortDirectionStore } from '$lib/common/stores';
 	import { getDevices, newDevice } from '$lib/common/apiFunctions.svelte';
 	import { alertStore } from '$lib/common/stores.js';
 	import { base } from '$app/paths';
@@ -21,7 +21,7 @@
 					newDeviceCardVisible = false;
 					newDeviceKey = '';
 					// refresh devices after editing
-					getDevices()
+					getDevices($headscaleDeviceSortStore, $headscaleDeviceSortDirectionStore)
 						.then((devices) => {
 							$headscaleDeviceStore = devices;
 						})
