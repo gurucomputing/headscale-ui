@@ -14,13 +14,13 @@
 
 <div class="card-primary">
 	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex">
-		<span class="font-bold w-full">
+		<span class="min-w-64 w-1/2 font-bold">
 			{#if cardEditing == false}
 				{device.id}: {device.givenName}
 			{/if}
 			<RenameDevice bind:cardEditing {device} />
-			<DeviceTags {device} />
 		</span>
+		<div class="grow w-full"><DeviceTags {device} /></div>
 		<div class="grow min-w-fit">
 			<RemoveDevice {device} />
 			<button type="button">
