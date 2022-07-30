@@ -1,13 +1,15 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { alertStore } from '$lib/common/stores.js';
 	export let ms = 3000;
 	let visible = false;
 	let timeout: number;
 
-	window.addEventListener('unhandledrejection', function (promiseRejectionEvent) {
-		$alertStore = promiseRejectionEvent.reason;
+	onMount(async () => {
+		window.addEventListener('unhandledrejection', function (promiseRejectionEvent) {
+			$alertStore = promiseRejectionEvent.reason;
+		});
 	});
 
 	const onMessageChange = (message: string, ms: number) => {
