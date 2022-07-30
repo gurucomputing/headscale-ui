@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
 	import { Device, PreAuthKey, Route, User } from '$lib/common/classes';
+	import { headscaleDeviceStore, alertStore, apiTestStore } from '$lib/common/stores.js'
 
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
@@ -101,7 +102,6 @@
 			});
 	}
 
-
 	export async function removeUser(currentUsername: string): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
@@ -163,10 +163,12 @@
 			});
 	}
 
-	export async function getDevices(sortKey: string, sortDirection: string): Promise<any> {
+	export async function getDevices() {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let sortKey = localStorage.getItem('headscaleDeviceSort');
+		let sortDirection = localStorage.getItem('headscaleDeviceSortDirection');
 
 		// endpoint url for getting users
 		let endpointURL = '/api/v1/machine';
@@ -193,17 +195,17 @@
 				}
 			})
 			.catch((error) => {
-				throw error;
+				apiTestStore.set(error);
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			if(sortDirection == 'ascending') {
-				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] < b[sortKey as keyof Device]) ? -1 : 1);
+			if (sortDirection == 'ascending') {
+				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] < b[sortKey as keyof Device] ? -1 : 1));
 			} else {
-				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] > b[sortKey as keyof Device]) ? -1 : 1);
+				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] > b[sortKey as keyof Device] ? -1 : 1));
 			}
 		});
-		return headscaleDevices;
+		headscaleDeviceStore.set(headscaleDevices)
 	}
 
 	export async function getDeviceRoutes(deviceID: string): Promise<Route> {
@@ -251,7 +253,7 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for getting users
-		let endpointURL = '/api/v1/machine/' + deviceID + '/routes?routes=' + route.replace('/','%2F');
+		let endpointURL = '/api/v1/machine/' + deviceID + '/routes?routes=' + route.replace('/', '%2F');
 
 		//returning variables
 		let headscaleDeviceResponse: Response = new Response();
@@ -412,9 +414,7 @@
 			});
 	}
 
-
 	export async function moveDevice(deviceID: string, user: string): Promise<any> {
-		
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -444,7 +444,6 @@
 	}
 
 	export async function renameDevice(deviceID: string, name: string): Promise<any> {
-		
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -472,7 +471,6 @@
 				throw error;
 			});
 	}
-
 
 	export async function removeDevice(deviceID: string): Promise<any> {
 		// variables in local storage

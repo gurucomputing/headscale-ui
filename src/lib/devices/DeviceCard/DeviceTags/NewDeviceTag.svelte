@@ -2,7 +2,7 @@
 	import { updateTags, getDevices } from '$lib/common/apiFunctions.svelte';
 	import { Device } from '$lib/common/classes';
 	import { fade } from 'svelte/transition';
-	import { headscaleDeviceStore, alertStore } from '$lib/common/stores.js';
+	import { headscaleDeviceStore, alertStore} from '$lib/common/stores.js';
 
 	let editingTag = false;
 	let newTag = '';
@@ -19,13 +19,7 @@
 				editingTag = false;
 				newTag = '';
 				// refresh devices after editing
-				getDevices()
-					.then((devices) => {
-						$headscaleDeviceStore = devices;
-					})
-					.catch((error) => {
-						$alertStore = error;
-					});
+				getDevices();
 			})
 			.catch((error) => {
 				$alertStore = error;

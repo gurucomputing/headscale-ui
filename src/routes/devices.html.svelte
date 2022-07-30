@@ -5,7 +5,7 @@
 	import SortDevices from '$lib/devices/SortDevices.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { apiTestStore, headscaleUserStore, headscaleDeviceStore, headscaleDeviceSortStore, headscaleDeviceSortDirectionStore } from '$lib/common/stores.js';
+	import { apiTestStore, headscaleUserStore, headscaleDeviceStore } from '$lib/common/stores.js';
 	import { getUsers, getDevices } from '$lib/common/apiFunctions.svelte';
 	import { base } from '$app/paths';
 
@@ -31,14 +31,7 @@
 				$apiTestStore = 'failed';
 			});
 		// attempt to pull list of devices
-		getDevices($headscaleDeviceSortStore, $headscaleDeviceSortDirectionStore)
-			.then((devices) => {
-				$headscaleDeviceStore = devices;
-				$apiTestStore = 'succeeded';
-			})
-			.catch(() => {
-				$apiTestStore = 'failed';
-			});
+		getDevices();
 		// load the page
 		componentLoaded = true;
 	});

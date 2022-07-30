@@ -12,13 +12,7 @@
 
 		updateTags(device.id, tagList).then((response) => {
 			// refresh devices after editing
-			getDevices()
-				.then((devices) => {
-					$headscaleDeviceStore = devices;
-				})
-				.catch((error) => {
-					$alertStore = error;
-				});
+			getDevices();
 		})
     .catch((error) => {
       $alertStore = error;

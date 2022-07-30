@@ -1,22 +1,14 @@
 <script lang="ts">
 	import { getDevices } from '$lib/common/apiFunctions.svelte';
-
-	import { headscaleDeviceStore, headscaleDeviceSortStore, headscaleDeviceSortDirectionStore, alertStore } from '$lib/common/stores';
+	import { headscaleDeviceStore, headscaleDeviceSortDirectionStore, alertStore } from '$lib/common/stores';
 
 	function sortAction() {
-		console.log('hi');
 		if ($headscaleDeviceSortDirectionStore == 'ascending') {
 			$headscaleDeviceSortDirectionStore = 'descending';
 		} else {
 			$headscaleDeviceSortDirectionStore = 'ascending';
 		}
-		getDevices($headscaleDeviceSortStore, $headscaleDeviceSortDirectionStore)
-			.then((devices) => {
-				$headscaleDeviceStore = devices;
-			})
-			.catch((error) => {
-				$alertStore = error;
-			});
+		getDevices();
 	}
 </script>
 
