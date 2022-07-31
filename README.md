@@ -24,6 +24,7 @@ services:
     restart: unless-stopped
   headscale-ui:
     image: ghcr.io/gurucomputing/headscale-ui:latest
+    restart: unless-stopped
     container_name: headscale-ui
     # ports:
       # - 9443:443
