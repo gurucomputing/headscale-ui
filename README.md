@@ -76,10 +76,10 @@ hs.yourdomain.com.au {
 ```
 
 ## Development
-see [development](/documentation/Development.md) for details
+see [development](/documentation/development.md) for details
 
 ### Style Guide
-see [style](/documentation/Style.md) for details
+see [style](/documentation/style.md) for details
 
 ## Architecture
-See [architecture](/documentation/Architecture.md) for details
+See [architecture](/documentation/architecture.md) for details
