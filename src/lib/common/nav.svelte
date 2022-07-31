@@ -40,7 +40,7 @@
 				<span class="indent-4 text-primary font-extrabold">Headscale</span>
 			</button>
 			<div />
-			<a href="{base}/" class="nav-item">
+			<a href="{base}/users.html" class="nav-item">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
 				</svg>

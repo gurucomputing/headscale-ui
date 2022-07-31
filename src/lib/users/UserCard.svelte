@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { fade, slide } from 'svelte/transition';
-	import EditUser from '$lib/index/UserCard/RenameUser.svelte';
-	import RemoveUser from '$lib/index/UserCard/RemoveUser.svelte';
-	import PreauthKeys from '$lib/index/UserCard/PreAuthKeys.svelte';
+	import EditUser from '$lib/users/UserCard/RenameUser.svelte';
+	import RemoveUser from '$lib/users/UserCard/RemoveUser.svelte';
+	import PreauthKeys from '$lib/users/UserCard/PreAuthKeys.svelte';
 	import { User } from '$lib/common/classes';
 
 	// function for refreshing users from parent
