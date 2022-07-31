@@ -2,11 +2,14 @@
 <script lang="ts">
 	import DeviceCard from '$lib/devices/DeviceCard.svelte';
 	import CreateDevice from '$lib/devices/CreateDevice.svelte';
+	import SortDevices from '$lib/devices/SortDevices.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { apiTestStore, headscaleUserStore, headscaleDeviceStore } from '$lib/common/stores.js';
+	import { apiTestStore, headscaleDeviceStore } from '$lib/common/stores.js';
 	import { getUsers, getDevices } from '$lib/common/apiFunctions.svelte';
 	import { base } from '$app/paths';
+
+	let newDeviceCardVisible = false;
 
 	//
 	// Component Variables
@@ -19,23 +22,9 @@
 	// Doing so also does not perform any actions until components are initialized
 	onMount(async () => {
 		// update user list
-		getUsers()
-			.then((users) => {
-				$headscaleUserStore = users;
-				$apiTestStore = 'succeeded';
-			})
-			.catch(() => {
-				$apiTestStore = 'failed';
-			});
+		getUsers();
 		// attempt to pull list of devices
-		getDevices()
-			.then((devices) => {
-				$headscaleDeviceStore = devices;
-				$apiTestStore = 'succeeded';
-			})
-			.catch(() => {
-				$apiTestStore = 'failed';
-			});
+		getDevices();
 		// load the page
 		componentLoaded = true;
 	});
@@ -43,19 +32,36 @@
 
 <!-- html -->
 {#if componentLoaded}
-	<div in:fade class="px-4 pt-4">
-		<h1 class="text-2xl bold text-primary">Device View</h1>
-	</div>
-	{#if $apiTestStore === 'succeeded'}
-		<!-- instantiate device based components -->
-		<CreateDevice />
-		{#each $headscaleDeviceStore as device}
-			<DeviceCard {device} />
-		{/each}
-	{/if}
-	{#if $apiTestStore === 'failed'}
-		<div in:fade class="max-w-lg  mx-auto p-4 border-4 text-sm text-base-content shadow-lg text-center">
-			<p>API test did not succeed.<br />Headscale might be down or API settings may need to be set<br />change server settings in the <a href="{base}/settings.html" class="link link-primary">settings</a> page</p>
+	<div in:fade>
+		<div in:fade class="px-4 pt-4">
+			<h1 class="text-2xl bold text-primary">Device View</h1>
 		</div>
-	{/if}
+		{#if $apiTestStore === 'succeeded'}
+			<!-- instantiate device based components -->
+			<table>
+				<tr
+					><td
+						><!-- device creation visibility button -->
+						<div class="p-4">
+							{#if newDeviceCardVisible == false}
+								<button on:click={() => (newDeviceCardVisible = true)} class="btn btn-primary btn-xs capitalize" type="button">+ New Device</button>
+							{:else}
+								<button on:click={() => (newDeviceCardVisible = false)} class="btn btn-secondary btn-xs capitalize" type="button">- Hide New Device</button>
+							{/if}
+						</div></td
+					><td><SortDevices /></td></tr
+				>
+			</table>
+
+			<CreateDevice bind:newDeviceCardVisible />
+			{#each $headscaleDeviceStore as device}
+				<DeviceCard {device} />
+			{/each}
+		{/if}
+		{#if $apiTestStore === 'failed'}
+			<div in:fade class="max-w-lg  mx-auto p-4 border-4 text-sm text-base-content shadow-lg text-center">
+				<p>API test did not succeed.<br />Headscale might be down or API settings may need to be set<br />change server settings in the <a href="{base}/settings.html" class="link link-primary">settings</a> page</p>
+			</div>
+		{/if}
+	</div>
 {/if}

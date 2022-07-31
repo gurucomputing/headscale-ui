@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade, slide } from 'svelte/transition';
 	import { getUsers, editUser } from '$lib/common/apiFunctions.svelte';
-	import { headscaleUserStore, alertStore } from '$lib/common/stores.js';
+	import { alertStore } from '$lib/common/stores.js';
 	import { User } from '$lib/common/classes';
 
 	let cardEditing = false;
@@ -20,13 +20,7 @@
 				.then((response) => {
 					cardEditing = false;
 					// refresh users after editing
-					getUsers()
-						.then((users) => {
-							$headscaleUserStore = users;
-						})
-						.catch((error) => {
-							$alertStore = error;
-						});
+					getUsers();
 				})
 				.catch((error) => {
 					$alertStore = error;

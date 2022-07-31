@@ -6,7 +6,7 @@
 	import { base } from '$app/paths';
 
 	// whether the new card html element is visible
-	let newDeviceCardVisible = false;
+	export let newDeviceCardVisible = false;
 	let newDeviceForm: HTMLFormElement;
 	let newDeviceKey = '';
 	let selectedUser = '';
@@ -21,13 +21,7 @@
 					newDeviceCardVisible = false;
 					newDeviceKey = '';
 					// refresh devices after editing
-					getDevices()
-						.then((devices) => {
-							$headscaleDeviceStore = devices;
-						})
-						.catch((error) => {
-							$alertStore = error;
-						});
+					getDevices();
 				})
 				.catch((error) => {
 					$alertStore = error;
@@ -39,14 +33,6 @@
 </script>
 
 <!-- html -->
-<!-- device creation visibility button -->
-<div in:fade class="p-4">
-	{#if newDeviceCardVisible == false}
-		<button on:click={() => (newDeviceCardVisible = true)} class="btn btn-primary btn-sm capitalize" type="button">+ New Device</button>
-	{:else}
-		<button on:click={() => (newDeviceCardVisible = false)} class="btn btn-secondary btn-sm capitalize" type="button">- Hide New Device</button>
-	{/if}
-</div>
 
 {#if newDeviceCardVisible == true}
 	<div in:fade out:fade={{ duration: newDeviceCardVisible ? 0 : 500 }} class="p-2 max-w-screen-lg border border-dashed border-base-content mx-4 rounded-md text-sm text-base-content shadow mb-10">
@@ -60,7 +46,7 @@
 			<div in:fade class="m-2">
 				<p>Install Tailscale with the client pointing to your domain (see <a target="_blank" class="link link-primary" href="https://github.com/juanfont/headscale/tree/main/docs">headscale client documentation</a>). Log in using the tray icon, and your browser should give you instructions with a key.</p>
 				<div class="m-2"><code>headscale -n NAMESPACE nodes register --key &lt;your device key&gt;</code></div>
-				<div class = "my-2"><p>Copy the key below:</p></div>
+				<div class="my-2"><p>Copy the key below:</p></div>
 				<form class="flex flex-wrap" bind:this={newDeviceForm} on:submit|preventDefault={newDeviceAction}>
 					<div class="flex-none mr-4">
 						<label class="block text-secondary text-sm font-bold mb-2" for="text">Device Key</label>

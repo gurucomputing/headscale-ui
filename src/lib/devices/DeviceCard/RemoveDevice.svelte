@@ -12,13 +12,7 @@
 			.then((response) => {
 				cardDeleting = false;
 				// refresh Devices after editing
-				getDevices()
-					.then((Devices) => {
-						$headscaleDeviceStore = Devices;
-					})
-					.catch((error) => {
-						$alertStore = error;
-					});
+				getDevices();
 			})
 			.catch((error) => {
 				$alertStore = error;

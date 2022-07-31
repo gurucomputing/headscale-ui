@@ -15,3 +15,8 @@ export const preAuthHideStore = writable(false);
 // stores user and device data
 export const headscaleUserStore = writable([new User()]);
 export const headscaleDeviceStore = writable([new Device()]);
+// stores sorting preferences
+export const headscaleDeviceSortStore = writable('id');
+export const headscaleDeviceSortDirectionStore = writable('ascending');
+export const headscaleUserSortStore = writable('id');
+export const headscaleUserSortDirectionStore = writable('ascending');

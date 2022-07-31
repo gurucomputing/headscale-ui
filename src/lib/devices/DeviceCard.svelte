@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Device } from '$lib/common/classes';
-	import { fade, slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 	import DeviceRoutes from './DeviceCard/DeviceRoutes.svelte';
-import DeviceTags from './DeviceCard/DeviceTags.svelte';
+	import DeviceTags from './DeviceCard/DeviceTags.svelte';
 	import MoveDevice from './DeviceCard/MoveDevice.svelte';
 	import RemoveDevice from './DeviceCard/RemoveDevice.svelte';
 	import RenameDevice from './DeviceCard/RenameDevice.svelte';
@@ -12,17 +12,15 @@ import DeviceTags from './DeviceCard/DeviceTags.svelte';
 	let cardEditing = false;
 </script>
 
-<div in:fade class="card-primary">
+<div class="card-primary">
 	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex">
-		<span class="font-bold w-full">
+		<span class="min-w-64 w-1/2 font-bold">
 			{#if cardEditing == false}
 				{device.id}: {device.givenName}
 			{/if}
 			<RenameDevice bind:cardEditing {device} />
-			<DeviceTags {device}></DeviceTags>
-			
-			</span
-		>
+		</span>
+		<div class="grow w-full"><DeviceTags {device} /></div>
 		<div class="grow min-w-fit">
 			<RemoveDevice {device} />
 			<button type="button">

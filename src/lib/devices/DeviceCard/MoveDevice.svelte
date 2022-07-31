@@ -1,7 +1,7 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import { Device } from '$lib/common/classes';
-	import { headscaleUserStore, headscaleDeviceStore, alertStore } from '$lib/common/stores';
+	import { headscaleUserStore, alertStore } from '$lib/common/stores';
 	import { moveDevice, getDevices } from '$lib/common/apiFunctions.svelte';
 
 	export let device = new Device();
@@ -13,13 +13,7 @@
 			.then((response) => {
 				deviceMoving = false;
 				// refresh devices after editing
-				getDevices()
-					.then((devices) => {
-						$headscaleDeviceStore = devices;
-					})
-					.catch((error) => {
-						$alertStore = error;
-					});
+				getDevices();
 			})
 			.catch((error) => {
 				$alertStore = error;

@@ -2,6 +2,10 @@
 
 Development can be done either by using the official development docker image, or via a normal nodejs installation.
 
+## Testing
+
+All branches should undergo manual testing as specified in the [System Integration Testing](./system-integration-testing.md) document. If someone is well versed in unit automation tests for browser front ends, please educate me! For now do it manually before making a pull request.
+
 ### Quick Start (Docker)
 * `docker run -p 443:443 -p 3000:3000 -v "$(pwd)"/data:/data ghcr.io/gurucomputing/headscale-ui-dev:latest`
 
