@@ -6,7 +6,7 @@
 	// name for user creation
 	let newUserName = '';
 	// whether the new card html element is visible
-	let newUserCardVisible = false;
+	export let newUserCardVisible = false;
 	// The Form used for validating input
 	let newUserForm: HTMLFormElement;
 
@@ -29,13 +29,6 @@
 </script>
 
 <!-- html -->
-<div in:fade class="p-4">
-{#if newUserCardVisible == false}
-	<button on:click={() => (newUserCardVisible = true)} class="btn btn-primary btn-sm capitalize" type="button">+ New User</button>
-{:else}
-	<button on:click={() => (newUserCardVisible = false)} class="btn btn-secondary btn-sm capitalize" type="button">- Hide New User</button>
-{/if}
-</div>
 {#if newUserCardVisible}
 	<div in:fade out:fade={{ duration: newUserCardVisible ? 0 : 500 }} class="card-pending">
 		<form on:submit|preventDefault={newUserAction} class="relative" bind:this={newUserForm}>

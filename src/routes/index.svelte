@@ -1,16 +1,19 @@
 <!-- typescript -->
 <script lang="ts">
-	import CreateUser from '$lib/index/CreateUser.svelte';
-	import UserCard from '$lib/index/UserCard.svelte';
-	import { headscaleUserStore, apiTestStore } from '$lib/common/stores';
-	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import { fade } from 'svelte/transition';
 	import { getUsers } from '$lib/common/apiFunctions.svelte';
-	import { base } from '$app/paths';
+	import { headscaleUserStore, apiTestStore } from '$lib/common/stores';
+	import { onMount } from 'svelte';
+	import CreateUser from '$lib/index/CreateUser.svelte';
+	import SortUsers from '$lib/index/SortUsers.svelte';
+	import UserCard from '$lib/index/UserCard.svelte';
 
 	//
 	// Component Variables
 	//
+	// whether the new card html element is visible
+	let newUserCardVisible = false;
 
 	// let's the page know if it's ready to load
 	let componentLoaded = false;
@@ -32,7 +35,21 @@
 	</div>
 	{#if $apiTestStore === 'succeeded'}
 		<!-- instantiate user based components -->
-		<CreateUser />
+		<table>
+			<tr
+				><td
+					><!-- device creation visibility button -->
+					<div class="p-4">
+						{#if newUserCardVisible == false}
+							<button on:click={() => (newUserCardVisible = true)} class="btn btn-primary btn-xs capitalize" type="button">+ New User</button>
+						{:else}
+							<button on:click={() => (newUserCardVisible = false)} class="btn btn-secondary btn-xs capitalize" type="button">- Hide New User</button>
+						{/if}
+					</div></td
+				><td><SortUsers /></td></tr
+			>
+		</table>
+		<CreateUser bind:newUserCardVisible />
 		{#each $headscaleUserStore as user}
 			<UserCard {user} />
 		{/each}
