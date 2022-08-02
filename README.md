@@ -32,6 +32,12 @@ services:
 
 Headscale UI serves on port 443 and uses a self signed cert by default.
 
+### Additional Docker Settings
+The docker container lets you set the following settings:
+| Variable | Description | Example |
+|----|----|----|
+| PORT | Sets the port to an alternate value | `443` |
+
 ### Proxy Settings
 You will need a reverse proxy to install `headscale-ui` on your domain. Here is an example [Caddy Config](https://caddyserver.com/) to achieve this:
 ```
