@@ -15,7 +15,7 @@ fi
 # replace port in Caddyfile if set
 if [ "$PORT" != "443" ]
 then
-  sed -i "s/:443/$PORT/g" /data/Caddyfile
+  sed -i "s/:443/:$PORT/g" /data/Caddyfile
 fi
 
 echo "Starting Caddy"
