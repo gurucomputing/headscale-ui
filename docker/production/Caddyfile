@@ -1,13 +1,13 @@
 {
-  skip_install_trust
+	skip_install_trust
 }
 https://0.0.0.0:443 {
-  redir / /web
-  uri strip_prefix /web
-  tls internal {
-    on_demand
-  }
-  file_server {
-    root /web
-  }
+	redir / /web
+	uri strip_prefix /web
+	tls internal {
+		on_demand
+	}
+	file_server {
+		root /web
+	}
 }
