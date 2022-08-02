@@ -16,8 +16,10 @@ export const preAuthHideStore = writable(false);
 export const userStore = writable([new User()]);
 export const userFilterStore = writable([new User()]);
 export const deviceStore = writable([new Device()]);
+export const deviceFilterStore = writable([new Device()]);
 // stores search state
 export const userSearchStore = writable('');
+export const deviceSearchStore = writable('');
 // stores sorting preferences
 export const deviceSortStore = writable('id');
 export const deviceSortDirectionStore = writable('ascending');

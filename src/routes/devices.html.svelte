@@ -1,13 +1,14 @@
 <!-- typescript -->
 <script lang="ts">
-	import DeviceCard from '$lib/devices/DeviceCard.svelte';
+	import { base } from '$app/paths';
+	import { getDevices, getUsers } from '$lib/common/apiFunctions.svelte';
+	import { apiTestStore, deviceFilterStore, deviceStore } from '$lib/common/stores.js';
 	import CreateDevice from '$lib/devices/CreateDevice.svelte';
+	import DeviceCard from '$lib/devices/DeviceCard.svelte';
+	import SearchDevices from '$lib/devices/SearchDevices.svelte';
 	import SortDevices from '$lib/devices/SortDevices.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { apiTestStore, deviceStore } from '$lib/common/stores.js';
-	import { getUsers, getDevices } from '$lib/common/apiFunctions.svelte';
-	import { base } from '$app/paths';
 
 	let newDeviceCardVisible = false;
 
@@ -49,13 +50,16 @@
 								<button on:click={() => (newDeviceCardVisible = false)} class="btn btn-secondary btn-xs capitalize" type="button">- Hide New Device</button>
 							{/if}
 						</div></td
-					><td><SortDevices /></td></tr
+					><td><SortDevices /></td><td><SearchDevices /></td></tr
 				>
 			</table>
 
 			<CreateDevice bind:newDeviceCardVisible />
+
 			{#each $deviceStore as device}
-				<DeviceCard {device} />
+				{#if $deviceFilterStore.includes(device)}
+					<DeviceCard {device} />
+				{/if}
 			{/each}
 		{/if}
 		{#if $apiTestStore === 'failed'}
