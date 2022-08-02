@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { getDevices } from '$lib/common/apiFunctions.svelte';
-	import { headscaleDeviceSortDirectionStore, headscaleDeviceSortStore } from '$lib/common/stores.js';
+	import { deviceSortDirectionStore, deviceSortStore } from '$lib/common/stores.js';
 
 	function sortAction() {
-		if ($headscaleDeviceSortDirectionStore == 'ascending') {
-			$headscaleDeviceSortDirectionStore = 'descending';
+		if ($deviceSortDirectionStore == 'ascending') {
+			$deviceSortDirectionStore = 'descending';
 		} else {
-			$headscaleDeviceSortDirectionStore = 'ascending';
+			$deviceSortDirectionStore = 'ascending';
 		}
 		getDevices();
 	}
@@ -19,7 +19,7 @@
 		}}
 		class="mx-1"
 	>
-		{#if $headscaleDeviceSortDirectionStore == 'ascending'}
+		{#if $deviceSortDirectionStore == 'ascending'}
 			<!-- ascending sort icon -->
 
 			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -34,8 +34,8 @@
 	</button>
 
 	<span class="btn-group">
-		<button class:btn-active="{$headscaleDeviceSortStore == 'id'}" on:click="{() => {$headscaleDeviceSortStore = 'id'; getDevices()}}" class="btn btn-xs">ID</button>
-		<button class:btn-active="{$headscaleDeviceSortStore == 'givenName'}" on:click="{() => {$headscaleDeviceSortStore = 'givenName'; getDevices()}}" class="btn btn-xs capitalize">Device Name</button>
-		<button class:btn-active="{$headscaleDeviceSortStore == 'lastSeen'}" on:click="{() => {$headscaleDeviceSortStore = 'lastSeen'; getDevices()}}" class="btn btn-xs capitalize">Last Seen</button>
+		<button class:btn-active="{$deviceSortStore == 'id'}" on:click="{() => {$deviceSortStore = 'id'; getDevices()}}" class="btn btn-xs">ID</button>
+		<button class:btn-active="{$deviceSortStore == 'givenName'}" on:click="{() => {$deviceSortStore = 'givenName'; getDevices()}}" class="btn btn-xs capitalize">Device Name</button>
+		<button class:btn-active="{$deviceSortStore == 'lastSeen'}" on:click="{() => {$deviceSortStore = 'lastSeen'; getDevices()}}" class="btn btn-xs capitalize">Last Seen</button>
 	</span>
 </span>

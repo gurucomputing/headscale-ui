@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { headscaleURLStore } from '$lib/common/stores.js';
-	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
+	import { URLStore } from '$lib/common/stores.js';
+	import { APIKeyStore } from '$lib/common/stores.js';
 	import { getUsers } from '$lib/common/apiFunctions.svelte';
 
 	// Server Settings
-	let headscaleURL = $headscaleURLStore;
-	let headscaleAPIKey = $headscaleAPIKeyStore;
+	let headscaleURL = $URLStore;
+	let headscaleAPIKey = $APIKeyStore;
 	let serverSettingsForm: HTMLFormElement;
 	let apiStatus = 'untested';
 
@@ -22,16 +22,16 @@
 
 	function SaveServerSettings(): void {
 		if (serverSettingsForm.reportValidity()) {
-			$headscaleURLStore = headscaleURL;
-			$headscaleAPIKeyStore = headscaleAPIKey;
+			$URLStore = headscaleURL;
+			$APIKeyStore = headscaleAPIKey;
 		}
 	}
 
 	function ClearServerSettings() {
 		headscaleURL = '';
 		headscaleAPIKey = '';
-		$headscaleURLStore = headscaleURL;
-		$headscaleAPIKeyStore = headscaleAPIKey;
+		$URLStore = headscaleURL;
+		$APIKeyStore = headscaleAPIKey;
 	}
 </script>
 
@@ -45,7 +45,7 @@
 	<p class="text-xs text-base-content text-italics mb-8">Generate an API key for your headscale instance and place it here.</p>
 	<!-- disable the SaveServerSettings button if nothing has changed from stored values, or the dependent inputs do not validate -->
 	<div class="tooltip z-10" data-tip="Note: API Key and URL currently save to localStorage (IE: Your Browser) Make sure you are using a trusted computer">
-		<button disabled={headscaleAPIKey === $headscaleAPIKeyStore && headscaleURL === $headscaleURLStore} on:click={() => SaveServerSettings()} class="btn btn-sm btn-accent capitalize" type="button">Save Server Settings</button>
+		<button disabled={headscaleAPIKey === $APIKeyStore && headscaleURL === $URLStore} on:click={() => SaveServerSettings()} class="btn btn-sm btn-accent capitalize" type="button">Save Server Settings</button>
 	</div>
 	<button on:click={() => ClearServerSettings()} class="btn btn-sm btn-primary capitalize" type="button">Clear Server Settings</button>
 	<button on:click={() => TestServerSettings()} class="btn btn-sm btn-secondary capitalize" type="button">Test Server Settings</button>

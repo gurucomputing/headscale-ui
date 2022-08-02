@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 	import { Device, PreAuthKey, Route, User } from '$lib/common/classes';
-	import { headscaleDeviceStore, headscaleUserStore, apiTestStore } from '$lib/common/stores.js'
+	import { deviceStore, userStore, apiTestStore } from '$lib/common/stores.js'
 
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
@@ -48,7 +48,7 @@
 		});
 		// Set the store
 		apiTestStore.set('succeeded');
-		headscaleUserStore.set(headscaleUsers);
+		userStore.set(headscaleUsers);
 	}
 
 	export async function editUser(currentUsername: string, newUsername: string): Promise<any> {
@@ -220,7 +220,7 @@
 		});
 		// set the stores
 		apiTestStore.set('succeeded');
-		headscaleDeviceStore.set(headscaleDevices);
+		deviceStore.set(headscaleDevices);
 	}
 
 	export async function getDeviceRoutes(deviceID: string): Promise<Route> {

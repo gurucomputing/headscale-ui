@@ -5,7 +5,7 @@
 	import SortDevices from '$lib/devices/SortDevices.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { apiTestStore, headscaleDeviceStore } from '$lib/common/stores.js';
+	import { apiTestStore, deviceStore } from '$lib/common/stores.js';
 	import { getUsers, getDevices } from '$lib/common/apiFunctions.svelte';
 	import { base } from '$app/paths';
 
@@ -54,7 +54,7 @@
 			</table>
 
 			<CreateDevice bind:newDeviceCardVisible />
-			{#each $headscaleDeviceStore as device}
+			{#each $deviceStore as device}
 				<DeviceCard {device} />
 			{/each}
 		{/if}
