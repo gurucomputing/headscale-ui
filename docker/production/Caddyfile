@@ -1,6 +1,6 @@
 {
 	skip_install_trust
-  https_port 443
+	https_port 443
 }
 :443 {
 	redir / /web
