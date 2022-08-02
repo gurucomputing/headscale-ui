@@ -21,3 +21,4 @@ Dependencies are kept to a minimum and kept to large, actively maintained reposi
 * [DaisyUI](https://daisyui.com/) - CSS Theme and Components
 * [Typescript](https://www.typescriptlang.org/) - for static type checking
 * [Prettier](https://prettier.io/) - for Code Formatting
+* [Fuse.js](https://fusejs.io/) - for intelligent searching
