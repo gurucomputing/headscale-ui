@@ -4,6 +4,7 @@
 	import RemoveUser from '$lib/users/UserCard/RemoveUser.svelte';
 	import PreauthKeys from '$lib/users/UserCard/PreAuthKeys.svelte';
 	import { User } from '$lib/common/classes';
+	import { userStore } from '$lib/common/stores';
 
 	// function for refreshing users from parent
 	export let user = new User();
@@ -41,7 +42,9 @@
 							<th>User Creation Date</th>
 							<td>{new Date(user.createdAt)}</td>
 						</tr>
-						<PreauthKeys {user}></PreauthKeys>
+						{#key $userStore}
+							<PreauthKeys {user} />
+						{/key}
 					</tbody>
 				</table>
 			</div>
