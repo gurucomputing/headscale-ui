@@ -1,7 +1,7 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import { Device } from '$lib/common/classes';
-	import { headscaleUserStore, alertStore } from '$lib/common/stores';
+	import { userStore, alertStore } from '$lib/common/stores';
 	import { moveDevice, getDevices } from '$lib/common/apiFunctions.svelte';
 
 	export let device = new Device();
@@ -38,7 +38,7 @@
 	{:else}
 		<form on:submit|preventDefault={moveDeviceAction}>
 			<select class="card-select mr-3" required bind:value={selectedUser}>
-				{#each $headscaleUserStore as user}
+				{#each $userStore as user}
 					<option>{user.name}</option>
 				{/each}
 			</select>

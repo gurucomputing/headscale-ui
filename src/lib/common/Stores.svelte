@@ -1,32 +1,32 @@
 <script>
 	import { onMount } from 'svelte';
-	import { headscaleDeviceSortStore, headscaleDeviceSortDirectionStore, headscaleUserSortStore, headscaleUserSortDirectionStore, headscaleThemeStore } from '$lib/common/stores.js';
-	import { headscaleURLStore } from '$lib/common/stores.js';
-	import { headscaleAPIKeyStore } from '$lib/common/stores.js';
+	import { deviceSortStore, deviceSortDirectionStore, userSortStore, sortDirectionStore, themeStore } from '$lib/common/stores.js';
+	import { URLStore } from '$lib/common/stores.js';
+	import { APIKeyStore } from '$lib/common/stores.js';
 	import { preAuthHideStore } from '$lib/common/stores.js';
 
 	onMount(async () => {
 		// stores headscale theme
-		headscaleThemeStore.set(localStorage.getItem('headscaleTheme') || 'hsui');
-		headscaleThemeStore.subscribe((val) => localStorage.setItem('headscaleTheme', val));
+		themeStore.set(localStorage.getItem('headscaleTheme') || 'hsui');
+		themeStore.subscribe((val) => localStorage.setItem('headscaleTheme', val));
 
 		// stores device sort preferences
-		headscaleDeviceSortStore.set(localStorage.getItem('headscaleDeviceSort') || 'id');
-		headscaleDeviceSortStore.subscribe((val) => localStorage.setItem('headscaleDeviceSort', val));
-		headscaleDeviceSortDirectionStore.set(localStorage.getItem('headscaleDeviceSortDirection') || 'ascending');
-		headscaleDeviceSortDirectionStore.subscribe((val) => localStorage.setItem('headscaleDeviceSortDirection', val));
+		deviceSortStore.set(localStorage.getItem('headscaleDeviceSort') || 'id');
+		deviceSortStore.subscribe((val) => localStorage.setItem('headscaleDeviceSort', val));
+		deviceSortDirectionStore.set(localStorage.getItem('headscaleDeviceSortDirection') || 'ascending');
+		deviceSortDirectionStore.subscribe((val) => localStorage.setItem('headscaleDeviceSortDirection', val));
 
 		// stores user sort preferences
-		headscaleUserSortStore.set(localStorage.getItem('headscaleUserSort') || 'id');
-		headscaleUserSortStore.subscribe((val) => localStorage.setItem('headscaleUserSort', val));
-		headscaleUserSortDirectionStore.set(localStorage.getItem('headscaleUserSortDirection') || 'ascending');
-		headscaleUserSortDirectionStore.subscribe((val) => localStorage.setItem('headscaleUserSortDirection', val));
+		userSortStore.set(localStorage.getItem('headscaleUserSort') || 'id');
+		userSortStore.subscribe((val) => localStorage.setItem('headscaleUserSort', val));
+		sortDirectionStore.set(localStorage.getItem('headscaleUserSortDirection') || 'ascending');
+		sortDirectionStore.subscribe((val) => localStorage.setItem('headscaleUserSortDirection', val));
 
 		// stores URL and API key
-		headscaleURLStore.set(localStorage.getItem('headscaleURL') || '');
-		headscaleURLStore.subscribe((val) => localStorage.setItem('headscaleURL', val));
-		headscaleAPIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
-		headscaleAPIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));
+		URLStore.set(localStorage.getItem('headscaleURL') || '');
+		URLStore.subscribe((val) => localStorage.setItem('headscaleURL', val));
+		APIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
+		APIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));
 
 		// stores whether preauthkeys get hidden when expired/used
 		preAuthHideStore.set((localStorage.getItem('headscalePreAuthHide') || 'false') == 'true');

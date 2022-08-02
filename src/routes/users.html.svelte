@@ -1,13 +1,14 @@
 <!-- typescript -->
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { fade } from 'svelte/transition';
 	import { getUsers } from '$lib/common/apiFunctions.svelte';
-	import { headscaleUserStore, apiTestStore } from '$lib/common/stores';
-	import { onMount } from 'svelte';
+	import { apiTestStore, userFilterStore, userStore } from '$lib/common/stores';
 	import CreateUser from '$lib/users/CreateUser.svelte';
+	import SearchUsers from '$lib/users/SearchUsers.svelte';
 	import SortUsers from '$lib/users/SortUsers.svelte';
 	import UserCard from '$lib/users/UserCard.svelte';
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	//
 	// Component Variables
@@ -30,33 +31,37 @@
 
 <!-- html -->
 {#if componentLoaded}
-	<div in:fade class="px-4 pt-4">
-		<h1 class="text-2xl bold text-primary">User View</h1>
-	</div>
-	{#if $apiTestStore === 'succeeded'}
-		<!-- instantiate user based components -->
-		<table>
-			<tr
-				><td
-					><!-- device creation visibility button -->
-					<div class="p-4">
-						{#if newUserCardVisible == false}
-							<button on:click={() => (newUserCardVisible = true)} class="btn btn-primary btn-xs capitalize" type="button">+ New User</button>
-						{:else}
-							<button on:click={() => (newUserCardVisible = false)} class="btn btn-secondary btn-xs capitalize" type="button">- Hide New User</button>
-						{/if}
-					</div></td
-				><td><SortUsers /></td></tr
-			>
-		</table>
-		<CreateUser bind:newUserCardVisible />
-		{#each $headscaleUserStore as user}
-			<UserCard {user} />
-		{/each}
-	{/if}
-	{#if $apiTestStore === 'failed'}
-		<div in:fade class="max-w-lg  mx-auto p-4 border-4 text-sm text-base-content shadow-lg text-center">
-			<p>API test did not succeed.<br />Headscale might be down or API settings may need to be set<br />change server settings in the <a href="{base}/settings.html" class="link link-primary">settings</a> page</p>
+	<div in:fade>
+		<div class="px-4 pt-4">
+			<h1 class="text-2xl bold text-primary">User View</h1>
 		</div>
-	{/if}
+		{#if $apiTestStore === 'succeeded'}
+			<!-- instantiate user based components -->
+			<table>
+				<tr
+					><td
+						><!-- device creation visibility button -->
+						<div class="p-4">
+							{#if newUserCardVisible == false}
+								<button on:click={() => (newUserCardVisible = true)} class="btn btn-primary btn-xs capitalize" type="button">+ New User</button>
+							{:else}
+								<button on:click={() => (newUserCardVisible = false)} class="btn btn-secondary btn-xs capitalize" type="button">- Hide New User</button>
+							{/if}
+						</div></td
+					><td><SortUsers /></td><td><SearchUsers /></td></tr
+				>
+			</table>
+			<CreateUser bind:newUserCardVisible />
+			{#each $userStore as user}
+			{#if $userFilterStore.includes(user)}
+				<UserCard {user} />
+			{/if}
+			{/each}
+		{/if}
+		{#if $apiTestStore === 'failed'}
+			<div in:fade class="max-w-lg  mx-auto p-4 border-4 text-sm text-base-content shadow-lg text-center">
+				<p>API test did not succeed.<br />Headscale might be down or API settings may need to be set<br />change server settings in the <a href="{base}/settings.html" class="link link-primary">settings</a> page</p>
+			</div>
+		{/if}
+	</div>
 {/if}

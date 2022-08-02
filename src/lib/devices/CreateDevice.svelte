@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { headscaleUserStore, headscaleDeviceStore } from '$lib/common/stores';
+	import { userStore, deviceStore } from '$lib/common/stores';
 	import { getDevices, newDevice } from '$lib/common/apiFunctions.svelte';
 	import { alertStore } from '$lib/common/stores.js';
 	import { base } from '$app/paths';
@@ -55,7 +55,7 @@
 					<div class="flex-none">
 						<label class="block text-secondary text-sm font-bold mb-2" for="select">Select User</label>
 						<select class="card-select mr-3" required bind:value={selectedUser}>
-							{#each $headscaleUserStore as user}
+							{#each $userStore as user}
 								<option>{user.name}</option>
 							{/each}
 						</select>

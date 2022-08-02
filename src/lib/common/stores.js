@@ -6,17 +6,22 @@ export const alertStore = writable('');
 // used to determine if the API is functioning
 export const apiTestStore = writable('');
 // stores the theme
-export const headscaleThemeStore = writable('');
+export const themeStore = writable('');
 // stores URL and API Key
-export const headscaleURLStore = writable('');
-export const headscaleAPIKeyStore = writable('');
+export const URLStore = writable('');
+export const APIKeyStore = writable('');
 // stores preauth key preference
 export const preAuthHideStore = writable(false);
 // stores user and device data
-export const headscaleUserStore = writable([new User()]);
-export const headscaleDeviceStore = writable([new Device()]);
+export const userStore = writable([new User()]);
+export const userFilterStore = writable([new User()]);
+export const deviceStore = writable([new Device()]);
+export const deviceFilterStore = writable([new Device()]);
+// stores search state
+export const userSearchStore = writable('');
+export const deviceSearchStore = writable('');
 // stores sorting preferences
-export const headscaleDeviceSortStore = writable('id');
-export const headscaleDeviceSortDirectionStore = writable('ascending');
-export const headscaleUserSortStore = writable('id');
-export const headscaleUserSortDirectionStore = writable('ascending');
+export const deviceSortStore = writable('id');
+export const deviceSortDirectionStore = writable('ascending');
+export const userSortStore = writable('id');
+export const sortDirectionStore = writable('ascending');

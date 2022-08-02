@@ -3,13 +3,13 @@
 	import Nav from '$lib/common/nav.svelte';
 	import Alert from '$lib/common/Alert.svelte';
 	import Stores from '$lib/common/Stores.svelte';
-	import { headscaleThemeStore } from '$lib/common/stores.js'
+	import { themeStore } from '$lib/common/stores.js'
 	
 
 	// NOTE: the element that is using one of the theme attributes must be in the DOM on mount
 </script>
 
-<main data-theme={$headscaleThemeStore} class="flex flex-col">
+<main data-theme={$themeStore} class="flex flex-col">
 	<!-- initialize localStorage -->
 	<Stores></Stores>
 	<div class="flex h-screen">
