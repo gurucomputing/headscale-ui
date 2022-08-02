@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
 	import { Device, PreAuthKey, Route, User } from '$lib/common/classes';
-	import { deviceStore, userStore, apiTestStore } from '$lib/common/stores.js'
+	import { deviceStore, userStore, apiTestStore } from '$lib/common/stores.js';
+	import { filterUsers } from './commonFunctions.svelte';
 
 	export async function getUsers(): Promise<any> {
 		// variables in local storage
@@ -49,6 +50,8 @@
 		// Set the store
 		apiTestStore.set('succeeded');
 		userStore.set(headscaleUsers);
+		// Filter the store
+		filterUsers();
 	}
 
 	export async function editUser(currentUsername: string, newUsername: string): Promise<any> {

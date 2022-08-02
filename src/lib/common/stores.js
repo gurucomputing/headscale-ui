@@ -14,6 +14,7 @@ export const APIKeyStore = writable('');
 export const preAuthHideStore = writable(false);
 // stores user and device data
 export const userStore = writable([new User()]);
+export const userFilterStore = writable([new User()]);
 export const deviceStore = writable([new Device()]);
 // stores search state
 export const userSearchStore = writable('');

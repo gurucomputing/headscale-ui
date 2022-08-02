@@ -1,14 +1,17 @@
 <script lang="ts">
+	import { filterUsers } from '$lib/common/commonFunctions.svelte';
 	import { userSearchStore } from '$lib/common/stores';
 
 	export let overrideSort = false;
 
-  userSearchStore.subscribe(value => {
-		if(value != '') {
-      overrideSort = true;
-    } else {
-      overrideSort = false;
-    }
+	// called when search changes
+	userSearchStore.subscribe((value) => {
+		if (value != '') {
+			overrideSort = true;
+		} else {
+			overrideSort = false;
+		}
+		filterUsers();
 	});
 </script>
 

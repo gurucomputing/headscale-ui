@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { getUsers } from '$lib/common/apiFunctions.svelte';
-	import { apiTestStore, userStore } from '$lib/common/stores';
+	import { apiTestStore, userFilterStore } from '$lib/common/stores';
 	import CreateUser from '$lib/users/CreateUser.svelte';
 	import SearchUsers from '$lib/users/SearchUsers.svelte';
 	import SortUsers from '$lib/users/SortUsers.svelte';
@@ -52,7 +52,7 @@
 				>
 			</table>
 			<CreateUser bind:newUserCardVisible />
-			{#each $userStore as user}
+			{#each $userFilterStore as user}
 				<UserCard {user} />
 			{/each}
 		{/if}
