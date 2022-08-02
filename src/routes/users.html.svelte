@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { getUsers } from '$lib/common/apiFunctions.svelte';
-	import { apiTestStore, userFilterStore } from '$lib/common/stores';
+	import { apiTestStore, userFilterStore, userStore } from '$lib/common/stores';
 	import CreateUser from '$lib/users/CreateUser.svelte';
 	import SearchUsers from '$lib/users/SearchUsers.svelte';
 	import SortUsers from '$lib/users/SortUsers.svelte';
@@ -52,8 +52,10 @@
 				>
 			</table>
 			<CreateUser bind:newUserCardVisible />
-			{#each $userFilterStore as user}
+			{#each $userStore as user}
+			{#if $userFilterStore.includes(user)}
 				<UserCard {user} />
+			{/if}
 			{/each}
 		{/if}
 		{#if $apiTestStore === 'failed'}
