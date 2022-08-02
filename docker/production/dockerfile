@@ -30,6 +30,8 @@ FROM alpine:latest
 ENV PROJECT_NAME="headscale-ui"
 # URL for the github/git location
 ENV PROJECT_URL="https://github.com/gurucomputing/headscale-ui"
+# Port that caddy will run on
+ENV PORT="443"
 
 # Production Web Server port. Runs a self signed SSL certificate
 EXPOSE 443
