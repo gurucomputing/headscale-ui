@@ -28,3 +28,6 @@ Eventually it would be nice to automate this, but I've found a front end is diff
 
 ## Settings Test
 * Verify version comes across once released
+
+## Docker Test
+* Verify setting a custom PORT environment variable does not break the image
