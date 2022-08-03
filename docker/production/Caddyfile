@@ -1,5 +1,6 @@
 {
 	skip_install_trust
+	http_port 8080
 	https_port 443
 }
 :443 {
