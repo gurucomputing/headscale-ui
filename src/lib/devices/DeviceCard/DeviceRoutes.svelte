@@ -22,7 +22,17 @@
 	}
 
   function enableDeviceRouteAction(route: string) {
-    enableDeviceRoute(device.id, route)
+    enableDeviceRoute(device.id, [route,...routesList.enabledRoutes])
+			.then((response) => {
+				getDeviceRoutesAction();
+			})
+			.catch((error) => {
+				$alertStore = error;
+			});
+  }
+
+  function disableDeviceRouteAction(route: string) {
+    enableDeviceRoute(device.id, [...routesList.enabledRoutes].filter(v=>v!=route))
 			.then((response) => {
 				getDeviceRoutesAction();
 			})
@@ -39,7 +49,7 @@
 			<li>
 				{route}
 				{#if routesList.enabledRoutes.includes(route)}
-					<div class="btn btn-xs capitalize bg-success text-success-content mx-1">active</div>
+					<button on:click={() => {disableDeviceRouteAction(route)}} type="button" class="btn btn-xs capitalize bg-success text-success-content mx-1" data-tip="press to disable route">active</button>
 				{:else}
 					<button on:click={() => {enableDeviceRouteAction(route)}} type="button" class="btn btn-xs tooltip capitalize bg-secondary text-secondary-content mx-1" data-tip="press to enable route">pending</button>
 				{/if}

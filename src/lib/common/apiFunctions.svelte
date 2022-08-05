@@ -267,13 +267,13 @@
 		return headscaleRoute;
 	}
 
-	export async function enableDeviceRoute(deviceID: string, route: string): Promise<any> {
+	export async function enableDeviceRoute(deviceID: string, routes: string[]): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for getting users
-		let endpointURL = '/api/v1/machine/' + deviceID + '/routes?routes=' + route.replace('/', '%2F');
+		let endpointURL = '/api/v1/machine/' + deviceID + '/routes?' + routes.map(encodeURIComponent).map(route=>`routes=${route}`).join('&');
 
 		//returning variables
 		let headscaleDeviceResponse: Response = new Response();
