@@ -1,0 +1,41 @@
+services:
+  headscale-test-backend:
+    image: headscale/headscale:latest-alpine
+    container_name: headscale-test-backend
+    security_opt:
+      - label:disable
+    volumes:
+      - ./container-config:/etc/headscale
+      # - ./container-data/data:/var/lib/headscale
+    entrypoint: | 
+      sh -c "mkdir -p /var/lib/headscale;
+      touch /var/lib/headscale/db.sqlite;
+      wget -O /etc/headscale/config.yaml https://raw.githubusercontent.com/juanfont/headscale/main/config-example.yaml
+      sed -i 's|http://127.0.0.1:8080|https://headscale-test.local|g' /etc/headscale/config.yaml;
+      headscale serve"
+    restart: unless-stopped
+    networks:
+      headscale-ui-test-network:
+
+  headscale-test-frontend:
+    image: ghcr.io/gurucomputing/headscale-ui:latest
+    container_name: headscale-test-frontend
+    restart: unless-stopped
+    networks:
+      headscale-ui-test-network:
+
+  headscale-test-proxy:
+    image: headscale-test-proxy:latest
+    build: .
+    container_name: headscale-test-proxy
+    ports:
+      - 8080:80
+    restart: unless-stopped
+    networks:
+      headscale-ui-test-network:
+        aliases:
+          - headscale-test.local
+
+networks:
+  headscale-ui-test-network:
+    external: true
