@@ -1,0 +1,38 @@
+services:
+  headscale-worker-1:
+    image: headscale-test-proxy:latest
+    container_name: headscale-worker-1
+    restart: unless-stopped
+    networks:
+      headscale-ui-test-network:
+    entrypoint: |
+      sh -c "tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 &
+      tailscale up --authkey=$PREAUTH_KEY --login-server=https://headscale-test.local;
+      /etc/init.d/tailscale start
+      while true; do sleep 1; done"
+  headscale-worker-2:
+    image: headscale-test-proxy:latest
+    container_name: headscale-worker-2
+    restart: unless-stopped
+    networks:
+      headscale-ui-test-network:
+    entrypoint: |
+      sh -c "tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 &
+      tailscale up --authkey=$PREAUTH_KEY --login-server=https://headscale-test.local;
+      /etc/init.d/tailscale start
+      while true; do sleep 1; done"
+  headscale-worker-3:
+    image: headscale-test-proxy:latest
+    container_name: headscale-worker-3
+    restart: unless-stopped
+    networks:
+      headscale-ui-test-network:
+    entrypoint: |
+      sh -c "tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 &
+      tailscale up --authkey=$PREAUTH_KEY --login-server=https://headscale-test.local --advertise-routes=10.30.10.1/32,10.30.10.2/32,10.30.10.3/32;
+      /etc/init.d/tailscale start
+      while true; do sleep 1; done"
+
+networks:
+  headscale-ui-test-network:
+    external: true

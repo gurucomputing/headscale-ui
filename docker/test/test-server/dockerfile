@@ -1,0 +1,27 @@
+FROM alpine:latest
+
+# environment variables
+ENV XDG_DATA_HOME=/data/
+
+# Set the staging environment
+WORKDIR /staging/scripts
+WORKDIR /staging
+
+# Copy across the scripts folder
+COPY scripts/* ./scripts/
+# Copy default caddy config from project root
+COPY ./Caddyfile /staging/Caddyfile
+# Set permissions for all scripts. We do not want normal users to have write
+# access to the scripts
+RUN chown -R 0:0 scripts
+RUN chmod -R 755 scripts
+
+# Build the image. This build runs as root
+RUN /staging/scripts/1-image-build.sh
+
+# Tell docker that all future commands should run as the appuser user
+# USER appuser
+
+WORKDIR /data
+
+ENTRYPOINT /bin/sh /staging/scripts/2-initialise.sh
