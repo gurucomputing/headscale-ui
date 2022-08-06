@@ -4,8 +4,8 @@ services:
     container_name: headscale-test-backend
     security_opt:
       - label:disable
-    volumes:
-      - ./container-config:/etc/headscale
+    # volumes:
+      # - ./container-config:/etc/headscale
       # - ./container-data/data:/var/lib/headscale
     entrypoint: | 
       sh -c "mkdir -p /var/lib/headscale;

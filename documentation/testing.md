@@ -2,16 +2,16 @@
 The `/docker/test` folder contains a number of local test containers for testing before release. Specifically, the `docker-compose` creates a local environment with self signed keys, and the `docker-compose-workers` set up a bunch of clients that trust those keys.
 
 To use this environment, do the following:
-* Navigate to the `/docker/test` directory
+* Navigate to the `/docker/test/test-server` directory
 * Create a test network: `docker network create headscale-ui-test-network`
 * Stand up the `docker-compose` with `docker-compose up -d`. This will expose an HTTP (not https) portal on `8080`
 * Generate an API key with `docker exec headscale-test-backend headscale apikeys create`
 * Paste the api key into the UI at `http://<your-ip>:8080/web`
 * Generate a pre-auth key that's reusable and ephemeral. save it into `.env` in the test folder as the following:
   * `PREAUTH_KEY=<Your Preauth Key>`
-* Stand up the test bench with `docker-compose -f docker-compose-workers.yaml up -d`, all of the workers should automatically join headscale
+* move to the `test-workers` directory, and stand up the works with `docker-compose up -d`
 * Run your tests in the UI
-* Bring down the environment with `docker-compose -f docker-compose-workers.yaml down` and `docker-compose down`.
+* Bring down the environment(s) with `docker-compose down`. By default nothing is persisted.
 
 ## Tests Before Release
 Eventually it would be nice to automate this, but I've found a front end is difficult to fully automate testing. Prove me wrong other users!
