@@ -7,7 +7,7 @@ To use this environment, do the following:
 * Stand up the `docker-compose` with `docker-compose up -d`. This will expose an HTTP (not https) portal on `8080`
 * Generate an API key with `docker exec headscale-test-backend headscale apikeys create`
 * Paste the api key into the UI at `http://<your-ip>:8080/web`
-* Generate a pre-auth key that's reusable and ephemeral. save it into `.env` in the test folder as the following:
+* Generate a pre-auth key that's reusable and ephemeral. save it into `.env` in the `test-workers` folder as the following:
   * `PREAUTH_KEY=<Your Preauth Key>`
 * move to the `test-workers` directory, and stand up the works with `docker-compose up -d`
 * Run your tests in the UI
