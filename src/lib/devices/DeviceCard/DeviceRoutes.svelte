@@ -49,7 +49,7 @@
 			<li>
 				{route}
 				{#if routesList.enabledRoutes.includes(route)}
-					<button on:click={() => {disableDeviceRouteAction(route)}} type="button" class="btn btn-xs capitalize bg-success text-success-content mx-1" data-tip="press to disable route">active</button>
+					<button on:click={() => {disableDeviceRouteAction(route)}} type="button" class="btn btn-xs tooltip capitalize bg-success text-success-content mx-1" data-tip="press to disable route">active</button>
 				{:else}
 					<button on:click={() => {enableDeviceRouteAction(route)}} type="button" class="btn btn-xs tooltip capitalize bg-secondary text-secondary-content mx-1" data-tip="press to enable route">pending</button>
 				{/if}
