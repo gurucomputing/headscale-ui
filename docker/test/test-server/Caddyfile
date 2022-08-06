@@ -1,0 +1,25 @@
+{
+	http_port 80
+	https_port 443
+}
+
+https://headscale-test.local {
+	tls internal
+	reverse_proxy /web* https://headscale-test-frontend {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+
+	reverse_proxy * http://headscale-test-backend:8080
+}
+
+:80 {
+	reverse_proxy /web* https://headscale-test-frontend {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+
+	reverse_proxy * http://headscale-test-backend:8080
+}
