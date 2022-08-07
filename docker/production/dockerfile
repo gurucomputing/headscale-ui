@@ -1,7 +1,7 @@
 # arguments
 ARG VERSION="master"
 
-FROM node:latest AS build
+FROM node:current-alpine AS build
 
 #environment variables
 ENV PROJECT_NAME="headscale-ui"
@@ -23,6 +23,10 @@ RUN chmod -R 755 scripts
 
 # Build the image. This build runs as root
 RUN /staging/scripts/1-image-build.sh
+
+#####
+## Second Image
+#####
 
 FROM alpine:latest
 
