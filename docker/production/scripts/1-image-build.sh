@@ -1,12 +1,13 @@
 #!/bin/sh
 set -x
 
-#clone the project
-git clone ${PROJECT_URL} ${PROJECT_NAME}
-
 # add dependencies
 # jq for parsing version information
-apk add --no-cache jq
+# git for cloning the repository
+apk add --no-cache jq git
+
+#clone the project
+git clone ${PROJECT_URL} ${PROJECT_NAME}
 
 # install the project
 cd ${PROJECT_NAME}
