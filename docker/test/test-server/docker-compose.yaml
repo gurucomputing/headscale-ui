@@ -9,8 +9,9 @@ services:
       # - ./container-data/data:/var/lib/headscale
     entrypoint: | 
       sh -c "mkdir -p /var/lib/headscale;
+      mkdir -p /etc/headscale;
       touch /var/lib/headscale/db.sqlite;
-      wget -O /etc/headscale/config.yaml https://raw.githubusercontent.com/juanfont/headscale/main/config-example.yaml
+      wget --output-document /etc/headscale/config.yaml https://raw.githubusercontent.com/juanfont/headscale/main/config-example.yaml
       sed -i 's|http://127.0.0.1:8080|https://headscale-test.local|g' /etc/headscale/config.yaml;
       headscale serve"
     restart: unless-stopped
