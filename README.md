@@ -51,41 +51,46 @@ https://hs.yourdomain.com.au {
 	reverse_proxy * http://headscale:8080
 }
 
+
 ```
 
 ### Cross Domain Installation
 If you do not want to configure headscale-ui on the same subdomain as headscale, you must intercept headscale traffic via your reverse proxy to fix CORS (see https://github.com/juanfont/headscale/issues/623). Here is an example fix with Caddy, replacing your headscale UI domain with `hs-ui.yourdomain.com.au`:
 ```
-hs.yourdomain.com.au {
-  @hs-options {
-    host hs.yourdomain.com.au
-    method OPTIONS
-  }
-  @hs-other {
-    host hs.yourdomain.com.au
-  }
-  handle @hs-options {
-    header {
-      Access-Control-Allow-Origin https://hs-ui.yourdomain.au
-      Access-Control-Allow-Headers *
-      Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE"
-    }
-    respond 204
-  }
-  handle @hs-other {
-    reverse_proxy http://headscale:8080 {
-      header_down Access-Control-Allow-Origin https://hs-ui.yourdomain.com.au
-      header_down Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE"
-      header_down Access-Control-Allow-Headers *
-    }
-  }
+https://hs.yourdomain.com.au {
+	@hs-options {
+		host hs.yourdomain.com.au
+		method OPTIONS
+	}
+	@hs-other {
+		host hs.yourdomain.com.au
+	}
+	handle @hs-options {
+		header {
+			Access-Control-Allow-Origin https://hs-ui.yourdomain.au
+			Access-Control-Allow-Headers *
+			Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE"
+		}
+		respond 204
+	}
+	handle @hs-other {
+		reverse_proxy http://headscale:8080 {
+			header_down Access-Control-Allow-Origin https://hs-ui.yourdomain.com.au
+			header_down Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE"
+			header_down Access-Control-Allow-Headers *
+		}
+	}
 }
+
 ```
+
+### Other Configurations
+See [Other Configurations](/documentation/configuration.md) for further proxy examples, such as Traefik
 
 ## Development
 see [development](/documentation/development.md) for details
 
-### Style Guide
+## Style Guide
 see [style](/documentation/style.md) for details
 
 ## Architecture
