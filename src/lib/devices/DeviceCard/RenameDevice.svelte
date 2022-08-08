@@ -41,7 +41,7 @@
 {:else}
 	<form bind:this={editUserForm} on:submit|preventDefault={renameDeviceAction}>
 		<!-- Input has to be lower case, but we will force lower case on submit -->
-		<input in:slide on:click|stopPropagation bind:value={newDeviceName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z1-9\-\.]+" placeholder="name" />
+		<input in:slide on:click|stopPropagation bind:value={newDeviceName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z0-9\-\.]+" placeholder="name" />
     <!-- edit accept symbol -->
 	<button in:fade on:click|stopPropagation class=""
   ><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
