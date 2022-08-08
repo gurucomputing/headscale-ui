@@ -10,13 +10,41 @@
 	export let device = new Device();
 	let cardExpanded = false;
 	let cardEditing = false;
+
+	// returns button colour based on time difference
+	function timeDifference (date: Date) {
+		let currentTime = new Date();
+		let timeDifference = (Math.round((currentTime.getTime() - date.getTime()) / 1000));
+		if(timeDifference < 3600) {
+			return "bg-success"
+		} else if (timeDifference < 216000) {
+			return "bg-warning"
+		}
+	}
+
+	// returns time last seen in human readable format
+	function timeSince(date: Date) {
+		let currentTime = new Date();
+		// gets time difference in seconds
+		let timeDifference = (Math.round((currentTime.getTime() - date.getTime()) / 1000));
+		
+		if(timeDifference < 60) {
+			return `Last seen ${timeDifference} seconds ago`
+		} else if(timeDifference < 3600) {
+			return `Last seen ${Math.floor(timeDifference / 60)} minutes ago`
+		} else if(timeDifference < 216000) {
+			return `Last seen ${Math.floor(timeDifference / 3600)} hours ago`
+		} else {
+			return `Last seen ${Math.floor(timeDifference / 216000)} days ago`
+		}
+	}
 </script>
 
 <div class="card-primary">
 	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex">
 		<span class="min-w-64 w-1/2 font-bold">
 			{#if cardEditing == false}
-				{device.id}: {device.givenName}
+				<span class="badge badge-xs tooltip {timeDifference(new Date(device.lastSeen))}" data-tip={timeSince(new Date(device.lastSeen))} /> {device.id}: {device.givenName}
 			{/if}
 			<RenameDevice bind:cardEditing {device} />
 		</span>
