@@ -38,7 +38,6 @@
 			} else {
 				timeUnit = 'minutes';
 			}
-			return `Last seen ${timeDifference} minutes ago`;
 		} else if (timeDifference < 86400) {
 			timeDifference = Math.floor(timeDifference / (60 * 60));
 			if (timeDifference == 1) {
@@ -46,7 +45,6 @@
 			} else {
 				timeUnit = 'hours';
 			}
-			return `Last seen ${timeDifference} hours ago`;
 		} else {
 			timeDifference = Math.floor(timeDifference / (60 * 60 * 24));
 			if (timeDifference == 1) {
