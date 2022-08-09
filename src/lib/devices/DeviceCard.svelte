@@ -12,13 +12,13 @@
 	let cardEditing = false;
 
 	// returns button colour based on time difference
-	function timeDifference (date: Date) {
+	function timeDifference(date: Date) {
 		let currentTime = new Date();
-		let timeDifference = (Math.round((currentTime.getTime() - date.getTime()) / 1000));
-		if(timeDifference < 3600) {
-			return "bg-success"
-		} else if (timeDifference < 216000) {
-			return "bg-warning"
+		let timeDifference = Math.round((currentTime.getTime() - date.getTime()) / 1000);
+		if (timeDifference < 3600) {
+			return 'bg-success';
+		} else if (timeDifference < 86400) {
+			return 'bg-warning';
 		}
 	}
 
@@ -26,17 +26,36 @@
 	function timeSince(date: Date) {
 		let currentTime = new Date();
 		// gets time difference in seconds
-		let timeDifference = (Math.round((currentTime.getTime() - date.getTime()) / 1000));
-		
-		if(timeDifference < 60) {
-			return `Last seen ${timeDifference} seconds ago`
-		} else if(timeDifference < 3600) {
-			return `Last seen ${Math.floor(timeDifference / 60)} minutes ago`
-		} else if(timeDifference < 216000) {
-			return `Last seen ${Math.floor(timeDifference / 3600)} hours ago`
+		let timeDifference = Math.round((currentTime.getTime() - date.getTime()) / 1000);
+		let timeUnit = '';
+
+		if (timeDifference < 60) {
+			timeUnit = 'seconds';
+		} else if (timeDifference < 3600) {
+			timeDifference = Math.floor(timeDifference / 60);
+			if (timeDifference == 1) {
+				timeUnit = 'minute';
+			} else {
+				timeUnit = 'minutes';
+			}
+			return `Last seen ${timeDifference} minutes ago`;
+		} else if (timeDifference < 86400) {
+			timeDifference = Math.floor(timeDifference / (60 * 60));
+			if (timeDifference == 1) {
+				timeUnit = 'hour';
+			} else {
+				timeUnit = 'hours';
+			}
+			return `Last seen ${timeDifference} hours ago`;
 		} else {
-			return `Last seen ${Math.floor(timeDifference / 216000)} days ago`
+			timeDifference = Math.floor(timeDifference / (60 * 60 * 24));
+			if (timeDifference == 1) {
+				timeUnit = 'day';
+			} else {
+				timeUnit = 'days';
+			}
 		}
+		return `Last seen ${timeDifference} ${timeUnit} ago`;
 	}
 </script>
 
