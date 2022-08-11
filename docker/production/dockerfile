@@ -1,5 +1,7 @@
 # arguments
 ARG VERSION="master"
+# Branch to check out
+ARG CHECKOUT_BRANCH="master"
 
 FROM node:current-alpine AS build
 
@@ -34,8 +36,9 @@ FROM alpine:latest
 ENV PROJECT_NAME="headscale-ui"
 # URL for the github/git location
 ENV PROJECT_URL="https://github.com/gurucomputing/headscale-ui"
-# Port that caddy will run on
-ENV PORT="443"
+# Ports that caddy will run on
+ENV HTTP_PORT="80"
+ENV HTTPS_PORT="443"
 
 # Production Web Server port. Runs a self signed SSL certificate
 EXPOSE 443
