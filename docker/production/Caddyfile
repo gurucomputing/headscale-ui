@@ -1,9 +1,18 @@
 {
 	skip_install_trust
-	http_port 8080
-	https_port 443
+	http_port {$HTTP_PORT}
+	https_port {$HTTPS_PORT}
 }
-:443 {
+
+:{$HTTP_PORT} {
+	redir / /web
+	uri strip_prefix /web
+	file_server {
+		root /web
+	}
+}
+
+:{$HTTPS_PORT} {
 	redir / /web
 	uri strip_prefix /web
 	tls internal {
