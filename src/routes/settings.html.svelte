@@ -19,7 +19,7 @@
 <!-- html -->
 <body>
 	{#if componentLoaded}
-		<div in:fade class="px-4 py-4 w-4/5">
+		<div in:fade class="px-4 py-4 w-4/5 max-w-screen-lg">
 			<ServerSettings />
 			<div class="p-4"></div>
 			<ThemeSettings />
