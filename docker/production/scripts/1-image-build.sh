@@ -8,9 +8,10 @@ apk add --no-cache jq git
 
 #clone the project
 git clone ${PROJECT_URL} ${PROJECT_NAME}
+cd ${PROJECT_NAME}
+git checkout ${CHECKOUT_BRANCH}
 
 # install the project
-cd ${PROJECT_NAME}
 npm install
 
 # inject the version number
