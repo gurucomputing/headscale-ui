@@ -1,5 +1,6 @@
 {
 	skip_install_trust
+	auto_https disable_redirects
 	http_port {$HTTP_PORT}
 	https_port {$HTTPS_PORT}
 }
