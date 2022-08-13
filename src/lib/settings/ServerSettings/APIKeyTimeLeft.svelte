@@ -14,7 +14,7 @@
         // match up the current apikey to the keylist
         keyList.forEach(key => {
           if($APIKeyStore.includes(key.prefix)) {
-            timeLeftTip = timeLeft(new Date(key.expiration));
+            timeLeft(new Date(key.expiration));
           }
         });
 			})
@@ -23,8 +23,8 @@
 			});
 	}
 
-	// returns time last seen in human readable format
-	function timeLeft(date: Date) {
+	// sets time expiry in human readable format
+	function timeLeft(date: Date): void {
 		let currentTime = new Date();
 		// gets time difference in seconds
 		let timeDifferenceDays = Math.round((date.getTime() - currentTime.getTime()) / 1000 / 60 / 60 / 24);
@@ -32,7 +32,7 @@
       $alertStore = `${timeDifferenceDays} days left before expiry, consider rolling your key`
       timeLeftWarning = true;
     }
-    return `${timeDifferenceDays} days left before expiry`;
+    timeLeftTip = `${timeDifferenceDays} days left before expiry`;
 	}
 
 	onMount(() => {
