@@ -5,6 +5,7 @@
 	import { getAPIKeys } from '$lib/common/apiFunctions.svelte';
 	import { onMount } from 'svelte';
 	import ApiKeyTimeLeft from './ServerSettings/APIKeyTimeLeft.svelte';
+import RolloverApi from './ServerSettings/RolloverAPI.svelte';
 
 	// Server Settings
 	let headscaleURL = $URLStore;
@@ -23,18 +24,11 @@
 			});
 	}
 
-	function SaveServerSettings(): void {
-		if (serverSettingsForm.reportValidity()) {
-			$URLStore = headscaleURL;
-			$APIKeyStore = headscaleAPIKey;
-		}
-	}
-
 	function ClearServerSettings() {
 		headscaleURL = '';
 		headscaleAPIKey = '';
-		$URLStore = headscaleURL;
-		$APIKeyStore = headscaleAPIKey;
+		$URLStore = '';
+		$APIKeyStore = '';
 	}
 
 	onMount(() => {
@@ -46,7 +40,7 @@
 <form bind:this={serverSettingsForm}>
 	<h1 class="text-2xl bold text-primary mb-4">Server Settings</h1>
 	<label class="block text-secondary text-sm font-bold mb-2" for="url"> Headscale URL </label>
-	<input bind:value={headscaleURL} class="form-input" type="url" pattern={String.raw`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)`} placeholder="https://hs.yourdomain.com.au" />
+	<input bind:value={$URLStore} class="form-input" type="url" pattern={String.raw`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)`} placeholder="https://hs.yourdomain.com.au" />
 	<p class="text-xs text-base-content text-italics mb-8">URL for your headscale server instance</p>
 	<label class="block text-secondary text-sm font-bold mb-2" for="password">
 		Headscale API Key
@@ -55,7 +49,7 @@
 		{/if}
 	</label>
 	<div class="flex relative">
-		<input bind:value={headscaleAPIKey} {...{ type: apiKeyInputState }} minlength="54" maxlength="54" class="form-input" required placeholder="******************" />
+		<input bind:value={$APIKeyStore} {...{ type: apiKeyInputState }} minlength="54" maxlength="54" class="form-input" required placeholder="******************" />
 		<button type="button" class="absolute right-40" on:click={() => {apiKeyInputState == 'text' ? apiKeyInputState = 'password' : apiKeyInputState = 'text'}}>
 			{#if apiKeyInputState == 'password'}
 			<!-- eye off -->
@@ -70,13 +64,9 @@
 			</svg>
 			{/if}
 		</button>
-		<button class="btn btn-sm btn-secondary capitalize ml-4" type="button">Rollover API Key</button>
+		<RolloverApi></RolloverApi>
 	</div>
 	<p class="text-xs text-base-content text-italics mb-8">Generate an API key for your headscale instance and place it here.</p>
-	<!-- disable the SaveServerSettings button if nothing has changed from stored values, or the dependent inputs do not validate -->
-	<div class="tooltip z-10" data-tip="Note: API Key and URL currently save to localStorage (IE: Your Browser) Make sure you are using a trusted computer">
-		<button disabled={headscaleAPIKey === $APIKeyStore && headscaleURL === $URLStore} on:click={() => SaveServerSettings()} class="btn btn-sm btn-accent capitalize" type="button">Save Server Settings</button>
-	</div>
 	<button on:click={() => ClearServerSettings()} class="btn btn-sm btn-primary capitalize" type="button">Clear Server Settings</button>
 	<button on:click={() => TestServerSettings()} class="btn btn-sm btn-secondary capitalize" type="button">Test Server Settings</button>
 	{#if apiStatus === 'succeeded'}

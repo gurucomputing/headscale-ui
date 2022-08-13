@@ -83,6 +83,77 @@
 			});
 	}
 
+	export async function newAPIKey(APIKeyExpiration: string): Promise<string> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/apikey';
+
+		let APIKeyResponse = new Response();
+		let APIKeyString = '';
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			},
+			body: JSON.stringify({
+				expiration: APIKeyExpiration
+			})
+		})
+			.then((response) => {
+				if (response.ok) {
+					APIKeyResponse = response;
+				} else {
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+		await APIKeyResponse.json().then((data) => {
+			APIKeyString = data.apiKey;
+		});
+
+		return APIKeyString;
+	}
+
+	export async function expireAPIKey(APIKeyPrefix: string) {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/apikey/expire';
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			},
+			body: JSON.stringify({
+				prefix: APIKeyPrefix
+			})
+		})
+			.then((response) => {
+				if (response.ok) {
+				} else {
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+	}
+
 	export async function updateTags(deviceID: string, tags: string[]): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
