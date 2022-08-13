@@ -2,7 +2,7 @@
 	import { fly } from 'svelte/transition';
 	import { URLStore } from '$lib/common/stores.js';
 	import { APIKeyStore } from '$lib/common/stores.js';
-	import { getUsers } from '$lib/common/apiFunctions.svelte';
+	import { getAPIKeys } from '$lib/common/apiFunctions.svelte';
 	import { onMount } from 'svelte';
 	import ApiKeyTimeLeft from './ServerSettings/APIKeyTimeLeft.svelte';
 
@@ -14,7 +14,7 @@
 	let apiKeyInputState = 'password';
 
 	function TestServerSettings() {
-		getUsers()
+		getAPIKeys()
 			.then(() => {
 				apiStatus = 'succeeded';
 			})
@@ -50,7 +50,7 @@
 	<p class="text-xs text-base-content text-italics mb-8">URL for your headscale server instance</p>
 	<label class="block text-secondary text-sm font-bold mb-2" for="password">
 		Headscale API Key
-		{#if (apiStatus = 'succeeded')}
+		{#if apiStatus == 'succeeded'}
 			<ApiKeyTimeLeft />
 		{/if}
 	</label>
