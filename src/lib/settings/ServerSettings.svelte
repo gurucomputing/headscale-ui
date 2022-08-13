@@ -41,7 +41,7 @@
 	<label class="block text-secondary text-sm font-bold mb-2" for="password">
 		Headscale API Key
 		{#if apiStatus == 'succeeded'}
-			{#key apiStatus}
+			{#key $APIKeyStore}
 				<ApiKeyTimeLeft />
 			{/key}
 		{/if}
