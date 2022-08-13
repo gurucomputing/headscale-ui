@@ -286,6 +286,10 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
+			// flip the sort direction if based on lastSeen
+			if(sortKey == "lastSeen") {
+				sortDirection == 'ascending' ? sortDirection = 'descending' : sortDirection = 'ascending';
+			}
 			if (sortDirection == 'ascending') {
 				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] < b[sortKey as keyof Device] ? -1 : 1));
 			} else {
