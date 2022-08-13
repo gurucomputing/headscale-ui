@@ -68,7 +68,7 @@
 				</svg>
 			{/if}
 		</button>
-		<RolloverApi />
+		<RolloverApi {apiStatus} />
 	</div>
 	<p class="text-xs text-base-content text-italics mb-8">Generate an API key for your headscale instance and place it here.</p>
 	{#if apiStatus != 'succeeded'}

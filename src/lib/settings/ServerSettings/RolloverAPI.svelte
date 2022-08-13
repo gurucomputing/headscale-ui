@@ -4,6 +4,7 @@
 	import { alertStore, APIKeyStore } from '$lib/common/stores';
 	let keyList = [new APIKey()];
 	let currentKey = new APIKey();
+  export let apiStatus = '';
 
 	// get current API keys
 	// Match to current key
@@ -46,5 +47,5 @@
 		getAPIKeysAction();
 	}}
 	class="btn btn-sm btn-secondary capitalize ml-4"
-	type="button">Rollover API Key</button
+	type="button" disabled="{apiStatus != 'succeeded'}">Rollover API Key</button
 >
