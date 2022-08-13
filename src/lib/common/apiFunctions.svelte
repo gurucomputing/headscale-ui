@@ -338,7 +338,7 @@
 			});
 
 		await apiKeysResponse.json().then((data) => {
-			apiKeys = data.preAuthKeys;
+			apiKeys = data.apiKeys;
 		});
 		return apiKeys;
 	}
