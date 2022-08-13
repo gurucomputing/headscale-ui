@@ -12,19 +12,19 @@
 
 	onMount(async () => {
 		// Display component frontend
+		await new Promise(r => setTimeout(r, 200));
 		componentLoaded = true;
 	});
 </script>
 
 <!-- html -->
 <body>
-	{#if componentLoaded}
-		<div in:fade class="px-4 py-4 w-4/5 max-w-screen-lg">
-			<ServerSettings />
-			<div class="p-4"></div>
-			<ThemeSettings />
-			<div class="p-4"></div>
-			<h1 class="text-2xl bold text-primary mb-4">Version</h1><b>insert-version</b>
-		</div>
-	{/if}
+	<div hidden={!componentLoaded} in:fade class="px-4 py-4 w-4/5 max-w-screen-lg">
+		<ServerSettings />
+		<div class="p-4" />
+		<ThemeSettings />
+		<div class="p-4" />
+		<h1 class="text-2xl bold text-primary mb-4">Version</h1>
+		<b>insert-version</b>
+	</div>
 </body>
