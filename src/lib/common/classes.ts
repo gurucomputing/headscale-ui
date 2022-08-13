@@ -23,6 +23,18 @@ export class Route {
   }
 }
 
+export class APIKey {
+  id: string = '';
+  prefix: string = '';
+  expiration: string = '';
+  createdAt: string = '';
+  lastSeen: string = '';
+
+  public constructor(init?: Partial<Route>) {
+    Object.assign(this, init);
+  }
+}
+
 export class PreAuthKey {
   public namespace: string = '';
   public id: string = '';

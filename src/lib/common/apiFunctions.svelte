@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { Device, PreAuthKey, Route, User } from '$lib/common/classes';
+	import { APIKey, Device, PreAuthKey, Route, User } from '$lib/common/classes';
 	import { deviceStore, userStore, apiTestStore } from '$lib/common/stores.js';
 	import { filterDevices, filterUsers } from './searching.svelte';
 
@@ -72,6 +72,77 @@
 			.then((response) => {
 				if (response.ok) {
 					return response;
+				} else {
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+	}
+
+	export async function newAPIKey(APIKeyExpiration: string): Promise<string> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/apikey';
+
+		let APIKeyResponse = new Response();
+		let APIKeyString = '';
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			},
+			body: JSON.stringify({
+				expiration: APIKeyExpiration
+			})
+		})
+			.then((response) => {
+				if (response.ok) {
+					APIKeyResponse = response;
+				} else {
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+		await APIKeyResponse.json().then((data) => {
+			APIKeyString = data.apiKey;
+		});
+
+		return APIKeyString;
+	}
+
+	export async function expireAPIKey(APIKeyPrefix: string) {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/apikey/expire';
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			},
+			body: JSON.stringify({
+				prefix: APIKeyPrefix
+			})
+		})
+			.then((response) => {
+				if (response.ok) {
 				} else {
 					return response.text().then((text) => {
 						throw JSON.parse(text).message;
@@ -273,7 +344,14 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for getting users
-		let endpointURL = '/api/v1/machine/' + deviceID + '/routes?' + routes.map(encodeURIComponent).map(route=>`routes=${route}`).join('&');
+		let endpointURL =
+			'/api/v1/machine/' +
+			deviceID +
+			'/routes?' +
+			routes
+				.map(encodeURIComponent)
+				.map((route) => `routes=${route}`)
+				.join('&');
 
 		//returning variables
 		let headscaleDeviceResponse: Response = new Response();
@@ -298,6 +376,42 @@
 			.catch((error) => {
 				throw error;
 			});
+	}
+
+	export async function getAPIKeys(): Promise<APIKey[]> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+		// endpoint url for editing users
+		let endpointURL = '/api/v1/apikey';
+		let apiKeysResponse = new Response();
+		let apiKeys = [new APIKey()];
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'GET',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			}
+		})
+			.then((response) => {
+				if (response.ok) {
+					apiKeysResponse = response;
+				} else {
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+
+		await apiKeysResponse.json().then((data) => {
+			apiKeys = data.apiKeys;
+		});
+		return apiKeys;
 	}
 
 	export async function getPreauthKeys(userName: string): Promise<PreAuthKey[]> {
