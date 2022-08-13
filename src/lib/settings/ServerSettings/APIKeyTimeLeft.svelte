@@ -29,7 +29,7 @@
 		// gets time difference in seconds
 		let timeDifferenceDays = Math.round((date.getTime() - currentTime.getTime()) / 1000 / 60 / 60 / 24);
 		if(timeDifferenceDays < 30) {
-      $alertStore = `${timeDifferenceDays} days left before expiry, consider rolling your key`
+      $alertStore = `${timeDifferenceDays} days left before API Key expiry, consider rolling your key`
       timeLeftWarning = true;
     }
     timeLeftTip = `${timeDifferenceDays} days left before expiry`;
