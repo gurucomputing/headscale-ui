@@ -41,10 +41,32 @@
 			});
 
 		await headscaleUsersResponse.json().then((data) => {
+			let collator = new Intl.Collator([], { numeric: true });
 			if (sortDirection == 'ascending') {
-				headscaleUsers = data.namespaces.sort((a: User, b: User) => (a[sortKey as keyof User] < b[sortKey as keyof User] ? -1 : 1));
-			} else {
-				headscaleUsers = data.namespaces.sort((a: User, b: User) => (a[sortKey as keyof User] > b[sortKey as keyof User] ? -1 : 1));
+				switch (sortKey) {
+					case 'id':
+						headscaleUsers = data.namespaces.sort((a: User, b: User) => collator.compare(a.id, b.id));
+						break;
+					case 'createdAt':
+						headscaleUsers = data.namespaces.sort((a: User, b: User) => -collator.compare(a.createdAt, b.createdAt));
+						break;
+					case 'name':
+						headscaleUsers = data.namespaces.sort((a: User, b: User) => collator.compare(a.name, b.name));
+						break;
+				}
+			}
+			if (sortDirection == 'descending') {
+				switch (sortKey) {
+					case 'id':
+						headscaleUsers = data.namespaces.sort((a: User, b: User) => -collator.compare(a.id, b.id));
+						break;
+					case 'createdAt':
+						headscaleUsers = data.namespaces.sort((a: User, b: User) => collator.compare(a.createdAt, b.createdAt));
+						break;
+					case 'name':
+						headscaleUsers = data.namespaces.sort((a: User, b: User) => -collator.compare(a.name, b.name));
+						break;
+				}
 			}
 		});
 		// Set the store
@@ -286,14 +308,32 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			// flip the sort direction if based on lastSeen
-			if(sortKey == "lastSeen") {
-				sortDirection == 'ascending' ? sortDirection = 'descending' : sortDirection = 'ascending';
-			}
+			let collator = new Intl.Collator([], { numeric: true });
 			if (sortDirection == 'ascending') {
-				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] < b[sortKey as keyof Device] ? -1 : 1));
-			} else {
-				headscaleDevices = data.machines.sort((a: Device, b: Device) => (a[sortKey as keyof Device] > b[sortKey as keyof Device] ? -1 : 1));
+				switch (sortKey) {
+					case 'id':
+						headscaleDevices = data.machines.sort((a: Device, b: Device) => collator.compare(a.id, b.id));
+						break;
+					case 'lastSeen':
+						headscaleDevices = data.machines.sort((a: Device, b: Device) => -collator.compare(a.lastSeen, b.lastSeen));
+						break;
+					case 'givenName':
+						headscaleDevices = data.machines.sort((a: Device, b: Device) => collator.compare(a.givenName, b.givenName));
+						break;
+				}
+			}
+			if (sortDirection == 'descending') {
+				switch (sortKey) {
+					case 'id':
+						headscaleDevices = data.machines.sort((a: Device, b: Device) => -collator.compare(a.id, b.id));
+						break;
+					case 'lastSeen':
+						headscaleDevices = data.machines.sort((a: Device, b: Device) => collator.compare(a.lastSeen, b.lastSeen));
+						break;
+					case 'givenName':
+						headscaleDevices = data.machines.sort((a: Device, b: Device) => -collator.compare(a.givenName, b.givenName));
+						break;
+				}
 			}
 		});
 		// set the stores
