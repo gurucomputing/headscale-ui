@@ -24,7 +24,7 @@
 
 		// stores URL and API key
 		URLStore.set(localStorage.getItem('headscaleURL') || '');
-		URLStore.subscribe((val) => localStorage.setItem('headscaleURL', val));
+		URLStore.subscribe((val) => localStorage.setItem('headscaleURL', val.replace(/\/+$/, '')));
 		APIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
 		APIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));
 
