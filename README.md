@@ -88,6 +88,15 @@ https://hs.yourdomain.com.au {
 ### Other Configurations
 See [Other Configurations](/documentation/configuration.md) for further proxy examples, such as Traefik
 
+## Troubleshooting
+Make sure you are using the latest version of headscale. Headscale-UI is only tested against:
+
+* the current stable version of headscale
+* Chrome/Chrome Mobile
+* Firefox
+
+Sorry mac fans, safari will only happen if someone wants to spring for an iphone/macbook for myself. Note that while mobile is checked for functionality, the web experience is not mobile optimised.
+
 ## Development
 see [development](/documentation/development.md) for details
 
