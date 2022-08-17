@@ -91,11 +91,13 @@ See [Other Configurations](/documentation/configuration.md) for further proxy ex
 ## Troubleshooting
 Make sure you are using the latest version of headscale. Headscale-UI is only tested against:
 
-* the current stable version of headscale
+* The current stable version of headscale
 * Chrome/Chrome Mobile
-* Firefox
+* Firefox/Firefox Mobile
 
-Sorry mac fans, safari will only happen if someone wants to spring for an iphone/macbook for myself. Note that while mobile is checked for functionality, the web experience is not mobile optimised.
+Note that while mobile is checked for functionality, the web experience is not mobile optimised.
+
+If you are getting errors about preflight checks, it's probably CORS related. Make sure your UI sits on the same subdomain as headscale or inject CORS headers.
 
 ## Development
 see [development](/documentation/development.md) for details
