@@ -88,6 +88,17 @@ https://hs.yourdomain.com.au {
 ### Other Configurations
 See [Other Configurations](/documentation/configuration.md) for further proxy examples, such as Traefik
 
+## Troubleshooting
+Make sure you are using the latest version of headscale. Headscale-UI is only tested against:
+
+* The current stable version of headscale
+* Chrome/Chrome Mobile
+* Firefox/Firefox Mobile
+
+Note that while mobile is checked for functionality, the web experience is not mobile optimised.
+
+If you are getting errors about preflight checks, it's probably CORS related. Make sure your UI sits on the same subdomain as headscale or inject CORS headers.
+
 ## Development
 see [development](/documentation/development.md) for details
 
