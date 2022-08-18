@@ -14,6 +14,14 @@ export class Device {
   }
 }
 
+export class ACL {
+  public groups: {[key: string]: string} = {}
+
+  public constructor(init?: Partial<Route>) {
+    Object.assign(this, init);
+  }
+}
+
 export class Route {
   advertisedRoutes: string[] = [];
   enabledRoutes: string[] = [];

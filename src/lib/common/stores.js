@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { Device, User } from '$lib/common/classes';
+import { Device, User, ACL } from '$lib/common/classes';
 
 // used to store the value of an alert across all components
 export const alertStore = writable('');
@@ -25,3 +25,5 @@ export const deviceSortStore = writable('id');
 export const deviceSortDirectionStore = writable('ascending');
 export const userSortStore = writable('id');
 export const sortDirectionStore = writable('ascending');
+// stores ACL object
+export const aclStore = writable(new ACL());
