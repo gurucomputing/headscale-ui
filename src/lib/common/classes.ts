@@ -15,7 +15,7 @@ export class Device {
 }
 
 export class ACL {
-  public groups: {[key: string]: string} = {}
+  public groups: {[key: string]: [string]} = {}
 
   public constructor(init?: Partial<Route>) {
     Object.assign(this, init);
