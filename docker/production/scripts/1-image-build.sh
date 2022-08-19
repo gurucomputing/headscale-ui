@@ -16,7 +16,7 @@ npm install
 
 # inject the version number
 VERSION=$(jq -r '.version' package.json)
-sed -i "s/insert-version/${VERSION}/g" ./src/routes/settings.html.svelte
+sed -i "s/insert-version/${VERSION}/g" ./src/routes/settings.html/+page.svelte
 
 # build the project
 npm run build
