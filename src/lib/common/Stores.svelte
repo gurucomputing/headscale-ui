@@ -24,6 +24,7 @@
 
 		// stores URL and API key
 		URLStore.set(localStorage.getItem('headscaleURL') || '');
+		// remove trailing slashes when storing the URL
 		URLStore.subscribe((val) => localStorage.setItem('headscaleURL', val.replace(/\/+$/, '')));
 		APIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
 		APIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));
