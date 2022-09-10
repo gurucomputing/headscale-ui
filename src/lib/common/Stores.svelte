@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { deviceSortStore, deviceSortDirectionStore, userSortStore, sortDirectionStore, themeStore } from '$lib/common/stores.js';
+	import { deviceSortStore, deviceSortDirectionStore, userSortStore, sortDirectionStore, themeStore, showACLPagesStore } from '$lib/common/stores.js';
 	import { URLStore } from '$lib/common/stores.js';
 	import { APIKeyStore } from '$lib/common/stores.js';
 	import { preAuthHideStore } from '$lib/common/stores.js';
@@ -32,6 +32,10 @@
 		// stores whether preauthkeys get hidden when expired/used
 		preAuthHideStore.set((localStorage.getItem('headscalePreAuthHide') || 'false') == 'true');
 		preAuthHideStore.subscribe((val) => localStorage.setItem('headscalePreAuthHide', val ? 'true' : 'false'));
+		
+		// dev setting stores
+		showACLPagesStore.set((localStorage.getItem('showACLPages') || 'false') == 'true');
+		showACLPagesStore.subscribe((val) => localStorage.setItem('showACLPages', val ? 'true' : 'false'));
 		
 	});
 </script>

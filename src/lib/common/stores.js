@@ -18,6 +18,10 @@ export const sortDirectionStore = writable('ascending');
 // stores preauth key preference
 export const preAuthHideStore = writable(false);
 
+// Dev Setting Stores
+// Shows or Hides ACL Settings
+export const showACLPagesStore = writable(false);
+
 // 
 // Normal Stores (global scope, saves until refresh)
 // 
