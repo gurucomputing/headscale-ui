@@ -2,6 +2,7 @@
 	//
 	// Imports
 	//
+	import DevSettings from '$lib/settings/DevSettings.svelte';
 	import ServerSettings from '$lib/settings/ServerSettings.svelte';
 	import ThemeSettings from '$lib/settings/ThemeSettings.svelte';
 	import { onMount } from 'svelte';
@@ -26,5 +27,7 @@
 		<div class="p-4" />
 		<h1 class="text-2xl bold text-primary mb-4">Version</h1>
 		<b>insert-version</b>
+		<div class ="p-4"></div>
+		<DevSettings></DevSettings>
 	</div>
 </body>
