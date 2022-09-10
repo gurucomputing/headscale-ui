@@ -10,8 +10,6 @@
 	let componentLoaded = false;
 
 	onMount(async () => {
-		// Display component frontend
-		await new Promise((r) => setTimeout(r, 200));
 		componentLoaded = true;
 	});
 </script>
