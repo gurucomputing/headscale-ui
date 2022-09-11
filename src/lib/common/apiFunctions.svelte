@@ -1,14 +1,13 @@
 <script context="module" lang="ts">
 	import { APIKey, Device, PreAuthKey, Route, User } from '$lib/common/classes';
 	import { deviceStore, userStore, apiTestStore } from '$lib/common/stores.js';
+	import { sortDevices, sortUsers } from '$lib/common/sorting.svelte';
 	import { filterDevices, filterUsers } from './searching.svelte';
 
-	export async function getUsers(): Promise<any> {
+	export async function getUsers() {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		let sortKey = localStorage.getItem('headscaleUserSort') || '';
-		let sortDirection = localStorage.getItem('headscaleUserSortDirection') || '';
 
 		// endpoint url for getting users
 		let endpointURL = '/api/v1/namespace';
@@ -41,33 +40,9 @@
 			});
 
 		await headscaleUsersResponse.json().then((data) => {
-			let collator = new Intl.Collator([], { numeric: true });
-			if (sortDirection == 'ascending') {
-				switch (sortKey) {
-					case 'id':
-						headscaleUsers = data.namespaces.sort((a: User, b: User) => collator.compare(a.id, b.id));
-						break;
-					case 'createdAt':
-						headscaleUsers = data.namespaces.sort((a: User, b: User) => -collator.compare(a.createdAt, b.createdAt));
-						break;
-					case 'name':
-						headscaleUsers = data.namespaces.sort((a: User, b: User) => collator.compare(a.name, b.name));
-						break;
-				}
-			}
-			if (sortDirection == 'descending') {
-				switch (sortKey) {
-					case 'id':
-						headscaleUsers = data.namespaces.sort((a: User, b: User) => -collator.compare(a.id, b.id));
-						break;
-					case 'createdAt':
-						headscaleUsers = data.namespaces.sort((a: User, b: User) => collator.compare(a.createdAt, b.createdAt));
-						break;
-					case 'name':
-						headscaleUsers = data.namespaces.sort((a: User, b: User) => -collator.compare(a.name, b.name));
-						break;
-				}
-			}
+			headscaleUsers = data.namespaces
+			// sort the users
+			headscaleUsers = sortUsers(headscaleUsers);
 		});
 		// Set the store
 		apiTestStore.set('succeeded');
@@ -273,8 +248,6 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		let sortKey = localStorage.getItem('headscaleDeviceSort') || '';
-		let sortDirection = localStorage.getItem('headscaleDeviceSortDirection') || '';
 
 		// endpoint url for getting users
 		let endpointURL = '/api/v1/machine';
@@ -308,33 +281,8 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			let collator = new Intl.Collator([], { numeric: true });
-			if (sortDirection == 'ascending') {
-				switch (sortKey) {
-					case 'id':
-						headscaleDevices = data.machines.sort((a: Device, b: Device) => collator.compare(a.id, b.id));
-						break;
-					case 'lastSeen':
-						headscaleDevices = data.machines.sort((a: Device, b: Device) => -collator.compare(a.lastSeen, b.lastSeen));
-						break;
-					case 'givenName':
-						headscaleDevices = data.machines.sort((a: Device, b: Device) => collator.compare(a.givenName, b.givenName));
-						break;
-				}
-			}
-			if (sortDirection == 'descending') {
-				switch (sortKey) {
-					case 'id':
-						headscaleDevices = data.machines.sort((a: Device, b: Device) => -collator.compare(a.id, b.id));
-						break;
-					case 'lastSeen':
-						headscaleDevices = data.machines.sort((a: Device, b: Device) => collator.compare(a.lastSeen, b.lastSeen));
-						break;
-					case 'givenName':
-						headscaleDevices = data.machines.sort((a: Device, b: Device) => -collator.compare(a.givenName, b.givenName));
-						break;
-				}
-			}
+			headscaleDevices = data.machines
+			headscaleDevices = sortDevices(headscaleDevices)
 		});
 		// set the stores
 		apiTestStore.set('succeeded');
