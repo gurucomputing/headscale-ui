@@ -4,7 +4,6 @@
 	import Alert from '$lib/common/Alert.svelte';
 	import Stores from '$lib/common/Stores.svelte';
 	import { themeStore } from '$lib/common/stores.js'
-	export const prerender = true;
 	
 
 	// NOTE: the element that is using one of the theme attributes must be in the DOM on mount
