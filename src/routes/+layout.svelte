@@ -12,7 +12,7 @@
 <main data-theme={$themeStore} class="flex flex-col">
 	<!-- initialize localStorage -->
 	<Stores></Stores>
-	<div class="flex h-screen">
+	<div class="flex">
 		<!-- sidebar -->
 		<Nav />
 		<!-- main window -->
