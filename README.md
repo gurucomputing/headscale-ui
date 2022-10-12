@@ -104,6 +104,9 @@ Your API key is either not saved. Create an API key in `headscale` (via command 
 
 Alternatively, you haven't fixed your domain. HS-UI *has* to be ran on the same subdomain or you need to configure CORS. Yes you need to use a reverse proxy to do this. Use a reverse proxy.
 
+## Security
+see [security](/SECURITY.md) for details
+
 ## Development
 see [development](/documentation/development.md) for details
 
