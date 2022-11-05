@@ -3,6 +3,9 @@ name: Publish Release
 on:
   workflow_dispatch:
 
+env:
+  PLATFORMS: linux/amd64,linux/arm64
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -23,7 +26,7 @@ jobs:
 
           # setting tags
           if echo "$VERSION" | grep -q "beta"; then
-          
+
             TAGS="ghcr.io/${{ github.repository }}:beta, ghcr.io/${{ github.repository }}:$VERSION, ghcr.io/${{ github.repository }}:latest"
             PRIMARY_TAG=latest
           else
@@ -35,6 +38,11 @@ jobs:
           # check if version has already been published
           $(docker manifest inspect ghcr.io/${{ github.repository }}:$VERSION > /dev/null) || NOT_PREVIOUSLY_PUBLISHED=1
           echo "::set-output name=NOT_PREVIOUSLY_PUBLISHED::$NOT_PREVIOUSLY_PUBLISHED"
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Log in to the Container registry
         uses: docker/login-action@v1
@@ -54,6 +62,7 @@ jobs:
           context: ./docker/production
           tags: |
             ${{ steps.gathervars.outputs.TAG }}
+          platforms: ${{ env.PLATFORMS }}
           push: true
 
       - name: Extract build out of docker image
@@ -63,7 +72,7 @@ jobs:
         with:
           image: ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.PRIMARY_TAG }}
           path: web
-          
+
       - name: create release asset
         if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         run: |
@@ -81,8 +90,8 @@ jobs:
           release_name: headscale-ui
           draft: true
           prerelease: false
-        
-      - name: upload asset to releases  
+
+      - name: upload asset to releases
         uses: actions/upload-release-asset@v1.0.1
         if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         env:
