@@ -23,8 +23,9 @@ export class ACL {
 }
 
 export class Route {
-  advertisedRoutes: string[] = [];
-  enabledRoutes: string[] = [];
+  id: string = '';
+  advertised: boolean = false;
+  enabled: boolean = false;
 
   public constructor(init?: Partial<Route>) {
     Object.assign(this, init);

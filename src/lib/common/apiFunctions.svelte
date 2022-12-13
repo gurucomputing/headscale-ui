@@ -330,20 +330,16 @@
 		return headscaleRoute;
 	}
 
-	export async function enableDeviceRoute(deviceID: string, routes: string[]): Promise<any> {
+	export async function enableDeviceRoute(deviceID: string, routeID: string): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for getting users
 		let endpointURL =
-			'/api/v1/machine/' +
-			deviceID +
-			'/routes?' +
-			routes
-				.map(encodeURIComponent)
-				.map((route) => `routes=${route}`)
-				.join('&');
+			'/api/v1/routes/' +
+			routeID +
+			'/enable';
 
 		//returning variables
 		let headscaleDeviceResponse: Response = new Response();
@@ -369,6 +365,42 @@
 				throw error;
 			});
 	}
+
+        export async function disableDeviceRoute(deviceID: string, routeID: string): Promise<any> {
+                // variables in local storage
+                let headscaleURL = localStorage.getItem('headscaleURL') || '';
+                let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+
+                // endpoint url for getting users
+                let endpointURL =
+                        '/api/v1/routes/' +
+                        routeID +
+                        '/disable';
+
+                //returning variables
+                let headscaleDeviceResponse: Response = new Response();
+
+                await fetch(headscaleURL + endpointURL, {
+                        method: 'POST',
+                        headers: {
+                                Accept: 'application/json',
+                                Authorization: `Bearer ${headscaleAPIKey}`
+                        }
+                })
+                        .then((response) => {
+                                if (response.ok) {
+                                        // return the api data
+                                        headscaleDeviceResponse = response;
+                                } else {
+                                        return response.text().then((text) => {
+                                                throw JSON.parse(text).message;
+                                        });
+                                }
+                        })
+                        .catch((error) => {
+                                throw error;
+                        });
+        }
 
 	export async function getAPIKeys(): Promise<APIKey[]> {
 		// variables in local storage
