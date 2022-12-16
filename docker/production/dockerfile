@@ -3,7 +3,7 @@ ARG VERSION="master"
 # Branch to check out
 ARG CHECKOUT_BRANCH="master"
 
-FROM node:current-alpine AS build
+FROM node:lts-alpine AS build
 
 #environment variables
 ENV PROJECT_NAME="headscale-ui"
