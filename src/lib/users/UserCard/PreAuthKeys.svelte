@@ -40,7 +40,7 @@
 	<th>
 		<div>Preauth Keys 
 			<button
-				on:click={() => {
+				on:keypress on:click={() => {
 					newPreAuthKeyShow = !newPreAuthKeyShow;
 				}}
 			>
@@ -63,7 +63,7 @@
 				bind:checked={($preAuthHideStore)}
 				class="checkbox checkbox-xs text-base-content"
 			/><span
-				on:click={() => {
+				on:keypress on:click={() => {
 					$preAuthHideStore = !$preAuthHideStore
 				}}
 				class="font-normal ml-2">Hide Expired/Used Keys</span

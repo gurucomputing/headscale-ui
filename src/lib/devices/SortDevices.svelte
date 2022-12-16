@@ -14,7 +14,7 @@
 
 <span class="flex">
 	<button
-		on:click={() => {
+		on:keypress on:click={() => {
 			sortAction();
 		}}
 		class="mx-1"

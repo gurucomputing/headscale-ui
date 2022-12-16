@@ -12,7 +12,7 @@
 </script>
 
 <div in:fade class="card-primary">
-	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex justify-between">
+	<div on:keypress on:click={() => (cardExpanded = !cardExpanded)} class="flex justify-between">
 		<div>
 			<EditUser {user} />
 		</div>

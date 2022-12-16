@@ -58,7 +58,7 @@
 </script>
 
 <div class="card-primary">
-	<div on:click={() => (cardExpanded = !cardExpanded)} class="flex">
+	<div on:keypress on:click={() => (cardExpanded = !cardExpanded)} class="flex">
 		<span class="min-w-64 w-1/2 font-bold">
 			{#if cardEditing == false}
 				<span class="badge badge-xs tooltip {timeDifference(new Date(device.lastSeen))}" data-tip={timeSince(new Date(device.lastSeen))} /> {device.id}: {device.givenName}
