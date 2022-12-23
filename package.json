@@ -1,6 +1,6 @@
 {
 	"name": "headscale-ui",
-	"version": "2022.12.23.1-beta",
+	"version": "2022.12.23.2-beta",
 	"scripts": {
 		"dev": "vite dev --https --port 443 --host 0.0.0.0",
 		"build": "vite build",
