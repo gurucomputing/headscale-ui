@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { getDeviceRoutes, enableDeviceRoute } from '$lib/common/apiFunctions.svelte';
+	import { getDeviceRoutes, modifyDeviceRoutes } from './DeviceRoutesAPI.svelte';
 	import { Device, Route } from '$lib/common/classes';
 	import { onMount } from 'svelte';
 	import { alertStore } from '$lib/common/stores';
 
 	export let device = new Device();
-	let routesList = new Route();
+	let routesList: Route[] = [];
+	let routeID = 0;
 
 	onMount(async () => {
 		getDeviceRoutesAction();
@@ -21,37 +22,45 @@
 			});
 	}
 
-  function enableDeviceRouteAction(route: string) {
-    enableDeviceRoute(device.id, [route,...routesList.enabledRoutes])
+	function modifyDeviceRoutesAction() {
+		modifyDeviceRoutes(device.id, routesList, routeID)
 			.then((response) => {
 				getDeviceRoutesAction();
 			})
 			.catch((error) => {
 				$alertStore = error;
 			});
-  }
-
-  function disableDeviceRouteAction(route: string) {
-    enableDeviceRoute(device.id, [...routesList.enabledRoutes].filter(v=>v!=route))
-			.then((response) => {
-				getDeviceRoutesAction();
-			})
-			.catch((error) => {
-				$alertStore = error;
-			});
-  }
+	}
 </script>
 
 <th>Device Routes</th>
 <td
 	><ul class="list-disc list-inside">
-		{#each routesList.advertisedRoutes as route}
+		{#each routesList as route, index}
 			<li>
-				{route}
-				{#if routesList.enabledRoutes.includes(route)}
-					<button on:click={() => {disableDeviceRouteAction(route)}} type="button" class="btn btn-xs tooltip capitalize bg-success text-success-content mx-1" data-tip="press to disable route">active</button>
+				{route.prefix}
+				{#if route.enabled}
+					<button
+						on:click={() => {
+							routesList[index].enabled = false;
+							routeID = route.id;
+							modifyDeviceRoutesAction();
+						}}
+						type="button"
+						class="btn btn-xs tooltip capitalize bg-success text-success-content mx-1"
+						data-tip="press to disable route">active</button
+					>
 				{:else}
-					<button on:click={() => {enableDeviceRouteAction(route)}} type="button" class="btn btn-xs tooltip capitalize bg-secondary text-secondary-content mx-1" data-tip="press to enable route">pending</button>
+					<button
+						on:click={() => {
+							routesList[index].enabled = true;
+							routeID = route.id
+							modifyDeviceRoutesAction();
+						}}
+						type="button"
+						class="btn btn-xs tooltip capitalize bg-secondary text-secondary-content mx-1"
+						data-tip="press to enable route">pending</button
+					>
 				{/if}
 			</li>
 		{/each}
