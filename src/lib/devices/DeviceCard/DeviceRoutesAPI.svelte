@@ -66,11 +66,11 @@
 			routeList.forEach((route) => {
 				if (route.enabled) {
 					endpointURL += encodeURIComponent(route.prefix);
-					endpointURL += '&';
+					endpointURL += '&routes=';
 				}
 			});
 			// remove trailing ampersand and routes= expressions
-			endpointURL = (endpointURL.replace(/\&$/, '')).replace(/routes=$/,'');
+			endpointURL = endpointURL.replace(/\&routes=$/, '').replace(/\?routes=$/, '?');
 		} else {
 			routeList.forEach((route) => {
 				if (route.id == routeID) {
