@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getDeviceRoutes, enableDeviceRoute } from '$lib/common/apiFunctions.svelte';
+	import { getDeviceRoutes, enableDeviceRoute } from './DeviceRoutesAPI.svelte';
 	import { Device, Route } from '$lib/common/classes';
 	import { onMount } from 'svelte';
 	import { alertStore } from '$lib/common/stores';
