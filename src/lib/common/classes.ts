@@ -23,13 +23,10 @@ export class ACL {
 }
 
 export class Route {
-  // legacy method of handling a route
-  advertisedRoutes: string[] = [];
-  enabledRoutes: string[] = [];
-
   // current (hs 18+) method of handling a route
   advertised: boolean = true;
   prefix: string = "";
+  enabled: boolean = false;
 
   public constructor(init?: Partial<Route>) {
     Object.assign(this, init);

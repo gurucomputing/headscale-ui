@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import { Route } from '$lib/common/classes';
 
-	export async function getDeviceRoutes(deviceID: string): Promise<Route> {
+	export async function getDeviceRoutes(deviceID: string): Promise<Route[]> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -10,7 +10,7 @@
 		let endpointURL = '/api/v1/machine/' + deviceID + '/routes';
 
 		//returning variables
-		let headscaleRoute = new Route();
+		let headscaleRouteList: Route[] = [];
 		let headscaleDeviceResponse: Response = new Response();
 
 		await fetch(headscaleURL + endpointURL, {
@@ -35,9 +35,22 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			headscaleRoute = data.routes;
+      // check if the returned object is the legacy or current API object for routes
+      // convert to a route object if it is legacy
+      if(data.routes.advertisedRoutes) {
+        let advertisedRoutesList: string[] = data.routes.advertisedRoutes
+        advertisedRoutesList.forEach(legacyRoute => {
+          let route = new Route();
+          route.prefix = legacyRoute;
+          route.enabled = data.routes.enabledRoutes.contains(legacyRoute)
+          headscaleRouteList.push( route );
+        });
+
+      } else {
+        headscaleRouteList = data.routes;
+      }
 		});
-		return headscaleRoute;
+		return headscaleRouteList;
 	}
 
 	export async function enableDeviceRoute(deviceID: string, routes: string[]): Promise<any> {
