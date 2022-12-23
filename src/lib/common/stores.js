@@ -25,9 +25,6 @@ export const showACLPagesStore = writable(false);
 // 
 // Normal Stores (global scope, saves until refresh)
 // 
-
-// stores legacy API for routes
-export const legacyRoutesAPI = writable(false);
 // stores user and device data
 export const userStore = writable([new User()]);
 export const userFilterStore = writable([new User()]);

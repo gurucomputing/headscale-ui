@@ -1,7 +1,5 @@
 <script context="module" lang="ts">
 	import { Route } from '$lib/common/classes';
-	import { legacyRoutesAPI } from '$lib/common/stores';
-	import { get } from 'svelte/store';
 
 	export async function getDeviceRoutes(deviceID: string): Promise<Route[]> {
 		// variables in local storage
@@ -40,12 +38,11 @@
 			// check if the returned object is the legacy or current API object for routes
 			// convert to a route object if it is legacy
 			if (data.routes.advertisedRoutes) {
-				legacyRoutesAPI.set(true);
 				let advertisedRoutesList: string[] = data.routes.advertisedRoutes;
 				advertisedRoutesList.forEach((legacyRoute) => {
 					let route = new Route();
 					route.prefix = legacyRoute;
-					route.enabled = data.routes.enabledRoutes.contains(legacyRoute);
+					route.enabled = data.routes.enabledRoutes.includes(legacyRoute);
 					headscaleRouteList.push(route);
 				});
 			} else {
@@ -64,7 +61,7 @@
 		// change reply based on what API we are using
 		if (routeID == 0) {
 			// endpoint url for getting users
-			endpointURL = `/api/v1/machine/${deviceID}/routes?`;
+			endpointURL = `/api/v1/machine/${deviceID}/routes?routes=`;
 
 			routeList.forEach((route) => {
 				if (route.enabled) {
@@ -72,8 +69,8 @@
 					endpointURL += '&';
 				}
 			});
-			// remove trailing ampersand
-			endpointURL = endpointURL.slice(0, -1);
+			// remove trailing ampersand and routes= expressions
+			endpointURL = (endpointURL.replace(/\&$/, '')).replace(/routes=$/,'');
 		} else {
 			routeList.forEach((route) => {
 				if (route.id == routeID) {

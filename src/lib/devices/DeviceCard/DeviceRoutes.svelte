@@ -16,7 +16,6 @@
 		getDeviceRoutes(device.id)
 			.then((routes) => {
 				routesList = routes;
-				console.log(routes);
 			})
 			.catch((error) => {
 				$alertStore = error;
