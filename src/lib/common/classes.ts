@@ -27,6 +27,7 @@ export class Route {
   advertised: boolean = true;
   prefix: string = "";
   enabled: boolean = false;
+  id: number = 0;
 
   public constructor(init?: Partial<Route>) {
     Object.assign(this, init);
