@@ -58,7 +58,7 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 		let endpointURL = '';
 
-		// change reply based on what API we are using
+		// change reply based on what API we are using. If the routeID is 0, it's the legacy API
 		if (routeID == 0) {
 			// endpoint url for getting users
 			endpointURL = `/api/v1/machine/${deviceID}/routes?routes=`;
