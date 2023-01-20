@@ -13,7 +13,7 @@ If you are using docker, you can install `headscale` alongside `headscale-ui`, l
 version: '3.5'
 services:
   headscale:
-    image: headscale/headscale:latest-alpine
+    image: headscale/headscale:latest
     container_name: headscale
     volumes:
       - ./container-config:/etc/headscale
