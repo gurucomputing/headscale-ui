@@ -79,6 +79,6 @@ Once all three services are running, set up Headscale and Headscale UI _by creat
 3. Advanced: In the text box, add the following to manage the Headscale UI path properly: 
   ```json
     location /web/ {
-      proxy_pass https://132.145.201.160:8443/web/;
+      proxy_pass https://XXX.XXX.XXX.XXXX:port/web/;
   }
   ```
