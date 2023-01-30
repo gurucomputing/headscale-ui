@@ -6,7 +6,7 @@
 
 	export let device = new Device();
 	let deviceMoving = false;
-	let selectedUser = device.namespace.name;
+	let selectedUser = device.user.name;
 
 	function moveDeviceAction() {
 		moveDevice(device.id, selectedUser)
@@ -23,7 +23,7 @@
 
 <td>
 	{#if !deviceMoving}
-		{device.namespace.name}
+		{device.user.name}
 		<!-- edit symbol -->
 		<button
 			on:click={() => {

@@ -10,7 +10,7 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for getting users
-		let endpointURL = '/api/v1/namespace';
+		let endpointURL = '/api/v1/user';
 
 		//returning variables
 		let headscaleUsers = [new User()];
@@ -40,7 +40,7 @@
 			});
 
 		await headscaleUsersResponse.json().then((data) => {
-			headscaleUsers = data.namespaces
+			headscaleUsers = data.users
 			// sort the users
 			headscaleUsers = sortUsers(headscaleUsers);
 		});
@@ -57,7 +57,7 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for editing users
-		let endpointURL = '/api/v1/namespace/' + currentUsername + '/rename/' + newUsername;
+		let endpointURL = '/api/v1/user/' + currentUsername + '/rename/' + newUsername;
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',
@@ -189,7 +189,7 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for editing users
-		let endpointURL = '/api/v1/namespace/' + currentUsername;
+		let endpointURL = '/api/v1/user/' + currentUsername;
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'DELETE',
@@ -218,7 +218,7 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for editing users
-		let endpointURL = '/api/v1/namespace';
+		let endpointURL = '/api/v1/user';
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',
@@ -281,8 +281,8 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			headscaleDevices = data.machines
-			headscaleDevices = sortDevices(headscaleDevices)
+			headscaleDevices = data.machines;
+			headscaleDevices = sortDevices(headscaleDevices);
 		});
 		// set the stores
 		apiTestStore.set('succeeded');
@@ -341,7 +341,7 @@
 		let headscalePreAuthKey = [new PreAuthKey()];
 		let headscalePreAuthKeyResponse: Response = new Response();
 
-		await fetch(headscaleURL + endpointURL + '?namespace=' + userName, {
+		await fetch(headscaleURL + endpointURL + '?user=' + userName, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
@@ -381,7 +381,7 @@
 				Authorization: `Bearer ${headscaleAPIKey}`
 			},
 			body: JSON.stringify({
-				namespace: userName,
+				user: userName,
 				expiration: expiry,
 				reusable: reusable,
 				ephemeral: ephemeral
@@ -416,7 +416,7 @@
 				Authorization: `Bearer ${headscaleAPIKey}`
 			},
 			body: JSON.stringify({
-				namespace: userName,
+				user: userName,
 				key: preAuthKey
 			})
 		})
@@ -442,7 +442,7 @@
 		// endpoint url for editing users
 		let endpointURL = '/api/v1/machine/register';
 
-		await fetch(headscaleURL + endpointURL + '?namespace=' + userName + '&key=' + key, {
+		await fetch(headscaleURL + endpointURL + '?user=' + userName + '&key=' + key, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -469,7 +469,7 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for editing users
-		let endpointURL = '/api/v1/machine/' + deviceID + '/namespace?namespace=' + user;
+		let endpointURL = '/api/v1/machine/' + deviceID + '/user?user=' + user;
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',

@@ -7,7 +7,7 @@ export class Device {
   public forcedTags: string[] = []
   public validTags: string[] = []
   public invalidTags: string[] = []
-  public namespace: { name: string } = { name: '' }
+  public user: { name: string } = { name: '' }
 
   public constructor(init?: Partial<Device>) {
     Object.assign(this, init);
@@ -47,7 +47,7 @@ export class APIKey {
 }
 
 export class PreAuthKey {
-  public namespace: string = '';
+  public user: string = '';
   public id: string = '';
   public key: string = '';
   public createdAt: string = '';
