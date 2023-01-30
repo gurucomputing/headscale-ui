@@ -46,7 +46,6 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 		let endpointURL = '';
 
-		// change reply based on what API we are using. If the routeID is 0, it's the legacy API
 		routeList.forEach((route) => {
 			if (route.id == routeID) {
 				endpointURL = `/api/v1/routes/${routeID}/`;
