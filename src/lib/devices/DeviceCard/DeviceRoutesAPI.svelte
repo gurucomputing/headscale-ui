@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { Route } from '$lib/common/classes';
+	import type { Route } from '$lib/common/classes';
 
 	export async function getDeviceRoutes(deviceID: string): Promise<Route[]> {
 		// variables in local storage
@@ -35,19 +35,7 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			// check if the returned object is the legacy or current API object for routes
-			// convert to a route object if it is legacy
-			if (data.routes.advertisedRoutes) {
-				let advertisedRoutesList: string[] = data.routes.advertisedRoutes;
-				advertisedRoutesList.forEach((legacyRoute) => {
-					let route = new Route();
-					route.prefix = legacyRoute;
-					route.enabled = data.routes.enabledRoutes.includes(legacyRoute);
-					headscaleRouteList.push(route);
-				});
-			} else {
-				headscaleRouteList = data.routes;
-			}
+			headscaleRouteList = data.routes;
 		});
 		return headscaleRouteList;
 	}
@@ -59,30 +47,16 @@
 		let endpointURL = '';
 
 		// change reply based on what API we are using. If the routeID is 0, it's the legacy API
-		if (routeID == 0) {
-			// endpoint url for getting users
-			endpointURL = `/api/v1/machine/${deviceID}/routes?routes=`;
-
-			routeList.forEach((route) => {
+		routeList.forEach((route) => {
+			if (route.id == routeID) {
+				endpointURL = `/api/v1/routes/${routeID}/`;
 				if (route.enabled) {
-					endpointURL += encodeURIComponent(route.prefix);
-					endpointURL += '&routes=';
+					endpointURL += 'enable';
+				} else {
+					endpointURL += 'disable';
 				}
-			});
-			// remove trailing ampersand and routes= expressions
-			endpointURL = endpointURL.replace(/\&routes=$/, '').replace(/\?routes=$/, '?');
-		} else {
-			routeList.forEach((route) => {
-				if (route.id == routeID) {
-					endpointURL = `/api/v1/routes/${routeID}/`;
-					if(route.enabled) {
-						endpointURL += "enable";
-					} else {
-						endpointURL += "disable";
-					}
-				}
-			});
-		}
+			}
+		});
 		//returning variables
 		let headscaleDeviceResponse: Response = new Response();
 
