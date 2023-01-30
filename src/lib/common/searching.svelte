@@ -24,7 +24,7 @@
     // only run if we have search contents set
 		if (get(deviceSearchStore)) {
 			let options: Fuse.IFuseOptions<Device> = {
-				keys: ['id', 'givenName', 'name', 'forcedTags', 'validTags', 'namespace.name']
+				keys: ['id', 'givenName', 'name', 'forcedTags', 'validTags', 'user.name']
 			};
 			let searcher = new Fuse(get(deviceStore), options);
 

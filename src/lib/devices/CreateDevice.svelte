@@ -45,7 +45,7 @@
 		{#if activeTab == 0}
 			<div in:fade class="m-2">
 				<p>Install Tailscale with the client pointing to your domain (see <a target="_blank" rel="noreferrer" class="link link-primary" href="https://github.com/juanfont/headscale/tree/main/docs">headscale client documentation</a>). Log in using the tray icon, and your browser should give you instructions with a key.</p>
-				<div class="m-2"><code>headscale -n NAMESPACE nodes register --key &lt;your device key&gt;</code></div>
+				<div class="m-2"><code>headscale -u USER nodes register --key &lt;your device key&gt;</code></div>
 				<div class="my-2"><p>Copy the key below:</p></div>
 				<form class="flex flex-wrap" bind:this={newDeviceForm} on:submit|preventDefault={newDeviceAction}>
 					<div class="flex-none mr-4">
