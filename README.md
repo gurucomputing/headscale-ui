@@ -88,6 +88,13 @@ https://hs.yourdomain.com.au {
 ### Other Configurations
 See [Other Configurations](/documentation/configuration.md) for further proxy examples, such as Traefik
 
+## Versioning
+The following versions correspond to the appropriate headscale version
+| Headscale Version | HS-UI Version |
+|-------------------|---------------|
+| 19+               | 2023-01-30+   |
+| <19               | <2023-01-30   |
+
 ## Troubleshooting
 Make sure you are using the latest version of headscale. Headscale-UI is only tested against:
 
