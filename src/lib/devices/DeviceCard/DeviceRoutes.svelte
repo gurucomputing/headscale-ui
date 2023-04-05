@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getDeviceRoutes, modifyDeviceRoutes } from './DeviceRoutesAPI.svelte';
+	import { deleteDeviceRoute, getDeviceRoutes, modifyDeviceRoutes } from './DeviceRoutesAPI.svelte';
 	import { Device, Route } from '$lib/common/classes';
 	import { onMount } from 'svelte';
 	import { alertStore } from '$lib/common/stores';
@@ -31,13 +31,33 @@
 				$alertStore = error;
 			});
 	}
+
+	function deleteDeviceRouteAction() {
+		deleteDeviceRoute(routeID)
+			.then((response) => {
+				getDeviceRoutesAction();
+			})
+			.catch((error) => {
+				$alertStore = error;
+			});
+	}
 </script>
 
 <th>Device Routes</th>
 <td
 	><ul class="list-disc list-inside">
 		{#each routesList as route, index}
-			<li>
+			<div style="margin-left: -12px;">
+				<button
+					on:click|stopPropagation={() => {
+						routeID = route.id;
+						deleteDeviceRouteAction();
+					}}
+					class="ml-1"
+					><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
+				</button>
 				{route.prefix}
 				{#if route.enabled}
 					<button
@@ -54,7 +74,7 @@
 					<button
 						on:click={() => {
 							routesList[index].enabled = true;
-							routeID = route.id
+							routeID = route.id;
 							modifyDeviceRoutesAction();
 						}}
 						type="button"
@@ -62,7 +82,7 @@
 						data-tip="press to enable route">pending</button
 					>
 				{/if}
-			</li>
+			</div>
 		{/each}
 	</ul></td
 >
