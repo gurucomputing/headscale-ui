@@ -80,4 +80,30 @@
 				throw error;
 			});
 	}
+
+	export async function deleteDeviceRoute(routeID: number): Promise<any> {
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let endpointURL = `/api/v1/routes/${routeID}`;
+
+		await fetch(headscaleURL + endpointURL, {
+			method: 'DELETE',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			}
+		})
+			.then((response) => {
+				if (response.ok) {
+				} else {
+					return response.text().then((text) => {
+						throw JSON.parse(text).message;
+					});
+				}
+			})
+			.catch((error) => {
+				throw error;
+			});
+	}
 </script>
