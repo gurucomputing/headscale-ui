@@ -16,12 +16,9 @@ jobs:
         id: gathervars
         run: |
           # get a current BUILD_DATE
-          echo "BUILD_DATE=$(date +%Y%m%d-%H%M%S)" >> $GITHUB_OUTPUT
+          echo "BUILD_DATE=$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
           # set version based on BUILD_DATE
-          echo "VERSION=$(date +%Y.%m.%d)-development" >> $GITHUB_OUTPUT
-
-          # setting tags
-          echo "TAG=development" >> $GITHUB_OUTPUT
+          echo "VERSION=$(date +%Y.%m.%d)-development" >> $GITHUB_ENV
 
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -40,11 +37,11 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           build-args: |
-            BUILD_DATE=${{ steps.gathervars.outputs.BUILD_DATE }}
-            VERSION=${{ steps.gathervars.outputs.VERSION }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            VERSION=${{ env.VERSION }}
           context: ./docker/development
           tags: |
             ghcr.io/${{ github.repository }}-dev:latest
-            ghcr.io/${{ github.repository }}-dev:${{ steps.gathervars.outputs.VERSION }}
+            ghcr.io/${{ github.repository }}-dev:${{ env.VERSION }}
           platforms: linux/amd64,linux/arm64,linux/arm32v7
           push: true
