@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker Image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           build-args: |
             BUILD_DATE=${{ env.BUILD_DATE }}
@@ -43,5 +43,4 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}-dev:latest
             ghcr.io/${{ github.repository }}-dev:${{ env.VERSION }}
-          platforms: linux/amd64,linux/arm64,linux/arm32v7
           push: true
