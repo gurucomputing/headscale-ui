@@ -14,7 +14,7 @@ then
         echo "---- Forcing File Permissions to the node user ----"
         sudo /bin/chown -R 1000:1000 /data
     else
-        echo "---- You are not running as the node user AND your file permissions don't match your user ---\n"
+        echo "---- You are not running as the default non-root user AND your file permissions don't match your user ---\n"
         echo "---- You may need to manually fix your file permissions ----"
     fi
 fi
@@ -40,7 +40,6 @@ then
         cd /data
         git clone ${PROJECT_URL}
         cd ${PROJECT_NAME}
-        npm install
     else
         cd /data/${PROJECT_NAME}
     fi
