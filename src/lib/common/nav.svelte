@@ -31,7 +31,7 @@
 
 <!-- let the page initialize before showing the nav bar -->
 {#if componentLoaded}
-	<nav class="bg-base-200 flex shadow-xl w-14 h-screen sticky top-0" class:navCollapsed={$navExpanded == 'collapsed'} class:navExpanded={$navExpanded == 'expanded'} transition:fade>
+	<nav class="bg-base-200 flex shadow-xl w-14 h-screen sticky top-0" class:navCollapsed={$navExpanded == 'collapsed'} class:navExpanded={$navExpanded == 'expanded'} transition:fade|global>
 		<!-- links on top of sidebar -->
 		<div class="absolute top-0 w-full">
 			<button class="w-full nav-item" on:click={() => ($navExpanded == 'collapsed' ? ($navExpanded = 'expanded') : ($navExpanded = 'collapsed'))}>

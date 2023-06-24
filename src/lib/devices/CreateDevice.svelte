@@ -35,7 +35,7 @@
 <!-- html -->
 
 {#if newDeviceCardVisible == true}
-	<div in:fade out:fade={{ duration: newDeviceCardVisible ? 0 : 500 }} class="p-2 max-w-screen-lg border border-dashed border-base-content mx-4 rounded-md text-sm text-base-content shadow mb-10">
+	<div in:fade|global out:fade|global={{ duration: newDeviceCardVisible ? 0 : 500 }} class="p-2 max-w-screen-lg border border-dashed border-base-content mx-4 rounded-md text-sm text-base-content shadow mb-10">
 		<div class="tabs">
 			{#each tabs as tab, index}
 				<button class="tab tab-bordered h-fit w-1/3" class:tab-active={activeTab == index} on:click={() => (activeTab = index)}>{tab}</button>
@@ -43,7 +43,7 @@
 		</div>
 		<!-- Default Configuration -->
 		{#if activeTab == 0}
-			<div in:fade class="m-2">
+			<div in:fade|global class="m-2">
 				<p>Install Tailscale with the client pointing to your domain (see <a target="_blank" rel="noreferrer" class="link link-primary" href="https://github.com/juanfont/headscale/tree/main/docs">headscale client documentation</a>). Log in using the tray icon, and your browser should give you instructions with a key.</p>
 				<div class="m-2"><code>headscale -u USER nodes register --key &lt;your device key&gt;</code></div>
 				<div class="my-2"><p>Copy the key below:</p></div>
@@ -82,7 +82,7 @@
 		{/if}
 		<!-- With Preauth Keys -->
 		{#if activeTab == 1}
-			<div in:fade class="m-2">
+			<div in:fade|global class="m-2">
 				<p>Preauth Keys provide the capability to install tailscale using a pre-registered key (see the <code class="bg-base-200 px-2 rounded">--authkey</code> flag in the <a target="_blank" rel="noreferrer" class="link link-primary" href="https://tailscale.com/kb/1080/cli/">tailscale command line documentation</a>)</p>
 				<p>Preauth Keys are especially useful for deploying headscale as an always-on VPN (see the <code class="bg-base-200 px-2 rounded">TS_UNATTENDEDMODE</code> install option in the <a target="_blank" rel="noreferrer" class="link link-primary" href="https://tailscale.com/kb/1189/install-windows-msi/">tailscale documentation</a>) or router-level VPN.</p>
 				<div class="bg-base-200 p-4 m-2 rounded-xl">
@@ -95,7 +95,7 @@
 		{/if}
 		<!-- With OIDC -->
 		{#if activeTab == 2}
-			<div in:fade class="m-2">
+			<div in:fade|global class="m-2">
 				<p>OIDC provides the ability to register an external authentication provider (such as <a target="_blank" rel="noreferrer" class="link link-primary" href="https://www.keycloak.org/">keycloak</a>) to authenticate devices to headscale.</p>
 				<br />
 				<p>Configure Headscale to register with an authentication provider (see <a target="_blank" rel="noreferrer" class="link link-primary" href="https://github.com/juanfont/headscale/blob/main/config-example.yaml">headscale configuration documentation</a>). Once configured, successfully authenticated devices will automatically self-register</p>

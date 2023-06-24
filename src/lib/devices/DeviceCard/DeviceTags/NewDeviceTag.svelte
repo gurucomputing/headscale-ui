@@ -39,7 +39,7 @@
 		<!-- svelte-ignore a11y-autofocus -->
 		<form on:submit|preventDefault={updateTagsAction}>
 			<input bind:value={newTag} autofocus required class="bg-primary w-16" />
-			<button in:fade class="ml-1">
+			<button in:fade|global class="ml-1">
 				<!-- checkmark symbol -->
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -48,7 +48,7 @@
 			<!-- Delete cancel symbol -->
 			<button
 				type="button"
-				in:fade
+				in:fade|global
 				on:click|stopPropagation={() => {
 					editingTag = false;
 					newTag = '';
