@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Variable Gathering
         id: gathervars
@@ -18,22 +18,19 @@ jobs:
           NOT_PREVIOUSLY_PUBLISHED=0
           # get a current BUILD_DATE
           VERSION=$(jq -r '.version' ./package.json)
-          echo "::set-output name=BUILD_DATE::$(date +%Y%m%d-%H%M%S)"
-          echo "::set-output name=VERSION::$VERSION"
+          echo "BUILD_DATE=$(date +%Y%m%d-%H%M%S)" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
           # setting tags
           if echo "$VERSION" | grep -q "beta"; then
-            TAGS="ghcr.io/${{ github.repository }}:beta, ghcr.io/${{ github.repository }}:$VERSION, ghcr.io/${{ github.repository }}:latest"
-            PRIMARY_TAG=latest
+            echo "TAGS=ghcr.io/${{ github.repository }}:beta, ghcr.io/${{ github.repository }}:$VERSION, ghcr.io/${{ github.repository }}:latest" >> $GITHUB_ENV
           else
-            TAGS="ghcr.io/${{ github.repository }}:release, ghcr.io/${{ github.repository }}:latest, ghcr.io/${{ github.repository }}:$VERSION"
-            PRIMARY_TAG=latest
+            echo "TAGS=ghcr.io/${{ github.repository }}:release, ghcr.io/${{ github.repository }}:latest, ghcr.io/${{ github.repository }}:$VERSION" >> $GITHUB_ENV
           fi
-          echo "::set-output name=TAG::$TAGS"
-          echo "::set-output name=PRIMARY_TAG::$PRIMARY_TAG"
+          echo "PRIMARY_TAG=latest" >> $GITHUB_ENV
           # check if version has already been published
           $(docker manifest inspect ghcr.io/${{ github.repository }}:$VERSION > /dev/null) || NOT_PREVIOUSLY_PUBLISHED=1
-          echo "::set-output name=NOT_PREVIOUSLY_PUBLISHED::$NOT_PREVIOUSLY_PUBLISHED"
+          echo "NOT_PREVIOUSLY_PUBLISHED=$NOT_PREVIOUSLY_PUBLISHED" >> $GITHUB_ENV
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -43,35 +40,35 @@ jobs:
 
       - name: Log in to the Container registry
         uses: docker/login-action@v1
-        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
+        if: ${{ env.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker Image
-        uses: docker/build-push-action@v2
-        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
+        uses: docker/build-push-action@v4
+        if: ${{ env.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         with:
           build-args: |
-            BUILD_DATE=${{ steps.gathervars.outputs.BUILD_DATE }}
-            VERSION=${{ steps.gathervars.outputs.VERSION }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            VERSION=${{ env.VERSION }}
           context: ./docker/production
           tags: |
-            ${{ steps.gathervars.outputs.TAG }}
+            ${{ env.TAGS }}
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           push: true
 
       - name: Extract build out of docker image
-        uses: shrink/actions-docker-extract@v1
-        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
+        uses: shrink/actions-docker-extract@v2
+        if: ${{ env.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         id: extract
         with:
-          image: ghcr.io/${{ github.repository }}:${{ steps.gathervars.outputs.PRIMARY_TAG }}
+          image: ghcr.io/${{ github.repository }}:${{ env.PRIMARY_TAG }}
           path: web
           
       - name: create release asset
-        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
+        if: ${{ env.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         run: |
           cd "${{ steps.extract.outputs.destination }}"
           7z a headscale-ui.zip web
@@ -79,18 +76,18 @@ jobs:
       - name: Create Draft Release
         id: create_release
         uses: actions/create-release@v1
-        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
+        if: ${{ env.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.gathervars.outputs.VERSION }}
+          tag_name: ${{ env.VERSION }}
           release_name: headscale-ui
           draft: true
           prerelease: false
         
       - name: upload asset to releases  
         uses: actions/upload-release-asset@v1.0.1
-        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
+        if: ${{ env.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -101,7 +98,7 @@ jobs:
 
       - name: publish release
         uses: eregon/publish-release@v1
-        if: ${{ steps.gathervars.outputs.NOT_PREVIOUSLY_PUBLISHED != 0 }}
+        if: ${{ env.NOT_PREVIOUSLY_PUBLISHED != 0 }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
