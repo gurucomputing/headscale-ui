@@ -2,9 +2,8 @@
 set -x
 
 # add dependencies
-# jq for parsing version information
 # git for cloning the repository
-apk add --no-cache jq git
+apk add --no-cache git
 
 #clone the project
 git clone ${PROJECT_URL} ${PROJECT_NAME}
@@ -15,7 +14,6 @@ git checkout ${CHECKOUT_BRANCH}
 npm install
 
 # inject the version number
-VERSION=$(jq -r '.version' package.json)
 sed -i "s/insert-version/${VERSION}/g" ./src/routes/settings.html/+page.svelte
 
 # build the project
