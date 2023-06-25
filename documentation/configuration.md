@@ -82,3 +82,52 @@ Once all three services are running, set up Headscale and Headscale UI _by creat
       proxy_pass https://XXX.XXX.XXX.XXXX:port/web/;
   }
   ```
+
+# Nginx Example Configuration
+From https://github.com/gurucomputing/headscale-ui/issues/71
+
+```
+map $http_upgrade $connection_upgrade {
+    default      keep-alive;
+    'websocket'  upgrade;
+    ''           close;
+}
+
+server {
+    server_name headscale-01.example.com;
+
+    location /web {
+        alias /usr/local/www/headscale-ui;
+        index index.html;
+    }
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $server_name;
+        proxy_redirect http:// https://;
+        proxy_buffering off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        add_header Strict-Transport-Security "max-age=15552000; includeSubDomains" always;
+    }
+
+    listen 443 ssl;
+    ssl_certificate fullchain.pem;
+    ssl_certificate_key privkey.pem;
+    [...]
+}
+
+server {
+    if ($host = headscale-01.example.com) {
+        return 301 https://$host$request_uri;
+    }
+
+    server_name headscale-01.example.com;
+    listen 80;
+    return 404;
+}
+```
