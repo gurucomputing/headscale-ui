@@ -79,12 +79,12 @@
 	<button on:click={() => ClearServerSettings()} class="btn btn-sm btn-primary capitalize" type="button">Clear Server Settings</button>
 	<button on:click={() => TestServerSettings()} class="btn btn-sm btn-secondary capitalize" type="button">Test Server Settings</button>
 	{#if apiStatus === 'succeeded'}
-		<svg in:fly={{ x: 10, duration: 600 }} xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="green" stroke-width="2">
+		<svg in:fly|global={{ x: 10, duration: 600 }} xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="green" stroke-width="2">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 		</svg>
 	{/if}
 	{#if apiStatus === 'failed'}
-		<svg in:fly={{ x: 10, duration: 600 }} xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="red" stroke-width="2">
+		<svg in:fly|global={{ x: 10, duration: 600 }} xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="red" stroke-width="2">
 			<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 		</svg>
 	{/if}

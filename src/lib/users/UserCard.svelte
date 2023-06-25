@@ -11,7 +11,7 @@
 	let cardExpanded = false;
 </script>
 
-<div in:fade class="card-primary">
+<div in:fade|global class="card-primary">
 	<div on:keypress on:click={() => (cardExpanded = !cardExpanded)} class="flex justify-between">
 		<div>
 			<EditUser {user} />
@@ -34,7 +34,7 @@
 	</div>
 	{#if cardExpanded}
 		<!-- we put a conditional on the outro transition so page changes do not trigger the animation -->
-		<div in:slide out:slide={{ duration: cardExpanded ? 0 : 500 }} class="pt-2 pl-2">
+		<div in:slide|global out:slide|global={{ duration: cardExpanded ? 0 : 500 }} class="pt-2 pl-2">
 			<div class="overflow-x-auto">
 				<table class="table table-compact w-full">
 					<tbody>

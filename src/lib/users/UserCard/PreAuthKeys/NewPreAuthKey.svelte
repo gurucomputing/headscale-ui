@@ -36,7 +36,7 @@
 	}
 </script>
 
-<div in:fade class="card-pending">
+<div in:fade|global class="card-pending">
 	<form on:submit|preventDefault={NewPreAuthKeyAction}>
 		<table class="table table-compact w-full">
 			<tbody>

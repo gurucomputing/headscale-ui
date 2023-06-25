@@ -1,9 +1,9 @@
+FROM node:lts AS build
+
 # arguments
 ARG VERSION="master"
 # Branch to check out
 ARG CHECKOUT_BRANCH="master"
-
-FROM node:lts AS build
 
 #environment variables
 ENV PROJECT_NAME="headscale-ui"
