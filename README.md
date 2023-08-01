@@ -107,9 +107,9 @@ Note that while mobile is checked for functionality, the web experience is not m
 If you are getting errors about preflight checks, it's probably CORS related. Make sure your UI sits on the same subdomain as headscale or inject CORS headers.
 
 ### Errors related to "Missing Bearer Prefix"
-Your API key is either not saved. Create an API key in `headscale` (via command line) with `headscale apikeys create` or `docker exec <headscale container> headscale apikeys create` and save it in `settings`.
+Your API key is either not saved or you haven't configured your reverse proxy. Create an API key in `headscale` (via command line) with `headscale apikeys create` or `docker exec <headscale container> headscale apikeys create` and save it in `settings`.
 
-Alternatively, you haven't fixed your domain. HS-UI *has* to be ran on the same subdomain or you need to configure CORS. Yes you need to use a reverse proxy to do this. Use a reverse proxy.
+HS-UI *has* to be ran on the same subdomain as headscale or you need to configure CORS. Yes you need to use a reverse proxy to do this. Use a reverse proxy. If you are trying to use raw IPs and ports, it *will* not work.
 
 ## Security
 see [security](/SECURITY.md) for details
