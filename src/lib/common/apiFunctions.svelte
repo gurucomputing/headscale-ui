@@ -281,7 +281,7 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			headscaleDevices = data.machines;
+			headscaleDevices = data.nodes;
 			headscaleDevices = sortDevices(headscaleDevices);
 		});
 		// set the stores
