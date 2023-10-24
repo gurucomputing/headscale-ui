@@ -7,7 +7,7 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for getting users
-		let endpointURL = '/api/v1/machine/' + deviceID + '/routes';
+		let endpointURL = '/api/v1/node/' + deviceID + '/routes';
 
 		//returning variables
 		let headscaleRouteList: Route[] = [];
