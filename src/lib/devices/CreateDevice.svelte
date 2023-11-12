@@ -7,8 +7,9 @@
 
 	// whether the new card html element is visible
 	export let newDeviceCardVisible = false;
+	export let newDeviceKey = '';
+	export let newDeviceRedirect = '';
 	let newDeviceForm: HTMLFormElement;
-	let newDeviceKey = '';
 	let selectedUser = '';
 
 	let tabs = ['Default Configuration', 'With Preauth Keys', 'With OIDC'];
@@ -20,8 +21,13 @@
 				.then((response) => {
 					newDeviceCardVisible = false;
 					newDeviceKey = '';
-					// refresh devices after editing
-					getDevices();
+
+					if (newDeviceRedirect) {
+						window.location.href = newDeviceRedirect;
+					} else {
+						// refresh devices after editing
+						getDevices();
+					}
 				})
 				.catch((error) => {
 					$alertStore = error;
