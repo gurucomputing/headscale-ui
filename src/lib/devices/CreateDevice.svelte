@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { userStore, deviceStore } from '$lib/common/stores';
+	import { userStore } from '$lib/common/stores';
 	import { getDevices, newDevice } from '$lib/common/apiFunctions.svelte';
 	import { alertStore } from '$lib/common/stores.js';
 	import { base } from '$app/paths';

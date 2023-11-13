@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
-	import { getDevices, getUsers } from '$lib/common/apiFunctions.svelte';
+	import { getUsers } from '$lib/common/apiFunctions.svelte';
 	import { apiTestStore } from '$lib/common/stores.js';
 	import CreateDevice from '$lib/devices/CreateDevice.svelte';
 	import { onMount } from 'svelte';
@@ -26,8 +26,6 @@
 	onMount(async () => {
 		// update user list
 		getUsers();
-		// attempt to pull list of devices
-		getDevices();
 		// load the page
 		componentLoaded = true;
 	});
