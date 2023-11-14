@@ -4,6 +4,8 @@
 	import { getDevices, newDevice } from '$lib/common/apiFunctions.svelte';
 	import { alertStore } from '$lib/common/stores.js';
 	import { base } from '$app/paths';
+	import { page } from '$app/stores';
+	import { goto } from "$app/navigation";
 
 	// whether the new card html element is visible
 	export let newDeviceCardVisible = false;
@@ -24,6 +26,11 @@
 					// refresh devices after editing
 					getDevices();
 
+					// Clear device key in url
+					if ($page.url.searchParams.get('nodekey')) {
+						$page.url.searchParams.delete('nodekey');
+						goto(`?${$page.url.searchParams.toString()}`);
+					}
 				})
 				.catch((error) => {
 					$alertStore = error;
