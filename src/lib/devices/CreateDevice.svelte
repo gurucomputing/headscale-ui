@@ -8,7 +8,6 @@
 	// whether the new card html element is visible
 	export let newDeviceCardVisible = false;
 	export let newDeviceKey = '';
-	export let newDeviceRedirect = '';
 	let newDeviceForm: HTMLFormElement;
 	let selectedUser = '';
 
@@ -22,12 +21,9 @@
 					newDeviceCardVisible = false;
 					newDeviceKey = '';
 
-					if (newDeviceRedirect) {
-						window.location.href = newDeviceRedirect;
-					} else {
-						// refresh devices after editing
-						getDevices();
-					}
+					// refresh devices after editing
+					getDevices();
+
 				})
 				.catch((error) => {
 					$alertStore = error;
