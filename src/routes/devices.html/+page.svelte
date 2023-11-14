@@ -1,6 +1,7 @@
 <!-- typescript -->
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { page } from '$app/stores';
 	import { getDevices, getUsers } from '$lib/common/apiFunctions.svelte';
 	import { apiTestStore, deviceFilterStore, deviceStore } from '$lib/common/stores.js';
 	import CreateDevice from '$lib/devices/CreateDevice.svelte';
@@ -10,7 +11,9 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
-	let newDeviceCardVisible = false;
+	let newDeviceKey = $page.url.searchParams.get('nodekey') as string|undefined
+
+	let newDeviceCardVisible = !!newDeviceKey;
 
 	//
 	// Component Variables
@@ -54,7 +57,7 @@
 				>
 			</table>
 
-			<CreateDevice bind:newDeviceCardVisible />
+			<CreateDevice bind:newDeviceCardVisible bind:newDeviceKey />
 
 			{#each $deviceStore as device}
 				{#if $deviceFilterStore.includes(device)}
