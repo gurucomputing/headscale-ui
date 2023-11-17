@@ -13,7 +13,7 @@
 
 	let newDeviceKey = $page.url.searchParams.get('nodekey') ?? '';
 
-	let newDeviceCardVisible = newDeviceKey?.length > 0 ? true : false;
+	let newDeviceCardVisible = newDeviceKey.length > 0 ? true : false;
 
 	//
 	// Component Variables
