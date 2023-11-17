@@ -1,6 +1,6 @@
 # Route Queries
 
-Some routes offer additional behavior to a route when a `?` exists in the URL. This is called a query string parameters. Route queries are used to modify the behavior of a route. Below are the available route queries.
+Some routes offer additional behavior to a route when a `?` exists in the URL. These are called query string parameters or route queries. Route queries are used to modify the behavior of a route. Below are the available route queries.
 
 ## Devices
 
