@@ -11,9 +11,9 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
-	let newDeviceKey = $page.url.searchParams.get('nodekey') as string|undefined
+	let newDeviceKey = $page.url.searchParams.get('nodekey') ?? '';
 
-	let newDeviceCardVisible = !!newDeviceKey;
+	let newDeviceCardVisible = newDeviceKey?.length > 0 ? true : false;
 
 	//
 	// Component Variables
