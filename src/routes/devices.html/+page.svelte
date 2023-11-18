@@ -11,9 +11,9 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
-	let newDeviceKey = $page.url.searchParams.get('nodekey') ?? '';
+	let newDeviceKey = '';
 
-	let newDeviceCardVisible = newDeviceKey.length > 0 ? true : false;
+	let newDeviceCardVisible = false;
 
 	//
 	// Component Variables
@@ -25,6 +25,11 @@
 	// We define the meat of our script in onMount as doing so forces client side rendering.
 	// Doing so also does not perform any actions until components are initialized
 	onMount(async () => {
+
+		// Handle nodekey
+		newDeviceKey = $page.url.searchParams.get('nodekey') ?? ''
+		newDeviceCardVisible = newDeviceKey.length > 0 ? true : false
+
 		// update user list
 		getUsers();
 		// attempt to pull list of devices
