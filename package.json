@@ -2,7 +2,7 @@
 	"name": "headscale-ui",
 	"version": "2024.02.24-beta1",
 	"scripts": {
-		"dev": "vite dev --https --port 443 --host 0.0.0.0",
+		"dev": "vite dev --port 443 --host 0.0.0.0",
 		"build": "vite build",
 		"package": "vite package",
 		"preview": "vite preview --https --port 443 --host 0.0.0.0",
