@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 	import { APIKey, Device, PreAuthKey, User } from '$lib/common/classes';
-	import { deviceStore, userStore, apiTestStore } from '$lib/common/stores.js';
+	import { deviceStore, userStore, apiTestStore, APIMachineOrNode } from '$lib/common/stores.js';
 	import { sortDevices, sortUsers } from '$lib/common/sorting.svelte';
 	import { filterDevices, filterUsers } from './searching.svelte';
 
@@ -155,9 +155,10 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for editing users
-		let endpointURL = '/api/v1/node/' + deviceID + '/tags';
+		let endpointURL = `/api/v1/${headscaleAPIMachineOrNode}/${deviceID}/tags`;
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',
@@ -248,9 +249,10 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for getting users
-		let endpointURL = '/api/v1/node';
+		let endpointURL = `/api/v1/${headscaleAPIMachineOrNode}`;
 
 		//returning variables
 		let headscaleDevices = [new Device()];
@@ -281,7 +283,7 @@
 			});
 
 		await headscaleDeviceResponse.json().then((data) => {
-			headscaleDevices = data.nodes;
+			headscaleDevices = data[`${headscaleAPIMachineOrNode}s`];
 			headscaleDevices = sortDevices(headscaleDevices);
 		});
 		// set the stores
@@ -438,9 +440,10 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for editing users
-		let endpointURL = '/api/v1/node/register';
+		let endpointURL = `/api/v1/${headscaleAPIMachineOrNode}/register`;
 
 		await fetch(headscaleURL + endpointURL + '?user=' + userName + '&key=' + key, {
 			method: 'POST',
@@ -467,9 +470,10 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for editing users
-		let endpointURL = '/api/v1/node/' + deviceID + '/user?user=' + user;
+		let endpointURL = `/api/v1/${headscaleAPIMachineOrNode}/${deviceID}/user?user=${user}`;
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',
@@ -496,9 +500,10 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for editing users
-		let endpointURL = '/api/v1/node/' + deviceID + '/rename/' + name;
+		let endpointURL = `/api/v1/${headscaleAPIMachineOrNode}/${deviceID}/rename/${name}`;
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',
@@ -525,9 +530,10 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for removing devices
-		let endpointURL = '/api/v1/node/' + deviceID;
+		let endpointURL = `/api/v1/${headscaleAPIMachineOrNode}/${deviceID}`;
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'DELETE',
