@@ -40,7 +40,7 @@
 			});
 
 		await headscaleUsersResponse.json().then((data) => {
-			headscaleUsers = data.users
+			headscaleUsers = data.users;
 			// sort the users
 			headscaleUsers = sortUsers(headscaleUsers);
 		});
@@ -152,6 +152,9 @@
 	}
 
 	export async function updateTags(deviceID: string, tags: string[]): Promise<any> {
+		// test the API routes whether we should try to use 'machines' or 'nodes'
+		await testMachineOrNode();
+
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -245,13 +248,42 @@
 			});
 	}
 
-	export async function getDevices(): Promise<any> {
+	export async function testMachineOrNode() {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
-		// endpoint url for getting users
+		// endpoint url for getting devices
+		let endpointURL = `/api/v1/${headscaleAPIMachineOrNode}`;
+		await fetch(headscaleURL + endpointURL, {
+			method: 'GET',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${headscaleAPIKey}`
+			}
+		}).then((response) => {
+			if (!response.ok) {
+				// set APIMachineOrNode to the opposite value
+				if (headscaleAPIMachineOrNode == 'machine') {
+					APIMachineOrNode.set('node');
+				} else {
+					APIMachineOrNode.set('machine');
+				}
+			}
+		});
+	}
+
+	export async function getDevices(): Promise<any> {
+		// test the API routes whether we should try to use 'machines' or 'nodes'
+		await testMachineOrNode();
+
+		// variables in local storage
+		let headscaleURL = localStorage.getItem('headscaleURL') || '';
+		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
+		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
+
+		// endpoint url for getting devices
 		let endpointURL = `/api/v1/${headscaleAPIMachineOrNode}`;
 
 		//returning variables
@@ -292,8 +324,6 @@
 		// filter the store
 		filterDevices();
 	}
-
-
 
 	export async function getAPIKeys(): Promise<APIKey[]> {
 		// variables in local storage
@@ -437,6 +467,9 @@
 	}
 
 	export async function newDevice(key: string, userName: string): Promise<any> {
+		// test the API routes whether we should try to use 'machines' or 'nodes'
+		await testMachineOrNode();
+
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -467,6 +500,9 @@
 	}
 
 	export async function moveDevice(deviceID: string, user: string): Promise<any> {
+		// test the API routes whether we should try to use 'machines' or 'nodes'
+		await testMachineOrNode();
+
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -497,6 +533,9 @@
 	}
 
 	export async function renameDevice(deviceID: string, name: string): Promise<any> {
+		// test the API routes whether we should try to use 'machines' or 'nodes'
+		await testMachineOrNode();
+
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -527,6 +566,9 @@
 	}
 
 	export async function removeDevice(deviceID: string): Promise<any> {
+		// test the API routes whether we should try to use 'machines' or 'nodes'
+		await testMachineOrNode();
+		
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
