@@ -64,11 +64,13 @@
 
 			<CreateDevice bind:newDeviceCardVisible bind:newDeviceKey />
 
-			{#each $deviceStore as device}
-				{#if $deviceFilterStore.includes(device)}
-					<DeviceCard {device} />
-				{/if}
-			{/each}
+			<div class="flex flex-col gap-2">
+				{#each $deviceStore as device}
+					{#if $deviceFilterStore.includes(device)}
+						<DeviceCard {device} />
+					{/if}
+				{/each}
+			</div>
 		{/if}
 		{#if $apiTestStore === 'failed'}
 			<div in:fade|global class="max-w-lg  mx-auto p-4 border-4 text-sm text-base-content shadow-lg text-center">

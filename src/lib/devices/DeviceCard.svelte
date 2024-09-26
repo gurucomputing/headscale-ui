@@ -20,6 +20,21 @@
 		} else if (timeDifference < 86400) {
 			return 'bg-warning';
 		}
+
+		return 'bg-error';
+	}
+
+	// return button colour based on online status
+	function onlineBackground(online: boolean) {
+		return online ? 'bg-success' : 'bg-error';
+	}
+
+	function getBadgeColour(date: Date, online?: boolean) {
+		if (online !== undefined) {
+			return onlineBackground(online);
+		}
+
+		return timeDifference(date);
 	}
 
 	// returns time last seen in human readable format
@@ -57,11 +72,11 @@
 	}
 </script>
 
-<div class="card-primary">
-	<div on:keypress on:click={() => (cardExpanded = !cardExpanded)} class="flex">
+<div class="card-primary bg-base-200">
+	<div on:keypress on:click={() => (cardExpanded = !cardExpanded)} class="flex items-center">
 		<span class="min-w-64 w-1/2 font-bold">
 			{#if cardEditing == false}
-				<span class="badge badge-xs tooltip {timeDifference(new Date(device.lastSeen))}" data-tip={timeSince(new Date(device.lastSeen))} /> {device.id}: {device.givenName}
+				<span class="badge badge-xs tooltip {getBadgeColour(new Date(device.lastSeen), device.online)}" data-tip={timeSince(new Date(device.lastSeen))} /> {device.id}: {device.givenName}
 			{/if}
 			<RenameDevice bind:cardEditing {device} />
 		</span>
@@ -85,7 +100,7 @@
 	</div>
 	{#if cardExpanded}
 		<!-- we put a conditional on the outro transition so page changes do not trigger the animation -->
-		<div in:slide|global out:slide|global={{ duration: cardExpanded ? 0 : 500 }} class="pt-2 pl-2">
+		<div in:slide|global out:slide|global={{ duration: cardExpanded ? 0 : 500 }} class="mt-2 pt-2 pl-2">
 			<div class="overflow-x-auto">
 				<table class="table table-compact w-full">
 					<tbody>

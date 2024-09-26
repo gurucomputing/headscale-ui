@@ -52,11 +52,14 @@
 				>
 			</table>
 			<CreateUser bind:newUserCardVisible />
-			{#each $userStore as user}
-			{#if $userFilterStore.includes(user)}
-				<UserCard {user} />
-			{/if}
-			{/each}
+
+			<div class="flex flex-col gap-2">
+				{#each $userStore as user}
+					{#if $userFilterStore.includes(user)}
+						<UserCard {user} />
+					{/if}
+				{/each}
+			</div>
 		{/if}
 		{#if $apiTestStore === 'failed'}
 			<div in:fade|global class="max-w-lg  mx-auto p-4 border-4 text-sm text-base-content shadow-lg text-center">
