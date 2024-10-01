@@ -8,7 +8,7 @@
 }
 
 .card-primary {
-  @apply grid grid-cols-1 divide-y p-2 max-w-screen-lg border mx-4 border-base-content rounded-md text-sm text-base-content shadow
+  @apply grid grid-cols-1 divide-y p-2 max-w-screen-lg mx-4 border-base-content rounded-md text-sm text-base-content shadow
 }
 
 .card-pending {
