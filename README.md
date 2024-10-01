@@ -31,7 +31,7 @@ services:
       # - 8080:8080
 ```
 
-Headscale UI serves on port 443 and uses a self signed cert by default. You will need to add a `config.yaml` file under your `container-config` folder so that `headscale` has all of the required settings declared. An example from the official `headscale` repo is [here](https://github.com/juanfont/headscale/blob/main/config-example.yaml). 
+Headscale UI serves on port 8080/8443 and uses a self signed cert by default. You will need to add a `config.yaml` file under your `container-config` folder so that `headscale` has all of the required settings declared. An example from the official `headscale` repo is [here](https://github.com/juanfont/headscale/blob/main/config-example.yaml). 
 
 ### Additional Docker Settings
 The docker container lets you set the following settings:
