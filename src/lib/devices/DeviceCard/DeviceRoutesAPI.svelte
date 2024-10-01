@@ -1,10 +1,7 @@
 <script context="module" lang="ts">
 	import type { Route } from '$lib/common/classes';
-	import { testMachineOrNode } from '$lib/common/apiFunctions.svelte'
 
 	export async function getDeviceRoutes(deviceID: string): Promise<Route[]> {
-		// test the API routes whether we should try to use 'machines' or 'nodes'
-		await testMachineOrNode();
 
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';

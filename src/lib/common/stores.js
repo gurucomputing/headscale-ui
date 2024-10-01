@@ -10,8 +10,6 @@ export const themeStore = writable('');
 // stores URL and API Key
 export const URLStore = writable('');
 export const APIKeyStore = writable('');
-// stores the type of device api call made for version compatibility
-export const APIMachineOrNode = writable('machine');
 // stores sorting preferences
 export const deviceSortStore = writable('id');
 export const deviceSortDirectionStore = writable('ascending');
