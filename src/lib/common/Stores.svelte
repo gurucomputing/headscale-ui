@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { deviceSortStore, deviceSortDirectionStore, userSortStore, sortDirectionStore, themeStore, showACLPagesStore, APIMachineOrNode } from '$lib/common/stores.js';
+	import { deviceSortStore, deviceSortDirectionStore, userSortStore, sortDirectionStore, themeStore, showACLPagesStore} from '$lib/common/stores.js';
 	import { URLStore } from '$lib/common/stores.js';
 	import { APIKeyStore } from '$lib/common/stores.js';
 	import { preAuthHideStore } from '$lib/common/stores.js';
@@ -28,9 +28,6 @@
 		URLStore.subscribe((val) => localStorage.setItem('headscaleURL', val.replace(/\/+$/, '')));
 		APIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
 		APIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));
-		// stores api version compatibility info
-		APIMachineOrNode.set(localStorage.getItem('headscaleAPIMachineOrNode') || 'machine');
-		APIMachineOrNode.subscribe((val) => localStorage.setItem('headscaleAPIMachineOrNode', val));
 
 		// stores whether preauthkeys get hidden when expired/used
 		preAuthHideStore.set((localStorage.getItem('headscalePreAuthHide') || 'false') == 'true');
