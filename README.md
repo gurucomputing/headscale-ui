@@ -13,7 +13,7 @@ If you are using docker, you can install `headscale` alongside `headscale-ui`, l
 version: '3.5'
 services:
   headscale:
-    image: headscale/headscale:latest
+    image: headscale/headscale:stable
     container_name: headscale
     volumes:
       - ./container-config:/etc/headscale
@@ -27,7 +27,8 @@ services:
     restart: unless-stopped
     container_name: headscale-ui
     # ports:
-      # - 9443:443
+      # - 8443:8443
+	  # - 8080:8080
 ```
 
 Headscale UI serves on port 443 and uses a self signed cert by default. You will need to add a `config.yaml` file under your `container-config` folder so that `headscale` has all of the required settings declared. An example from the official `headscale` repo is [here](https://github.com/juanfont/headscale/blob/main/config-example.yaml). 
@@ -36,19 +37,14 @@ Headscale UI serves on port 443 and uses a self signed cert by default. You will
 The docker container lets you set the following settings:
 | Variable | Description | Example |
 |----|----|----|
-| HTTP_PORT | Sets the HTTP port to an alternate value | `80` |
-| HTTPS_PORT | Sets the HTTPS port to an alternate value | `443` |
+| HTTP_PORT | Sets the HTTP port to an alternate value | `8080` |
+| HTTPS_PORT | Sets the HTTPS port to an alternate value | `8443` |
 
 ### Proxy Settings
 You will need a reverse proxy to install `headscale-ui` on your domain. Here is an example [Caddy Config](https://caddyserver.com/) to achieve this:
 ```
 https://hs.yourdomain.com.au {
-	reverse_proxy /web* https://headscale-ui {
-		transport http {
-			tls_insecure_skip_verify
-		}
-	}
-
+	reverse_proxy /web* http://headscale-ui:8080
 	reverse_proxy * http://headscale:8080
 }
 
@@ -92,6 +88,7 @@ See [Other Configurations](/documentation/configuration.md) for further proxy ex
 The following versions correspond to the appropriate headscale version
 | Headscale Version | HS-UI Version |
 |-------------------|---------------|
+| 23+               | 2024-10-01+   |
 | 19+               | 2023-01-30+   |
 | <19               | <2023-01-30   |
 
