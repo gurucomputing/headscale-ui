@@ -12,6 +12,7 @@
 </script>
 
 <div in:fade|global class="card-primary bg-base-200">
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:keypress on:click={() => (cardExpanded = !cardExpanded)} class="flex justify-between">
 		<div>
 			<EditUser {user} />
