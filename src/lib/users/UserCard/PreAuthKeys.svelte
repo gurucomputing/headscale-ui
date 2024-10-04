@@ -62,7 +62,9 @@
 				type="checkbox"
 				bind:checked={($preAuthHideStore)}
 				class="checkbox checkbox-xs text-base-content"
-			/><span
+			/>
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
+			<span
 				on:keypress on:click={() => {
 					$preAuthHideStore = !$preAuthHideStore
 				}}

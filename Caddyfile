@@ -1,12 +1,6 @@
-{
-	skip_install_trust
-}
-:443 {
+:8080 {
 	redir / /web
 	uri strip_prefix /web
-	tls internal {
-		on_demand
-	}
 	file_server {
 		root ./build
 	}

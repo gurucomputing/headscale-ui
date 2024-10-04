@@ -1,2 +1,2 @@
 # install container dependencies
-dnf install -y nodejs
+dnf install -y nodejs caddy

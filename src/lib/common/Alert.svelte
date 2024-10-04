@@ -30,6 +30,7 @@
 </script>
 
 {#if visible}
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		transition:slide|global
 		class="absolute alert text-lg left-1/2 transform -translate-x-1/2 justify-center shadow-lg max-w-lg"
