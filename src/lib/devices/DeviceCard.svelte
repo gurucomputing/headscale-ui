@@ -73,10 +73,15 @@
 </script>
 
 <div class="card-primary bg-base-200">
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:keypress on:click={() => (cardExpanded = !cardExpanded)} class="flex items-center">
 		<span class="min-w-64 w-1/2 font-bold">
 			{#if cardEditing == false}
-				<span class="badge badge-xs tooltip {getBadgeColour(new Date(device.lastSeen), device.online)}" data-tip={timeSince(new Date(device.lastSeen))} /> {device.id}: {device.givenName}
+				{#if device.online}
+					<span class="badge badge-xs tooltip {getBadgeColour(new Date(device.lastSeen), device.online)}" data-tip=online /> {device.id}: {device.givenName}
+				{:else}
+					<span class="badge badge-xs tooltip {getBadgeColour(new Date(device.lastSeen), device.online)}" data-tip={timeSince(new Date(device.lastSeen))} /> {device.id}: {device.givenName}
+				{/if}
 			{/if}
 			<RenameDevice bind:cardEditing {device} />
 		</span>
