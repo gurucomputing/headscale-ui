@@ -13,6 +13,8 @@
 		tagList.push(`tag:${newTag}`);
 		// remove duplicates
 		tagList = [...new Set(tagList)];
+		// force lowercase
+		tagList = tagList.map(str => str.toLowerCase());
 
 		updateTags(device.id, tagList)
 			.then((response) => {
