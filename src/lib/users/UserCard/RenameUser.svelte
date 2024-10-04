@@ -42,7 +42,7 @@
 {:else}
 	<form bind:this={editUserForm} on:submit|preventDefault={renameUserAction}>
 		<!-- Input has to be lower case, but we will force lower case on submit -->
-		<input in:slide|global on:click|stopPropagation bind:value={newUserName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z\-\.]+" placeholder="name" />
+		<input in:slide|global on:click|stopPropagation bind:value={newUserName} class="card-input mb-1 lowercase" required pattern="[a-zA-Z0-9\-\.]+" placeholder="name" />
     <!-- edit accept symbol -->
 	<button in:fade|global on:click|stopPropagation class=""
   ><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
