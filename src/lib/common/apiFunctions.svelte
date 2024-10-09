@@ -156,7 +156,6 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for editing users
 		let endpointURL = `/api/v1/node/${deviceID}/tags`;
@@ -440,7 +439,6 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for editing users
 		let endpointURL = `/api/v1/node/register`;
@@ -471,7 +469,6 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for editing users
 		let endpointURL = `/api/v1/node/${deviceID}/user?user=${user}`;
@@ -502,7 +499,6 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for editing users
 		let endpointURL = `/api/v1/node/${deviceID}/rename/${name}`;
@@ -533,7 +529,6 @@
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
-		let headscaleAPIMachineOrNode = localStorage.getItem('headscaleAPIMachineOrNode') || 'machine';
 
 		// endpoint url for removing devices
 		let endpointURL = `/api/v1/node/${deviceID}`;
