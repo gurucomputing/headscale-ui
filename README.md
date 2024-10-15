@@ -20,7 +20,7 @@ services:
       - ./container-data/data:/var/lib/headscale
     # ports:
       # - 27896:8080
-    command: headscale serve
+    command: serve
     restart: unless-stopped
   headscale-ui:
     image: ghcr.io/gurucomputing/headscale-ui:latest
