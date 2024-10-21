@@ -4,6 +4,9 @@ A web frontend for the [headscale](https://github.com/juanfont/headscale) Tailsc
 ![](documentation/assets/headscale-ui-demo.gif)
 
 ## Installation
+> [!WARNING]  
+> The latest major release of headscale ui change the default container ports from `80` and `443` to `8080` and `8443` respectively. If you are using the `HTTP_PORT` or `HTTPS_PORT` environment variables this does not affect you, otherwise you need to change your ports in your docker-compose or kubernetes manifests.
+
 Headscale-UI is currently released as a static site: just take the release and host with your favorite web server. Headscale-UI expects to be served from the `/web` path to avoid overlap with headscale on the same domain. Note that due to CORS (see https://github.com/juanfont/headscale/issues/623), headscale UI *must* be served on the same subdomain, or CORS headers injected via reverse proxy.
 
 ### Docker Installation
