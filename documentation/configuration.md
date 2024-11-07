@@ -30,7 +30,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.headscale-ui-rtr.rule=PathPrefix(`/web`) # you might want to add: && Host(`your.domain.name`)"
-      - traefik.http.services.headscale-ui-svc.loadbalancer.server.port=80
+      - traefik.http.services.headscale-ui-svc.loadbalancer.server.port=8080
 
   traefik:
     image: traefik:latest
