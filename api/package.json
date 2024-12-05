@@ -1,0 +1,16 @@
+{
+	"name": "headscale-ui-api",
+	"version": "2024.10.10",
+	"scripts": {
+		"dev": "npx tsc && node build/app.js",
+		"build": "npx tsc"
+	},
+	"devDependencies": {
+		"@types/node": "^22",
+		"@types/express": "^5",
+		"@types/cors": "^2",
+		"express": "^4",
+		"typescript": "^5",
+		"cors": "^2"
+	}
+}

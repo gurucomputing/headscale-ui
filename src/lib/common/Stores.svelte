@@ -23,19 +23,46 @@
 		sortDirectionStore.subscribe((val) => localStorage.setItem('headscaleUserSortDirection', val));
 
 		// stores URL and API key
-		URLStore.set(localStorage.getItem('headscaleURL') || '');
+		URLStore.set(localStorage.getItem('headscaleURL') || (await (await fetch('http://localhost:20000/api/url', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})).json()).url || '');
 		// remove trailing slashes when storing the URL
-		URLStore.subscribe((val) => localStorage.setItem('headscaleURL', val.replace(/\/+$/, '')));
-		APIKeyStore.set(localStorage.getItem('headscaleAPIKey') || '');
-		APIKeyStore.subscribe((val) => localStorage.setItem('headscaleAPIKey', val));
+		URLStore.subscribe(async (val) => { var replaceVal = val.replace(/\/+$/, '');
+			localStorage.setItem('headscaleURL', replaceVal);
+			const response = await fetch('http://localhost:20000/api/url', {
+				method: 'POST',
+				body: JSON.stringify({ "url": replaceVal }),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		});
+		APIKeyStore.set(localStorage.getItem('headscaleAPIKey') || (await (await fetch('http://localhost:20000/api/apikey', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})).json()).apikey || '');
+		APIKeyStore.subscribe(async (val) => {localStorage.setItem('headscaleAPIKey', val);
+		const response = await fetch('http://localhost:20000/api/apikey', {
+			method: 'POST',
+			body: JSON.stringify({ "apikey": val }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+	});
 
 		// stores whether preauthkeys get hidden when expired/used
 		preAuthHideStore.set((localStorage.getItem('headscalePreAuthHide') || 'false') == 'true');
 		preAuthHideStore.subscribe((val) => localStorage.setItem('headscalePreAuthHide', val ? 'true' : 'false'));
-		
+
 		// dev setting stores
 		showACLPagesStore.set((localStorage.getItem('showACLPages') || 'false') == 'true');
 		showACLPagesStore.subscribe((val) => localStorage.setItem('showACLPages', val ? 'true' : 'false'));
-		
+
 	});
 </script>
