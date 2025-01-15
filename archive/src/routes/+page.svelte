@@ -4,6 +4,6 @@
 	import { onMount } from 'svelte';
 
 	onMount(async () => {
-		goto(`${base}/users`);
+		goto(`${base}/users.html`);
 	});
 </script>

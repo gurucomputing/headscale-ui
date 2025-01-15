@@ -1,24 +1,41 @@
-/* Write your global styles here, in PostCSS syntax */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-.form-input {
-  @apply shadow appearance-none border rounded w-full bg-base-100 py-2 px-3 text-base-content text-sm mb-3 leading-tight focus:outline-none;
-}
-
-.card-primary {
-  @apply grid grid-cols-1 divide-y p-2 max-w-screen-lg mx-4 border-base-content rounded-md text-sm text-base-content shadow
-}
-
-.card-pending {
-  @apply flex justify-between p-1 mb-4 max-w-screen-lg border border-dashed mx-4 border-base-content rounded-md text-sm text-base-content shadow
-}
-
-.card-input {
-  @apply shadow appearance-none border rounded w-64 py-1 px-3 bg-base-100 text-base-content text-sm leading-tight focus:outline-none;
-}
-
-.card-select {
-  @apply shadow border rounded w-64 py-1 px-3 bg-base-100 text-base-content text-sm leading-tight focus:outline-2;
+/* css settings for svelecte dependency */
+@layer components {
+	.svelecte {
+		--sv-min-height: 40px;
+		--sv-bg: oklch(var(--b1));
+		--sv-disabled-bg: oklch(var(--nc));
+		--sv-border: 1px solid #626262;
+		--sv-border-radius: 4px;
+		--sv-general-padding: 4px;
+		--sv-control-bg: var(--sv-bg);
+		--sv-item-wrap-padding: 3px 3px 3px 6px;
+		--sv-item-selected-bg: #626262;
+		--sv-item-btn-color: #ccc;
+		--sv-item-btn-color-hover: #ccc;
+		--sv-item-btn-bg: #626262;
+		--sv-item-btn-bg-hover: #bc6063;
+		--sv-icon-color: #bbb;
+		--sv-icon-color-hover: #ccc;
+		--sv-icon-bg: transparent;
+		--sv-icon-size: 20px;
+		--sv-separator-bg: #626262;
+		--sv-btn-border: 0;
+		--sv-placeholder-color: #ccccd6;
+		--sv-dropdown-bg: var(--sv-bg);
+		--sv-dropdown-border: var(--sv-border);
+		--sv-dropdown-offset: 1px;
+		--sv-dropdown-width: auto;
+		--sv-dropdown-shadow: 0 1px 3px #555;
+		--sv-dropdown-height: 320px;
+		--sv-dropdown-active-bg: oklch(var(--b3));
+		--sv-dropdown-selected-bg: #754545;
+		--sv-create-kbd-border: 1px solid #626262;
+		--sv-create-kbd-bg: #626262;
+		--sv-create-disabled-bg: #fcbaba;
+		--sv-loader-border: 2px solid #626262;
+	}
 }
