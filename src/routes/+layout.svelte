@@ -22,7 +22,7 @@
 
 		// delay load until page is hydrated
 		appSettings.appLoaded = true;
-
+		
 	// alert test
 	// 	appSettings.toastAlerts.push(
 	// 		new toastAlert({
