@@ -1,14 +1,13 @@
 <script lang="ts">
 	import ServerSettings from '$lib/components/settings/server-settings.svelte';
-import { appSettings, persistentAppSettings } from '$lib/state.svelte';
-	import Svelecte from 'svelecte';
+	import ThemeSettings from '$lib/components/settings/theme-settings.svelte';
+import { appSettings } from '$lib/state.svelte';
 
 	appSettings.navbarTitle = 'Settings';
 	appSettings.sidebarDrawerOpen = false;
 </script>
 
-<div class="max-w-96">
+<div class="max-w-full lg:max-w-96">
 	<ServerSettings></ServerSettings>
-	<h1 class="mb-4 text-primary">Application Theme</h1>
-	<Svelecte name="daisyUITheme" options={['hsui', 'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate', 'synthwave', 'retro', 'cyberpunk', 'valentine', 'halloween', 'garden', 'forest', 'aqua', 'lofi', 'pastel', 'fantasy', 'wireframe', 'black', 'luxury', 'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade', 'night', 'coffee', 'winter', 'dim', 'nord', 'sunset']} bind:value={persistentAppSettings.daisyUITheme} />
+	<ThemeSettings></ThemeSettings>
 </div>
