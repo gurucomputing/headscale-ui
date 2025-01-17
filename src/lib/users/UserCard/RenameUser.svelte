@@ -16,7 +16,7 @@
 
 	function renameUserAction() {
 		if (editUserForm.reportValidity()) {
-			editUser(user.name, newUserName)
+			editUser(user.id, newUserName)
 				.then((response) => {
 					cardEditing = false;
 					// refresh users after editing

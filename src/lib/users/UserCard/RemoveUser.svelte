@@ -8,7 +8,7 @@
 	let cardDeleting = false;
 
 	function removeUserAction() {
-		removeUser(user.name)
+		removeUser(user.id)
 			.then((response) => {
 				cardDeleting = false;
 				// refresh users after editing
