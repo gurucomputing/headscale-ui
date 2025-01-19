@@ -1,6 +1,6 @@
 {
 	"name": "headscale-ui",
-	"version": "2024.10.10",
+	"version": "2025.01.20",
 	"scripts": {
 		"dev": "vite dev --port 8080 --host 0.0.0.0",
 		"build": "vite build",
@@ -13,9 +13,10 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3",
+		"@sveltejs/adapter-auto": "^4",
 		"@sveltejs/adapter-static": "^3",
 		"@sveltejs/kit": "^2",
+		"@sveltejs/vite-plugin-svelte": "^3",
 		"@tailwindcss/typography": "^0",
 		"@vitejs/plugin-basic-ssl": "^1",
 		"autoprefixer": "^10",
