@@ -1,6 +1,6 @@
 :8080 {
 	redir / /web
-	uri strip_prefix /web
+	uri strip_prefix /web/
 	file_server {
 		root ./build
 	}
