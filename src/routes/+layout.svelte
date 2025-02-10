@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { toastAlert, type PersistentAppSettingsObject } from '$lib/classes.svelte';
+	import { toastAlert, type PersistentAppSettingsObject } from '$lib/components/common/classes.svelte';
 	import Toast from '$lib/components/layout/toast.svelte';
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import Sidebar from '$lib/components/layout/sidebar.svelte';
-	import { appSettings, persistentAppSettings } from '$lib/state.svelte';
+	import { appSettings, persistentAppSettings } from '$lib/components/common/state.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import '../app.css';

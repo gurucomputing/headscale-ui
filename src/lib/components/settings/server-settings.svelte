@@ -7,8 +7,9 @@
 		<span class="label-text-alt">URL for your headscale server instance (does not need populating if it's on the same subdomain)</span>
 	</label>
 	<label class="mb-2 block font-bold text-secondary" for="password"> Headscale API Key </label>
-	<input class="input input-sm input-bordered w-full" type="password" placeholder="******************" />
+	<input class="input input-sm input-bordered w-full" minlength="54" maxlength="54" type="password" placeholder="******************" />
 	<label for="url" class="label">
 		<span class="label-text-alt">Generate an API key for your headscale instance and place it here.</span>
 	</label>
+	<button class="btn btn-sm btn-secondary w-16">save</button>
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { persistentAppSettings } from '$lib/state.svelte';
+    import { persistentAppSettings } from '$lib/components/common/state.svelte';
 	import Svelecte from 'svelecte';
 </script>
 

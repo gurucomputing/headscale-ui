@@ -15,8 +15,8 @@
 				>
 			</div>
 			<div class="cols-span-2">
-				<div class="text-primary">Guru</div>
-				<div class="ml-5 text-primary">Computing</div>
+				<div class="text-primary">Headscale</div>
+				<div class="ml-5 text-primary">UI</div>
 			</div>
 		</div>
 	</a>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { appSettings } from '$lib/state.svelte';
+	import { appSettings } from '$lib/components/common/state.svelte';
 
 	appSettings.navbarTitle = 'Users';
 	appSettings.sidebarDrawerOpen = false;

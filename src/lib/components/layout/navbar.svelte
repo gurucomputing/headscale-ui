@@ -1,6 +1,6 @@
 <!-- nav bar content here -->
 <script lang="ts">
-	import { appSettings } from '$lib/state.svelte';
+	import { appSettings } from '$lib/components/common/state.svelte';
 </script>
 
 <div class="flex-1">

@@ -1,5 +1,7 @@
 export class PersistentAppSettingsObject {
-    daisyUITheme = "" // for setting the UI theme. See https://daisyui.com/docs/themes/
+    daisyUITheme = ""       // for setting the UI theme. See https://daisyui.com/docs/themes/
+    headscaleAPIKey = ""    // sensitive, allows for administrative access to headscale
+    headscaleURL = ""       //url for headscale to use
 
     public constructor(init?: Partial<PersistentAppSettingsObject>) {
         Object.assign(this, init);

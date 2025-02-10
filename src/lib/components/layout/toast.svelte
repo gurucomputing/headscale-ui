@@ -1,6 +1,6 @@
 <!-- used to generate alerts or messages -->
 <script lang="ts">
-	import { appSettings } from '$lib/state.svelte';
+	import { appSettings } from '$lib/components/common/state.svelte';
 	let { toastAlert } = $props();
 
 	let progress = $state(100);
@@ -18,7 +18,6 @@
 		}
 	}, intervalTime);
 
-	// Removes alert early on button press
 	function removeAlert() {
 		clearInterval(interval); // Stop the interval at 0
 		appSettings.toastAlerts = appSettings.toastAlerts.filter(function (returnObj) {
