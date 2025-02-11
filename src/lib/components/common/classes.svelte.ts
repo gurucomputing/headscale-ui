@@ -1,3 +1,5 @@
+import { SvelteMap } from "svelte/reactivity";
+
 export class PersistentAppSettingsObject {
     daisyUITheme = ""       // for setting the UI theme. See https://daisyui.com/docs/themes/
     headscaleAPIKey = ""    // sensitive, allows for administrative access to headscale
@@ -12,7 +14,7 @@ export class AppSettingsObject {
     navbarTitle = ""                // for setting the title of the page
     appLoaded = false               // for hiding the screen until hydration has completed
     sidebarDrawerOpen = false       // for determining if the sidebar is open when on a small screen
-    toastAlerts: toastAlert[] = []  // for adding or removing alerts
+    toastAlerts = new SvelteMap<string, toastAlert>();  // for adding or removing alerts
     
     public constructor(init?: Partial<AppSettingsObject>) {
         Object.assign(this, init);

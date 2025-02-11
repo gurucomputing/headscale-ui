@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { toastAlert, type PersistentAppSettingsObject } from '$lib/components/common/classes.svelte';
+	import { type PersistentAppSettingsObject } from '$lib/components/common/classes.svelte';
 	import Toast from '$lib/components/layout/toast.svelte';
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import Sidebar from '$lib/components/layout/sidebar.svelte';
@@ -23,20 +23,6 @@
 		// delay load until page is hydrated
 		appSettings.appLoaded = true;
 		
-	// alert test
-	// 	appSettings.toastAlerts.push(
-	// 		new toastAlert({
-	// 			message: 'this is a test message',
-	// 			id: crypto.randomUUID()
-	// 		})
-	// 	);
-
-	// 	appSettings.toastAlerts.push(
-	// 		new toastAlert({
-	// 			message: 'this is a test message too and super long and long and long',
-	// 			id: crypto.randomUUID()
-	// 		})
-	// 	);
 });
 </script>
 
@@ -47,9 +33,9 @@
 		<div class="drawer-content flex flex-col">
 			<!-- toast content -->
 			<div class="toast toast-center toast-top z-40">
-				{#each appSettings.toastAlerts as toast}
+				{#each appSettings.toastAlerts.entries() as [toastID, toastObject]}
 					<div transition:fade={{ duration: 200 }}>
-						<Toast toastAlert={toast}></Toast>
+						<Toast toast={toastObject}></Toast>
 					</div>
 				{/each}
 			</div>
