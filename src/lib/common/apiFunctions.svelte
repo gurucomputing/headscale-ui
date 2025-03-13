@@ -329,7 +329,7 @@
 		return apiKeys;
 	}
 
-	export async function getPreauthKeys(userId: string): Promise<PreAuthKey[]> {
+	export async function getPreauthKeys(userName: string): Promise<PreAuthKey[]> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -341,7 +341,7 @@
 		let headscalePreAuthKey = [new PreAuthKey()];
 		let headscalePreAuthKeyResponse: Response = new Response();
 
-		await fetch(headscaleURL + endpointURL + '?user=' + userId, {
+		await fetch(headscaleURL + endpointURL + '?user=' + userName, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
@@ -367,7 +367,7 @@
 		return headscalePreAuthKey;
 	}
 
-	export async function newPreAuthKey(userId: string, expiry: string, reusable: boolean, ephemeral: boolean): Promise<any> {
+	export async function newPreAuthKey(userName: string, expiry: string, reusable: boolean, ephemeral: boolean): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -381,7 +381,7 @@
 				Authorization: `Bearer ${headscaleAPIKey}`
 			},
 			body: JSON.stringify({
-				user: userId,
+				user: userName,
 				expiration: expiry,
 				reusable: reusable,
 				ephemeral: ephemeral
@@ -401,7 +401,7 @@
 			});
 	}
 
-	export async function removePreAuthKey(userId: string, preAuthKey: string): Promise<any> {
+	export async function removePreAuthKey(userName: string, preAuthKey: string): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
@@ -416,7 +416,7 @@
 				Authorization: `Bearer ${headscaleAPIKey}`
 			},
 			body: JSON.stringify({
-				user: userId,
+				user: userName,
 				key: preAuthKey
 			})
 		})
