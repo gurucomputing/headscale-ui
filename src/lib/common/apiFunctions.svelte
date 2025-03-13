@@ -471,14 +471,17 @@
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
 
 		// endpoint url for editing users
-		let endpointURL = `/api/v1/node/${deviceID}/user?user=${user}`;
+		let endpointURL = `/api/v1/node/${deviceID}/user`;
 
 		await fetch(headscaleURL + endpointURL, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${headscaleAPIKey}`
-			}
+			},
+			body: JSON.stringify({
+				user: user
+			})
 		})
 			.then((response) => {
 				if (response.ok) {
