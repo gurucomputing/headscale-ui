@@ -13,7 +13,7 @@ services:
     pull_policy: always
     container_name: headscale
     restart: unless-stopped
-    command: headscale serve
+    command: serve
     volumes:
       - ./headscale/config:/etc/headscale
       - ./headscale/data:/var/lib/headscale
