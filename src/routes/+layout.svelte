@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import '../app.css';
+	import { testAPIConnectivity } from '$lib/components/settings/server-settings.svelte.ts';
 	let { children } = $props();
 
 	onMount(async () => {
@@ -19,6 +20,9 @@
 		$effect(() => {
 			localStorage.setItem('persistentAppSettings', JSON.stringify(persistentAppSettings));
 		});
+
+		// perform an initial API test
+		testAPIConnectivity();
 
 		// delay load until page is hydrated
 		appSettings.appLoaded = true;

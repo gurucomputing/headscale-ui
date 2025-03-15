@@ -1,7 +1,7 @@
 import { newToastAlert } from "../layout/toast.svelte.ts";
 import { appSettings, persistentAppSettings } from "../common/state.svelte";
 
-export async function testAPIConnectivity(submission: SubmitEvent) {
+export async function testAPIConnectivity() {
     const response = await fetch(`${persistentAppSettings.headscaleURL}/api/v1/apikey`, {
         method: 'GET',
         headers: {
@@ -11,12 +11,11 @@ export async function testAPIConnectivity(submission: SubmitEvent) {
     });
 
     if (!response.ok) {
-        newToastAlert(`API error! Status: ${response.status}`);
+        newToastAlert(`API error! Status: ${response.status}. Check your API settings`);
         appSettings.apiTested = false;
     }
 
     const data = await response.json();
-    newToastAlert('Successfully connected to headscale!');
     appSettings.apiTested = true;
 
     if (persistentAppSettings.debugLogging) {
