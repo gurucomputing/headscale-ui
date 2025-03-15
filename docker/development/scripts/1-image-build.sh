@@ -8,6 +8,7 @@ set -ex
 # useradd -m -d /data/home dev-user
 
 # set new home directory
+mkdir -p /data/home
 usermod -d /data/home node
 
 # Add the ability to set file permissions on /data to the non-privileged user
