@@ -4,11 +4,11 @@
 # turn on bash logging, exit on error
 set -ex
 
-# create a non-root user
-useradd -m -d /data/home dev-user
+# # create a non-root user. Not needed for node image
+# useradd -m -d /data/home dev-user
 
 # set the default shell to the chosen shell
-usermod --shell ${SHELL} dev-user
+usermod --shell ${SHELL} 1000
 
 # Add the ability to set file permissions on /data to the non-privileged user
 echo "ALL ALL=NOPASSWD: /bin/chown -R 1000\:1000 /data" >> /etc/sudoers

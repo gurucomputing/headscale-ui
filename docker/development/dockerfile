@@ -45,7 +45,7 @@ RUN chmod -R 755 scripts
 RUN /staging/scripts/1-image-build.sh
 
 # set to the non-root user
-USER dev-user
+USER 1000:1000
 
 WORKDIR /data
 
