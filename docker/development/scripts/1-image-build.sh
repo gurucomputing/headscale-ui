@@ -14,7 +14,6 @@ usermod --shell ${SHELL} dev-user
 echo "ALL ALL=NOPASSWD: /bin/chown -R 1000\:1000 /data" >> /etc/sudoers
 
 # install dependencies
-/staging/scripts/install-base-dependencies.sh
 /staging/scripts/install-container-dependencies.sh
 /staging/scripts/install-openvscode-server.sh
 
