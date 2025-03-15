@@ -10,7 +10,6 @@ EXPOSE 3000
 # System Environment Variables
 ENV PATH="/opt/vscode:${PATH}"
 ENV HOME="/data/home"
-ENV SHELL="/bin/bash"
 
 # User Set Environment Variables
 # Set to false if you do not want to attempt to pull a repository on first load

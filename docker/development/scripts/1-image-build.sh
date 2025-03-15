@@ -7,8 +7,8 @@ set -ex
 # # create a non-root user. Not needed for node image
 # useradd -m -d /data/home dev-user
 
-# set the default shell to the chosen shell
-usermod --shell ${SHELL} 1000
+# set new home directory
+usermod -d /data/home node
 
 # Add the ability to set file permissions on /data to the non-privileged user
 echo "ALL ALL=NOPASSWD: /bin/chown -R 1000\:1000 /data" >> /etc/sudoers
