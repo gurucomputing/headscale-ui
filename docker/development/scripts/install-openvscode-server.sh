@@ -1,5 +1,5 @@
 # script variables
-OPENVSCODE_VERSION="1.86.2"
+OPENVSCODE_VERSION="1.98.0"
 OPENVSCODE_URL="https://github.com/gitpod-io/openvscode-server/releases/download/openvscode-server-v$OPENVSCODE_VERSION/openvscode-server-v$OPENVSCODE_VERSION-linux-x64.tar.gz"
 OPENVSCODE_RELEASE="openvscode-server-v$OPENVSCODE_VERSION-linux-x64"
 
