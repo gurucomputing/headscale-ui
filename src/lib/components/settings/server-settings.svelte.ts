@@ -1,4 +1,4 @@
-import { toastAlert } from "../common/classes.svelte";
+import { newToastAlert } from "../layout/toast.svelte.ts";
 import { persistentAppSettings } from "../common/state.svelte";
 
 export async function testAPIConnectivity(submission: SubmitEvent) {
@@ -12,12 +12,15 @@ export async function testAPIConnectivity(submission: SubmitEvent) {
         });
         
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            newToastAlert(`HTTP error! Status: ${response.status}`);
         }
         
         const data = await response.json();
-        console.log('API Key Response:', data);
+        newToastAlert('success!');
+        if (persistentAppSettings.debugLogging) {
+            newToastAlert(`API Response: ${JSON.stringify(data)}`);
+        }
     } catch (error) {
-        console.error('Error fetching API key:', error);
+        newToastAlert(`Error fetching API key: ${error}`);
     }
 }
