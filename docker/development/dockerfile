@@ -16,7 +16,7 @@ ENV SHELL="/bin/bash"
 # Set to false if you do not want to attempt to pull a repository on first load
 ENV AUTOINITIALIZE=false
 # sets a connection token for VSCode Server. https://github.com/gitpod-io/openvscode-server#securing-access-to-your-ide
-ENV USE_CONNECTION_TOKEN=false
+ENV USE_CONNECTION_TOKEN=true
 #Set to a secret to have some measure of protection for vscode. Randomized if left blank
 ENV CONNECTION_TOKEN=
 # Project name. Typically the same as the project in the URL
