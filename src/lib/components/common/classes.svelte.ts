@@ -16,6 +16,7 @@ export class AppSettingsObject {
     appLoaded = false               // for hiding the screen until hydration has completed
     sidebarDrawerOpen = false       // for determining if the sidebar is open when on a small screen
     toastAlerts = new SvelteMap<string, toastAlert>();  // for adding or removing alerts
+    apiTested = true               // used to hide the app if the api tests are failing
     
     public constructor(init?: Partial<AppSettingsObject>) {
         Object.assign(this, init);
