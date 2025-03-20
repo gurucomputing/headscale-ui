@@ -59,7 +59,7 @@
 				<form class="flex flex-wrap" bind:this={newDeviceForm} on:submit|preventDefault={newDeviceAction}>
 					<div class="flex-none mr-4">
 						<label class="block text-secondary text-sm font-bold mb-2" for="text">Device Key</label>
-						<input bind:value={newDeviceKey} minlength="54" class="card-input" type="text" required placeholder="******************" />
+						<input bind:value={newDeviceKey} class="card-input" type="text" required placeholder="******************" />
 					</div>
 					<div class="flex-none">
 						<label class="block text-secondary text-sm font-bold mb-2" for="select">Select User</label>

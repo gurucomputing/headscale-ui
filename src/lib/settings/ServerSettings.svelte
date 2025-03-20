@@ -47,7 +47,7 @@
 		{/if}
 	</label>
 	<div class="flex relative">
-		<input bind:value={$APIKeyStore} {...{ type: apiKeyInputState }} minlength="54" maxlength="54" class="form-input" disabled='{apiStatus == 'succeeded'}' required placeholder="******************" />
+		<input bind:value={$APIKeyStore} {...{ type: apiKeyInputState }} class="form-input" disabled='{apiStatus == 'succeeded'}' required placeholder="******************" />
 		<button
 			type="button"
 			class="absolute right-40"
