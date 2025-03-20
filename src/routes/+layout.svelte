@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import '../app.css';
-	import { testAPIConnectivity } from '$lib/components/settings/server-settings.svelte.ts';
+	import { testAPIConnectivity } from '$lib/components/settings/server-settings-functions.svelte';
 	let { children } = $props();
 
 	onMount(async () => {
@@ -21,13 +21,24 @@
 			localStorage.setItem('persistentAppSettings', JSON.stringify(persistentAppSettings));
 		});
 
+		// populate any settings being passed through by url params
+		const urlParams = new URLSearchParams(window.location.search);
+		let headscaleApiKeyParam = urlParams.get('apikey');
+		let headscaleUrlParam = urlParams.get('url');
+
+		if (headscaleApiKeyParam) {
+			persistentAppSettings.headscaleAPIKey = headscaleApiKeyParam;
+		}
+		if (headscaleUrlParam) {
+			persistentAppSettings.headscaleURL = headscaleUrlParam;
+		}
+
 		// perform an initial API test
 		testAPIConnectivity();
 
 		// delay load until page is hydrated
 		appSettings.appLoaded = true;
-		
-});
+	});
 </script>
 
 {#if appSettings.appLoaded}
