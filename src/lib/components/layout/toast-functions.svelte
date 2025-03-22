@@ -1,3 +1,4 @@
+<script module lang=ts>
 import { appSettings } from "../common/state.svelte";
 import { toastAlert } from "../common/classes.svelte";
 
@@ -8,3 +9,4 @@ export function newToastAlert(message: string) {
         message: message
     }));
 }
+</script>

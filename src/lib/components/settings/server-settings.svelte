@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { persistentAppSettings } from '$lib/components/common/state.svelte';
-	import { getAPIKeys, rotateAPIKey } from './server-settings-functions.svelte.ts';
+	import { getAPIKeys, rotateAPIKey } from './server-settings-functions.svelte';
 	import { appSettings } from '$lib/components/common/state.svelte';
 	import { fly } from 'svelte/transition';
 
