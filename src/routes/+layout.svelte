@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import '../app.css';
-	import { testAPIConnectivity } from '$lib/components/settings/server-settings-functions.svelte';
+	import { getAPIKeys } from '$lib/components/settings/server-settings-functions.svelte';
 	let { children } = $props();
 
 	onMount(async () => {
@@ -34,7 +34,7 @@
 		}
 
 		// perform an initial API test
-		testAPIConnectivity();
+		getAPIKeys();
 
 		// delay load until page is hydrated
 		appSettings.appLoaded = true;

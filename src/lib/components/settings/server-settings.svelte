@@ -1,25 +1,42 @@
 <script lang="ts">
 	import { persistentAppSettings } from '$lib/components/common/state.svelte';
-	import { testAPIConnectivity } from './server-settings-functions.svelte.ts';
+	import { getAPIKeys, rotateAPIKey } from './server-settings-functions.svelte.ts';
 	import { appSettings } from '$lib/components/common/state.svelte';
 	import { fly } from 'svelte/transition';
 
 	let apiSecretHidden = $state(true); // for hiding or showing the API key
+	let rotateButtonDisabled = $state(false);
+
+	function rotateAPIKeyClick() {
+		rotateButtonDisabled = true;
+		rotateAPIKey();
+		rotateButtonDisabled = false;
+	}
 </script>
 
 <div class="form-control">
 	<h1 class="bold mb-4 text-xl text-primary">Server Settings</h1>
 
-	<form id="server-settings" onsubmit={testAPIConnectivity}>
+	<form id="server-settings" onsubmit={getAPIKeys}>
 		<label class="mb-2 block font-bold text-secondary" for="headscaleURL"> Headscale URL </label>
 		<input id="headscaleURL" bind:value={persistentAppSettings.headscaleURL} class="input input-sm input-bordered w-full" type="url" placeholder="https://hs.yourdomain.com.au" />
 		<label for="headscaleURL" class="label">
 			<span class="label-text-alt">URL for your headscale server instance (does not need populating if it's on the same subdomain)</span>
 		</label>
-		<label class="mb-2 block font-bold text-secondary" for="headscaleKey"> Headscale API Key </label>
+		<div class="relative flex">
+			<label class="mb-2 block font-bold text-secondary" for="headscaleKey"> Headscale API Key </label>
+			{#if appSettings.apiKeyExpiration != undefined}
+				<button type="button" disabled={rotateButtonDisabled} onclick={rotateAPIKeyClick} class="tooltip" data-tip="{appSettings.apiKeyExpiration} days left. Click to rotate key" aria-label="check time left"
+					><svg data-slot="icon" fill="none" class="-my-3 ml-2 h-5 w-5 stroke-success" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+					</svg></button
+				>
+			{/if}
+		</div>
 		<div class="relative flex">
 			<input id="headscaleKey" bind:value={persistentAppSettings.headscaleAPIKey} class="input input-sm input-bordered w-full" minlength="40" maxlength="40" type={apiSecretHidden ? 'password' : 'text'} required placeholder="******************" />
-			<button type="button"
+			<button
+				type="button"
 				class="ml-2"
 				onclick={() => {
 					apiSecretHidden = !apiSecretHidden;

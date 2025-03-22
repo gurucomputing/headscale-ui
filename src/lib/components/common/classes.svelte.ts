@@ -17,7 +17,9 @@ export class AppSettingsObject {
     sidebarDrawerOpen = false       // for determining if the sidebar is open when on a small screen
     toastAlerts = new SvelteMap<string, toastAlert>();  // for adding or removing alerts
     apiTested = true               // used to hide the app if the api tests are failing
-    
+    apiKeyList: APIKey[] = []   //list of apikeys retrieved from headscale API
+    apiKeyExpiration?: number = undefined          // number of days left until the key in use expires
+
     public constructor(init?: Partial<AppSettingsObject>) {
         Object.assign(this, init);
     }
@@ -30,6 +32,19 @@ export class toastAlert {
     id = ""                     //UUID generated to reference the toast
 
     public constructor(init?: Partial<toastAlert>) {
+        Object.assign(this, init);
+    }
+}
+
+// retrieved as an array from headscale
+export class APIKey {
+    id = ''             // unique identifier for headscale
+    prefix = ''         // beginning of key to match full string
+    expiration = ''     // when key expires, formatting as datetime
+    createdAt = ''      // date of creation
+    lastSeen = ''       // date last seen, seems to be always null?
+
+    public constructor(init?: Partial<APIKey>) {
         Object.assign(this, init);
     }
 }
