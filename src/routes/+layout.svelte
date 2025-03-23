@@ -55,7 +55,7 @@
 				{/each}
 			</div>
 			<!-- Navbar Content -->
-			<div class="navbar h-10 min-h-0 border-b-2 bg-base-100">
+			<div class="navbar w-full h-10 min-h-0 border-b-2 bg-base-100">
 				<Navbar></Navbar>
 			</div>
 			<!-- Page Content -->
