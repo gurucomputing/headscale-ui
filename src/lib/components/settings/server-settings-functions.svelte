@@ -19,12 +19,12 @@
 				appSettings.apiKeyList = (await response.json()).apiKeys;
 				appSettings.apiTested = true;
 
-				// determine the remaining time for the key we are currently using. Note: Nested Async
-				appSettings.apiKeyList.forEach((key) => {
+				// determine the remaining time for the key we are currently using.
+				for (const key of appSettings.apiKeyList) {
 					if (persistentAppSettings.headscaleAPIKey.startsWith(key.prefix)) {
 						getKeyRemainingTime(new Date(key.expiration));
 					}
-				});
+				}
 			}
 		} catch (error) {
 			let message: string;
