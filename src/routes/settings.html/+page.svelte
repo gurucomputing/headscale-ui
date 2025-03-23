@@ -7,7 +7,7 @@
 	appSettings.sidebarDrawerOpen = false;
 </script>
 
-<div class="max-w-full lg:max-w-96">
+<div class="max-w-128">
 	<ServerSettings></ServerSettings>
 	<ThemeSettings></ThemeSettings>
 </div>
