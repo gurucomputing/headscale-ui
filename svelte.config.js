@@ -20,6 +20,9 @@ const config = {
 		paths: {
 			base: '/web'
 		}
+	},
+	compilerOptions: {
+		runes: true
 	}
 };
 

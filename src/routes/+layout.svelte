@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { toastAlert, type PersistentAppSettingsObject } from '$lib/components/common/classes.svelte';
-	import Toast from '$lib/components/layout/toast.svelte';
+	import { type PersistentAppSettingsObject } from '$lib/components/common/classes.svelte';
+	import { appSettings, persistentAppSettings } from '$lib/components/common/state.svelte';
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import Sidebar from '$lib/components/layout/sidebar.svelte';
-	import { appSettings, persistentAppSettings } from '$lib/components/common/state.svelte';
+	import Toast from '$lib/components/layout/toast.svelte';
+	import { getAPIKeys } from '$lib/components/settings/server-settings-functions.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import '../app.css';
@@ -20,24 +21,24 @@
 			localStorage.setItem('persistentAppSettings', JSON.stringify(persistentAppSettings));
 		});
 
+		// populate any settings being passed through by url params
+		const urlParams = new URLSearchParams(window.location.search);
+		let headscaleApiKeyParam = urlParams.get('apikey');
+		let headscaleUrlParam = urlParams.get('url');
+
+		if (headscaleApiKeyParam) {
+			persistentAppSettings.headscaleAPIKey = headscaleApiKeyParam;
+		}
+		if (headscaleUrlParam) {
+			persistentAppSettings.headscaleURL = headscaleUrlParam;
+		}
+
+		// perform an initial API test
+		getAPIKeys();
+
 		// delay load until page is hydrated
 		appSettings.appLoaded = true;
-		
-	// alert test
-	// 	appSettings.toastAlerts.push(
-	// 		new toastAlert({
-	// 			message: 'this is a test message',
-	// 			id: crypto.randomUUID()
-	// 		})
-	// 	);
-
-	// 	appSettings.toastAlerts.push(
-	// 		new toastAlert({
-	// 			message: 'this is a test message too and super long and long and long',
-	// 			id: crypto.randomUUID()
-	// 		})
-	// 	);
-});
+	});
 </script>
 
 {#if appSettings.appLoaded}
@@ -47,9 +48,9 @@
 		<div class="drawer-content flex flex-col">
 			<!-- toast content -->
 			<div class="toast toast-center toast-top z-40">
-				{#each appSettings.toastAlerts as toast}
+				{#each appSettings.toastAlerts.entries() as [toastID, toastObject]}
 					<div transition:fade={{ duration: 200 }}>
-						<Toast toastAlert={toast}></Toast>
+						<Toast toast={toastObject}></Toast>
 					</div>
 				{/each}
 			</div>
