@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { type PersistentAppSettingsObject } from '$lib/components/common/classes.svelte';
-	import Toast from '$lib/components/layout/toast.svelte';
+	import { appSettings, persistentAppSettings } from '$lib/components/common/state.svelte';
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import Sidebar from '$lib/components/layout/sidebar.svelte';
-	import { appSettings, persistentAppSettings } from '$lib/components/common/state.svelte';
+	import Toast from '$lib/components/layout/toast.svelte';
+	import { getAPIKeys } from '$lib/components/settings/server-settings-functions.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import '../app.css';
-	import { getAPIKeys } from '$lib/components/settings/server-settings-functions.svelte';
 	let { children } = $props();
 
 	onMount(async () => {

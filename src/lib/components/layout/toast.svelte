@@ -23,7 +23,7 @@
 	<div>{toast.message}</div>
 	<div>
 		<button aria-label="close notification" class="mask mask-circle hover:bg-base-300" onclick={() => removeAlert(toast.id)}>
-			<div class="radial-progress animate-value" style="--value:var(--_value); --size:2rem; --thickness: 2px;" role="progressbar">
+			<div class="animate-value radial-progress" style="--value:var(--_value); --size:2rem; --thickness: 2px;" role="progressbar">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 				</svg>

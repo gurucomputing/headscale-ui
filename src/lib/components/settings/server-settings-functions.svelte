@@ -1,6 +1,6 @@
 <script module lang="ts">
-	import { newToastAlert } from '../layout/toast-functions.svelte';
 	import { appSettings, persistentAppSettings } from '../common/state.svelte';
+	import { newToastAlert } from '../layout/toast-functions.svelte';
 
 	export async function getAPIKeys() {
 		try {
@@ -49,7 +49,6 @@
 
 	export async function rotateAPIKey() {
 		for (const key of appSettings.apiKeyList) {
-
 			// select the current key being used in the app settings
 			if (persistentAppSettings.headscaleAPIKey.startsWith(key.prefix)) {
 				let currentKey = key;
@@ -68,10 +67,10 @@
 
 				// Set the new key as the current key in the persistent settings
 				persistentAppSettings.headscaleAPIKey = apiKey;
-				
+
 				// Expire the previously current key
 				await expireAPIKey(currentKey.prefix);
-				
+
 				// Get keys again to make sure it all worked
 				await getAPIKeys();
 			}

@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { persistentAppSettings } from '$lib/components/common/state.svelte';
-	import { getAPIKeys, rotateAPIKey } from './server-settings-functions.svelte';
-	import { appSettings } from '$lib/components/common/state.svelte';
+	import { appSettings, persistentAppSettings } from '$lib/components/common/state.svelte';
 	import { fly } from 'svelte/transition';
+	import { getAPIKeys, rotateAPIKey } from './server-settings-functions.svelte';
 
 	let apiSecretHidden = $state(true); // for hiding or showing the API key
 	let rotateButtonDisabled = $state(false);
