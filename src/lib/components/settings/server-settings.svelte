@@ -9,7 +9,10 @@
 
 	function rotateAPIKeyClick() {
 		rotateButtonDisabled = true;
-		rotateAPIKey().then(() => {rotateButtonDisabled = false});
+		rotateAPIKey().then(() => {
+			rotateButtonDisabled = false;
+			console.log(appSettings.apiKeyList);
+		});
 	}
 </script>
 

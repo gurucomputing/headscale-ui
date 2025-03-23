@@ -49,6 +49,7 @@
 
 	export async function rotateAPIKey() {
 		for (const key of appSettings.apiKeyList) {
+			
 			// select the current key being used in the app settings
 			if (persistentAppSettings.headscaleAPIKey.startsWith(key.prefix)) {
 				let currentKey = key;
@@ -59,14 +60,18 @@
 
 				// create a new API key with the new expiration
 				let apiKey = await createNewAPIKey(newExpiration);
-				// The above should always return a value
+
+				// The above should always return a value, let's check that
 				if (apiKey == undefined) {
 					throw new Error('expecting API key string, string was undefined');
 				}
+
 				// Set the new key as the current key in the persistent settings
 				persistentAppSettings.headscaleAPIKey = apiKey;
+				
 				// Expire the previously current key
 				await expireAPIKey(currentKey.prefix);
+				
 				// Get keys again to make sure it all worked
 				await getAPIKeys();
 			}
