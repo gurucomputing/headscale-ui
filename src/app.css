@@ -21,4 +21,9 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+  /* for svelecte to use custom themes */
+  [data-theme] {
+    --sv-bg: var(--color-base-100);
+    --sv-dropdown-active-bg: var(--color-base-300);
+  }
 }
