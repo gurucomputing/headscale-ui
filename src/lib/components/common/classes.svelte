@@ -2,7 +2,7 @@
 	import { SvelteMap } from 'svelte/reactivity';
 
 	export class PersistentAppSettingsObject {
-		daisyUITheme = ''; // for setting the UI theme. See https://daisyui.com/docs/themes/
+		daisyUITheme = 'winter'; // for setting the UI theme. See https://daisyui.com/docs/themes/
 		headscaleAPIKey = ''; // sensitive, allows for administrative access to headscale
 		headscaleURL = ''; // url for headscale to use
 		debugLogging = false; // to turn on additional messages
