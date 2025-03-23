@@ -47,30 +47,30 @@
 		}
 	}
 
-	export function rotateAPIKey() {
-		appSettings.apiKeyList.forEach((key) => {
-			// select the current key being used
+	export async function rotateAPIKey() {
+		for (const key of appSettings.apiKeyList) {
+			// select the current key being used in the app settings
 			if (persistentAppSettings.headscaleAPIKey.startsWith(key.prefix)) {
 				let currentKey = key;
+
+				// generate a new expiration time 90 days in the future
 				let newExpiration = new Date();
 				newExpiration.setDate(newExpiration.getDate() + 90);
 
-				// create a new API key with the new new expiration, set it as the current API key,
-				// and then expire the previous API key
-
-				createNewAPIKey(newExpiration).then((apiKey) => {
-					if (apiKey == undefined) {
-						throw new Error('expecting API key string, string was undefined');
-					}
-					persistentAppSettings.headscaleAPIKey = apiKey;
-					expireAPIKey(currentKey.prefix).then(() => {
-						getAPIKeys().then(() => {
-							// console.log(appSettings.apiKeyList);
-						});
-					});
-				});
+				// create a new API key with the new expiration
+				let apiKey = await createNewAPIKey(newExpiration);
+				// The above should always return a value
+				if (apiKey == undefined) {
+					throw new Error('expecting API key string, string was undefined');
+				}
+				// Set the new key as the current key in the persistent settings
+				persistentAppSettings.headscaleAPIKey = apiKey;
+				// Expire the previously current key
+				await expireAPIKey(currentKey.prefix);
+				// Get keys again to make sure it all worked
+				await getAPIKeys();
 			}
-		});
+		}
 	}
 
 	export async function createNewAPIKey(expireDate: Date) {
