@@ -19,7 +19,7 @@
 				appSettings.apiKeyList = (await response.json()).apiKeys;
 				appSettings.apiTested = true;
 
-				// determine the remaining time for the key we are currently using
+				// determine the remaining time for the key we are currently using. Note: Nested Async
 				appSettings.apiKeyList.forEach((key) => {
 					if (persistentAppSettings.headscaleAPIKey.startsWith(key.prefix)) {
 						getKeyRemainingTime(new Date(key.expiration));
@@ -49,7 +49,7 @@
 
 	export async function rotateAPIKey() {
 		for (const key of appSettings.apiKeyList) {
-			
+
 			// select the current key being used in the app settings
 			if (persistentAppSettings.headscaleAPIKey.startsWith(key.prefix)) {
 				let currentKey = key;

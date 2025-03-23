@@ -11,7 +11,7 @@
 		rotateButtonDisabled = true;
 		rotateAPIKey().then(() => {
 			rotateButtonDisabled = false;
-			console.log(appSettings.apiKeyList);
+			// console.log(appSettings.apiKeyList);
 		});
 	}
 </script>
