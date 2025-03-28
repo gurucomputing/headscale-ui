@@ -15,7 +15,7 @@ requires stopPropogation for downstream buttons -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <li class="list-row" onclick={() => {cardExpanded = !cardExpanded}} >
 	<div class="prose prose-sm">
-		<strong>
+		<strong class="tooltip" data-tip="user ID">
 			{userCard.id}
 		</strong>
 	</div>
