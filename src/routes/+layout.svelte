@@ -59,7 +59,7 @@
 				<Navbar></Navbar>
 			</div>
 			<!-- Page Content -->
-			<div class="ml-5 mr-5 mt-5 min-h-screen items-center justify-center">
+			<div class="ml-5 mr-5 mt-5 min-h-[calc(100vh-(var(--spacing)*15))] items-center justify-center">
 				{@render children()}
 			</div>
 		</div>
