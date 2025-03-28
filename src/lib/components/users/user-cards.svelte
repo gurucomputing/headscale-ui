@@ -6,7 +6,7 @@
 	getUsers();
 </script>
 
-<ul class="list bg-base-100 rounded-box shadow-md">
+<ul class="list bg-base-200 rounded-box shadow-md max-w-xl">
 	{#each appSettings.users as user}
 		<li class="list-row">
 			<UserCard userCard={user} />
