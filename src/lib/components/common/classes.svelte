@@ -19,6 +19,7 @@
 		toastAlerts = new SvelteMap<string, toastAlert>(); // for adding or removing alerts
 		apiTested = true; // used to hide the app if the api tests are failing
 		apiKeyList: APIKey[] = []; //list of apikeys retrieved from headscale API
+		users: user[] = []; //list of users retrieved from headscale API
 		apiKeyExpiration?: number = undefined; // number of days left until the key in use expires
 
 		public constructor(init?: Partial<AppSettingsObject>) {
@@ -44,6 +45,21 @@
 		expiration = ''; // when key expires, formatting as datetime
 		createdAt = ''; // date of creation
 		lastSeen = ''; // date last seen, seems to be always null?
+
+		public constructor(init?: Partial<APIKey>) {
+			Object.assign(this, init);
+		}
+	}
+
+	export class user {
+		id = '';
+		name = '';
+		createdAt = '';
+		displayName = '';
+		email = '';
+		providerId = '';
+		provider = '';
+		profilePicUrl = '';
 
 		public constructor(init?: Partial<APIKey>) {
 			Object.assign(this, init);
