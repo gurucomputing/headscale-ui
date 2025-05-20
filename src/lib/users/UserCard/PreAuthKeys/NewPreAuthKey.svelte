@@ -15,7 +15,7 @@
 
 	function NewPreAuthKeyAction() {
     let formattedDate = new Date(expiry).toISOString();
-		newPreAuthKey(user.name, formattedDate, reusable, ephemeral)
+		newPreAuthKey(user.id, formattedDate, reusable, ephemeral)
 			.then(() => {
 				newPreAuthKeyShow = false;
 				getPreauthKeysAction();
@@ -26,7 +26,7 @@
 	}
 
   function getPreauthKeysAction() {
-		getPreauthKeys(user.name)
+		getPreauthKeys(user.id)
 			.then((keys) => {
 				keyList = keys;
 			})
