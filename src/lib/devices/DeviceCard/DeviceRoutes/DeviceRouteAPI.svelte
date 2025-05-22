@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-	import type { Route } from '$lib/common/classes';
 
 	export async function approveDeviceRoute(deviceID: string, routes: [string]): Promise<any> {
 		// variables in local storage

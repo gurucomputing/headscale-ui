@@ -21,19 +21,7 @@ export class Device {
 export class ACL {
 	public groups: { [key: string]: [string] } = {};
 
-	public constructor(init?: Partial<Route>) {
-		Object.assign(this, init);
-	}
-}
-
-export class Route {
-	// current (hs 18+) method of handling a route
-	advertised: boolean = true;
-	prefix: string = '';
-	enabled: boolean = false;
-	id: number = 0;
-
-	public constructor(init?: Partial<Route>) {
+	public constructor(init?: Partial<ACL>) {
 		Object.assign(this, init);
 	}
 }
@@ -45,7 +33,7 @@ export class APIKey {
 	createdAt: string = '';
 	lastSeen: string = '';
 
-	public constructor(init?: Partial<Route>) {
+	public constructor(init?: Partial<APIKey>) {
 		Object.assign(this, init);
 	}
 }
