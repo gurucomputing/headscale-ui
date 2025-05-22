@@ -34,9 +34,5 @@
 	>
 		</span>
 	{/each}
-
-	{#each device.validTags as tag}
-		<span class="mb-1 mr-1 btn btn-xs btn-secondary normal-case">{tag.replace("tag:","")}</span>
-	{/each}
 </div>
 
