@@ -91,6 +91,7 @@ See [Other Configurations](/documentation/configuration.md) for further proxy ex
 The following versions correspond to the appropriate headscale version
 | Headscale Version | HS-UI Version |
 |-------------------|---------------|
+| 26+               | 2025-05-22+   |
 | 25+               | 2025-03-14+   |
 | 24+               | 2025-01-20+   |
 | 23+               | 2024-10-01+   |
