@@ -7,6 +7,9 @@ export class Device {
 	public forcedTags: string[] = [];
 	public validTags: string[] = [];
 	public invalidTags: string[] = [];
+	public approvedRoutes: string[] = [];
+	public availableRoutes: string[] = [];
+	public subnetRoutes: string[] = [];
 	public user: { name: string } = { name: '' };
 	public online?: boolean;
 
