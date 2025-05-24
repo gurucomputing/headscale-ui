@@ -81,6 +81,6 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           name: headscale-ui
-          files: headscale-ui.zip
+          files: ${{ steps.extract.outputs.destination }}/headscale-ui.zip
           generate_release_notes: true
           make_latest: true
