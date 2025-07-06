@@ -39,10 +39,22 @@
 			<div class="overflow-x-auto">
 				<table class="table table-compact w-full">
 					<tbody>
-						<tr>
-							<th>User Creation Date</th>
-							<td>{new Date(user.createdAt)}</td>
-						</tr>
+			<tr>
+				<th>Display Name</th>
+				<td>{user.displayName}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{user.email}</td>
+			</tr>
+			<tr>
+				<th>Provider</th>
+				<td>{user.provider}</td>
+			</tr>
+			<tr>
+				<th>User Creation Date</th>
+				<td>{new Date(user.createdAt)}</td>
+			</tr>
 						{#key $userStore}
 							<PreauthKeys {user} />
 						{/key}

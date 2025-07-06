@@ -6,7 +6,7 @@
 
 	export let device = new Device();
 	let deviceMoving = false;
-	let selectedUser = device.user.name;
+	let selectedUser = device.user.id;
 
 	function moveDeviceAction() {
 		moveDevice(device.id, selectedUser)
@@ -21,39 +21,50 @@
 	}
 </script>
 
-<td>
-	{#if !deviceMoving}
-		{device.user.name}
-		<!-- edit symbol -->
-		<button
-			on:click={() => {
-				deviceMoving = true;
-			}}
-			type="button"
-			class="ml-2"
-			><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-			</svg></button
-		>
-	{:else}
-		<form on:submit|preventDefault={moveDeviceAction}>
-			<select class="card-select mr-3" required bind:value={selectedUser}>
-				{#each $userStore as user}
-					<option>{user.name}</option>
-				{/each}
-			</select>
-			<!-- edit accept symbol -->
-			<button in:fade|global class=""
-				><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-				</svg></button
-			>
-			<!-- edit cancel symbol -->
-			<button type="button" in:fade|global on:click|stopPropagation={() => (deviceMoving = false)}
-				><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-				</svg></button
-			>
-		</form>
-	{/if}
-</td>
+    <td>
+        {#if !deviceMoving}
+            {#if device.user.name}
+                {device.user.name}{#if device.user.email} ({device.user.email}){/if}
+            {:else if device.user.email}
+                {device.user.email}
+            {/if}
+            {#if device.user.provider}
+                [{device.user.provider}]
+            {/if}
+            <!-- edit symbol -->
+            <button
+                on:click={() => (deviceMoving = true)}
+                type="button"
+                class="ml-2"
+            ><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg></button>
+        {:else}
+            <form on:submit|preventDefault={moveDeviceAction}>
+                <select class="card-select mr-3" required bind:value={selectedUser}>
+                    {#each $userStore as user}
+                        <option value={user.id}>
+                            {#if user.name}
+                                {user.name}{#if user.email} ({user.email}){/if}
+                            {:else if user.email}
+                                {user.email}
+                            {/if}
+                            {#if user.provider} [{user.provider}]{/if}
+                        </option>
+                    {/each}
+                </select>
+                <!-- edit accept symbol -->
+                <button in:fade|global>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </button>
+                <!-- edit cancel symbol -->
+                <button type="button" in:fade|global on:click|stopPropagation={() => (deviceMoving = false)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </button>
+            </form>
+        {/if}
+    </td>

@@ -10,7 +10,7 @@ export class Device {
 	public approvedRoutes: string[] = [];
 	public availableRoutes: string[] = [];
 	public subnetRoutes: string[] = [];
-	public user: { name: string } = { name: '' };
+	public user: User = new User();
 	public online?: boolean;
 
 	public constructor(init?: Partial<Device>) {
@@ -57,6 +57,10 @@ export class User {
 	public id: string = '';
 	public name: string = '';
 	public createdAt: string = '';
+	public displayName: string = '';
+	public email: string = '';
+	public provider: string = '';
+
 	public constructor(init?: Partial<User>) {
 		Object.assign(this, init);
 	}
