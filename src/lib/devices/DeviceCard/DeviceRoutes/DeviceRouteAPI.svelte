@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 
-	export async function approveDeviceRoute(deviceID: string, routes: [string]): Promise<any> {
+	export async function approveDeviceRoute(deviceID: string, routes: string[]): Promise<any> {
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
 		let headscaleAPIKey = localStorage.getItem('headscaleAPIKey') || '';
