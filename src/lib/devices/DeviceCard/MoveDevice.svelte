@@ -6,7 +6,7 @@
 
 	export let device = new Device();
 	let deviceMoving = false;
-	let selectedUser = device.user.name;
+	let selectedUser = device.user.id;
 
 	function moveDeviceAction() {
 		moveDevice(device.id, selectedUser)
@@ -39,7 +39,7 @@
 		<form on:submit|preventDefault={moveDeviceAction}>
 			<select class="card-select mr-3" required bind:value={selectedUser}>
 				{#each $userStore as user}
-					<option>{user.name}</option>
+					<option value={user.id}>{user.name}</option>
 				{/each}
 			</select>
 			<!-- edit accept symbol -->

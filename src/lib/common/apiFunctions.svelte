@@ -464,7 +464,7 @@
 			});
 	}
 
-	export async function moveDevice(deviceID: string, user: string): Promise<any> {
+	export async function moveDevice(deviceID: string, userID: string): Promise<any> {
 
 		// variables in local storage
 		let headscaleURL = localStorage.getItem('headscaleURL') || '';
@@ -480,7 +480,7 @@
 				Authorization: `Bearer ${headscaleAPIKey}`
 			},
 			body: JSON.stringify({
-				user: user
+				user: parseInt(userID)
 			})
 		})
 			.then((response) => {
