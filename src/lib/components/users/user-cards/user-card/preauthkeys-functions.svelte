@@ -1,23 +1,21 @@
 <script module lang="ts">
+	import { preauthkey } from '$lib/components/common/classes.svelte';
 	import { persistentAppSettings, appSettings } from '$lib/components/common/state.svelte';
 	import { newToastAlert } from '$lib/components/layout/toast-functions.svelte';
-    import type { user } from '$lib/components/common/classes.svelte';
-	import { getUsers } from '../../user-cards-functions.svelte';
 
-	export async function setUsername(user: user, newName: string) {
+	export async function getPreauthKeys(userID: string) {
+        let preauthkeys: preauthkey[] = [];
 		try {
-			const response = await fetch(`${persistentAppSettings.headscaleURL}/api/v1/user/${user.id}/rename/${newName}`, {
-				method: 'POST',
+			const response = await fetch(`${persistentAppSettings.headscaleURL}/api/v1/preauthkey?user=${userID}`, {
+				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${persistentAppSettings.headscaleAPIKey}`,
 					'Content-Type': 'application/json'
 				}
-                // body: JSON.stringify({
-                // })
 			});
 
 			if (response.ok) {
-                getUsers();
+                preauthkeys = (await response.json()).preAuthKeys as preauthkey[];
 			} else {
                 newToastAlert(`${response.status}: ${response.body}`);
 			}
@@ -31,5 +29,6 @@
 			newToastAlert(`API test failed (check your server settings): ${message}`);
 			appSettings.apiTested = false;
 		}
+		return preauthkeys;
 	}
 </script>

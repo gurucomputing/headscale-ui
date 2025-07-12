@@ -51,6 +51,7 @@
 		}
 	}
 
+	// used for describing headscale users
 	export class user {
 		id = '';
 		name = '';
@@ -61,7 +62,24 @@
 		provider = '';
 		profilePicUrl = '';
 
-		public constructor(init?: Partial<APIKey>) {
+		public constructor(init?: Partial<user>) {
+			Object.assign(this, init);
+		}
+	}
+
+	// used for describing keys associated with a user
+	export class preauthkey {
+		user = new user();
+		id = '';
+		key = '';
+		reusable = false;
+		ephemeral = false;
+		used = false;
+		expiration = '';
+		createdAt = '';
+		aclTags = [''];
+
+		public constructor(init?: Partial<preauthkey>) {
 			Object.assign(this, init);
 		}
 	}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { user } from '$lib/components/common/classes.svelte';
+	import Preauthkeys from './user-card/preauthkeys.svelte';
 	import Username from './user-card/username.svelte';
 	import { slide } from 'svelte/transition';
 
@@ -20,10 +21,10 @@
 	<div class="list-col-grow prose prose-sm">
 		<Username {userCard}></Username>
 		{#if cardExpanded}
-			<table transition:slide class="table -mx-10">
+			<table transition:slide class="table -ml-10 overflow-x-auto">
 				<tbody>
 					<!-- row 1 -->
-					<tr><th class="min-w-32">Preauth Keys</th><td>stuff and things and stuff stuff and things and stuff stuff and things and stuff stuff and things and stuff</td></tr>
+					<tr><th class="min-w-28">Preauth Keys</th><td class="min-w-96"><Preauthkeys {userCard}></Preauthkeys></td></tr>
 				</tbody>
 			</table>
 		{/if}
