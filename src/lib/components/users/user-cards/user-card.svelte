@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { user } from '$lib/components/common/classes.svelte';
 	import Username from './user-card/username.svelte';
+	import { slide } from 'svelte/transition';
 
 	interface Props {
 		userCard: user;
@@ -11,13 +12,21 @@
 </script>
 
 <li class="list-row">
-	<div class="text-xl font-thin opacity-50 tabular-nums">
+	<div class="text-xl font-thin tabular-nums opacity-50">
 		<strong>
-			{userCard.id}
+			{userCard.id.padStart(2, '0')}
 		</strong>
 	</div>
 	<div class="list-col-grow prose prose-sm">
 		<Username {userCard}></Username>
+		{#if cardExpanded}
+			<table transition:slide class="table -mx-10">
+				<tbody>
+					<!-- row 1 -->
+					<tr><th class="min-w-32">Preauth Keys</th><td>stuff and things and stuff stuff and things and stuff stuff and things and stuff stuff and things and stuff</td></tr>
+				</tbody>
+			</table>
+		{/if}
 	</div>
 	<div>
 		<button
@@ -39,5 +48,4 @@
 			{/if}
 		</button>
 	</div>
-	<div></div>
 </li>
