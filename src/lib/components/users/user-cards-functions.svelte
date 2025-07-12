@@ -1,6 +1,6 @@
 <script module lang="ts">
-	import { persistentAppSettings, appSettings } from '../common/state.svelte';
-	import { newToastAlert } from '../layout/toast-functions.svelte';
+	import { persistentAppSettings, appSettings } from '$lib/components/common/state.svelte';
+	import { newToastAlert } from '$lib/components/layout/toast-functions.svelte';
 
 	export async function getUsers() {
 		try {
@@ -12,12 +12,12 @@
 				}
 			});
 
-			if (!response.ok) {
-				newToastAlert(`API test failed (check your server settings): ${response.status}`);
-				appSettings.apiTested = false;
-			} else {
-				appSettings.users = (await response.json()).users;
+			if (response.ok) {
+                appSettings.users = (await response.json()).users;
 				appSettings.apiTested = true;
+			} else {
+                newToastAlert(`API test failed (check your server settings): ${response.status}`);
+				appSettings.apiTested = false;
 			}
 		} catch (error) {
 			let message: string;

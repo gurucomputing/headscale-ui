@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { user } from '$lib/components/common/classes.svelte';
+	import { user } from '$lib/components/common/classes.svelte';
+	import { setUsername } from './username-functions.svelte';
 
 	interface Props {
 		userCard: user;
@@ -12,11 +13,12 @@
 
 <strong class="flex">
 	{#if !editUsername}
-    <span class="mt-0.5">{userCard.name}</span>
+		<span class="mt-0.5">{userCard.name}</span>
 		<button
 			class="btn btn-ghost btn-xs btn-square ml-2"
 			onclick={() => {
 				editUsername = true;
+				newUsername = userCard.name;
 			}}
 		>
 			<!-- edit icon -->
@@ -25,24 +27,32 @@
 			</svg>
 		</button>
 	{:else}
-		<input class="input input-sm lowercase" placeholder="name" bind:value={newUsername} />
-		<button class="btn btn-ghost btn-sm btn-square ml-2">
-			<!-- confirm icon -->
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-		</button>
+		<form class="flex">
+			<input class="input input-sm lowercase" placeholder="name" bind:value={newUsername} />
+			<button
+				class="btn btn-ghost btn-sm btn-square ml-2"
+				onclick={() => {
+					editUsername = false;
+					setUsername(userCard, newUsername);
+				}}
+			>
+				<!-- confirm icon -->
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+			</button>
 
-		<button
-			class="btn btn-ghost btn-sm btn-square"
-			onclick={() => {
-				editUsername = false;
-			}}
-		>
-			<!-- cancel icon -->
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-		</button>
+			<button
+				class="btn btn-ghost btn-sm btn-square"
+				onclick={() => {
+					editUsername = false;
+				}}
+			>
+				<!-- cancel icon -->
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+			</button>
+		</form>
 	{/if}
 </strong>
