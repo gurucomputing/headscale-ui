@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { preauthkey, user } from '$lib/components/common/classes.svelte';
+	import Svelecte from 'svelecte';
+	import { user } from '$lib/components/common/classes.svelte';
 	import { getPreauthKeys } from './preauthkeys-functions.svelte';
 
 	interface Props {
@@ -7,13 +8,12 @@
 	}
 
 	let { userCard }: Props = $props();
-    let preauthKeys: preauthkey[] = $state([]);
+    let preauthKeys: string[] = $state([]);
 	getPreauthKeys(userCard.id).then((returnedPreAuthKeys) => {
-		preauthKeys = returnedPreAuthKeys;
+		preauthKeys = returnedPreAuthKeys.map(obj => obj.key);
 	});
+	let selectedKey = $state('');
 </script>
 
-{#each preauthKeys as preauthkey}
-<p>{preauthkey.key}</p>
-{/each}
+<Svelecte options={preauthKeys} bind:value={selectedKey} />
 
