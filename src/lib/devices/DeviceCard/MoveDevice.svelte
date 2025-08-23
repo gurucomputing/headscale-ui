@@ -39,7 +39,7 @@
 		<form on:submit|preventDefault={moveDeviceAction}>
 			<select class="card-select mr-3" required bind:value={selectedUser}>
 				{#each $userStore as user}
-					<option value={user.id}>{user.name}</option>
+					<option value={user.id}>{user.name.length > 1 ? user.name : user.email}</option>
 				{/each}
 			</select>
 			<!-- edit accept symbol -->

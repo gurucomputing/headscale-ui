@@ -40,6 +40,10 @@
 				<table class="table table-compact w-full">
 					<tbody>
 						<tr>
+							<th>Email</th>
+							<td>{user.email}</td>
+						</tr>
+						<tr>
 							<th>User Creation Date</th>
 							<td>{new Date(user.createdAt)}</td>
 						</tr>

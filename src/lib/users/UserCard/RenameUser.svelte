@@ -32,7 +32,7 @@
 </script>
 
 {#if !cardEditing}
-	<span class="font-bold">{user.id}: {user.name}</span>
+	<span class="font-bold">{user.id}: {user.name.length > 1 ? user.name : user.email}</span>
   <!-- edit symbol -->
 	<button type="button" on:click|stopPropagation={() => editingUser()} class="ml-2"
 		><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

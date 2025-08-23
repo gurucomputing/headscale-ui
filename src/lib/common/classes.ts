@@ -56,6 +56,7 @@ export class PreAuthKey {
 export class User {
 	public id: string = '';
 	public name: string = '';
+	public email: string = '';
 	public createdAt: string = '';
 	public constructor(init?: Partial<User>) {
 		Object.assign(this, init);
