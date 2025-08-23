@@ -65,7 +65,7 @@
 						<label class="block text-secondary text-sm font-bold mb-2" for="select">Select User</label>
 						<select class="card-select mr-3" required bind:value={selectedUser}>
 							{#each $userStore as user}
-								<option>{user.name}</option>
+								<option>{user.name.length > 1 ? user.name : user.email}</option>
 							{/each}
 						</select>
 					</div>
