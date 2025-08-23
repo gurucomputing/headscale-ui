@@ -16,4 +16,7 @@
 </script>
 
 <Svelecte options={preauthKeys} bind:value={selectedKey} />
+{#if selectedKey != ''}
+	<p>{selectedKey}</p>
+{/if}
 
