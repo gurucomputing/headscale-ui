@@ -1,0 +1,29 @@
+{
+	skip_install_trust
+	auto_https disable_redirects
+	http_port 8080
+	https_port 8443
+}
+
+:8080 {
+	# local dev server
+	reverse_proxy /web* localhost:8083
+	# local pocketbase server
+	reverse_proxy /_* localhost:8082
+	reverse_proxy /api* localhost:8082
+	# local openvscode server
+	reverse_proxy localhost:8081
+}
+
+:8443 {
+	tls internal {
+		on_demand
+	}
+	# local dev server
+	reverse_proxy /web* localhost:8083
+	# local pocketbase server
+	reverse_proxy /_* localhost:8082
+	reverse_proxy /api* localhost:8082
+	# local openvscode server
+	reverse_proxy localhost:8081
+}

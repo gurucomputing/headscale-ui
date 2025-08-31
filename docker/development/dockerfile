@@ -1,14 +1,14 @@
-FROM fedora:latest
+FROM node:lts-bookworm
 
 # Volumes
 VOLUME /data
 
 # Ports
-# openvscode server port. Note: Runs HTTP by default
-EXPOSE 3000
+# caddy port
+EXPOSE 8080
 
 # System Environment Variables
-ENV PATH="/opt/vscode:${PATH}"
+ENV PATH="/opt/vscode:/opt/pb:${PATH}"
 ENV HOME="/data/home"
 ENV SHELL="/bin/bash"
 
@@ -16,7 +16,7 @@ ENV SHELL="/bin/bash"
 # Set to false if you do not want to attempt to pull a repository on first load
 ENV AUTOINITIALIZE=false
 # sets a connection token for VSCode Server. https://github.com/gitpod-io/openvscode-server#securing-access-to-your-ide
-ENV USE_CONNECTION_TOKEN=false
+ENV USE_CONNECTION_TOKEN=true
 #Set to a secret to have some measure of protection for vscode. Randomized if left blank
 ENV CONNECTION_TOKEN=
 # Project name. Typically the same as the project in the URL
@@ -30,22 +30,28 @@ ENV DEV_COMMAND="npm run dev"
 
 # Set the staging environment
 WORKDIR /staging/scripts
+WORKDIR /staging/configurations
 WORKDIR /staging
 RUN chown 1000:1000 /staging
 
-# Copy across the scripts folder
+# Copy across the scripts and config folders
 COPY scripts/* ./scripts/
+COPY configurations/* ./configurations/
 
 # Set permissions for all scripts. We do not want normal users to have write
 # access to the scripts
 RUN chown -R 0:0 scripts
 RUN chmod -R 755 scripts
 
+# set permissions for config files
+RUN chown -R 0:0 configurations
+RUN chmod -R 655 configurations
+
 # Build the image. This build runs as root
 RUN /staging/scripts/1-image-build.sh
 
 # set to the non-root user
-USER dev-user
+USER 1000:1000
 
 WORKDIR /data
 
