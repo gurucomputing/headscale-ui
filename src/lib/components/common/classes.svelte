@@ -1,5 +1,6 @@
 <script module lang="ts">
 	import { SvelteMap } from 'svelte/reactivity';
+	import PocketBase from 'pocketbase';
 
 	export class PersistentAppSettingsObject {
 		daisyUITheme = 'winter'; // for setting the UI theme. See https://daisyui.com/docs/themes/
@@ -19,6 +20,7 @@
 		toastAlerts = new SvelteMap<string, toastAlert>(); // for adding or removing alerts
 		apiTested = true; // used to hide the app if the api tests are failing
 		apiKeyList: APIKey[] = []; //list of apikeys retrieved from headscale API
+		pb: PocketBase = new PocketBase(); //authentication middleware interface
 		users: user[] = []; //list of users retrieved from headscale API
 		apiKeyExpiration?: number = undefined; // number of days left until the key in use expires
 

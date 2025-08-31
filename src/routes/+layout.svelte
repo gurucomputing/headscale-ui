@@ -4,10 +4,10 @@
 	import Navbar from '$lib/components/layout/navbar.svelte';
 	import Sidebar from '$lib/components/layout/sidebar.svelte';
 	import Toast from '$lib/components/layout/toast.svelte';
-	import { getAPIKeys } from '$lib/components/settings/server-settings-functions.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import '../app.css';
+	import { checkAuth } from '$lib/components/layout/auth-functions.svelte';
 	let { children } = $props();
 
 	onMount(async () => {
@@ -21,6 +21,7 @@
 			localStorage.setItem('persistentAppSettings', JSON.stringify(persistentAppSettings));
 		});
 
+
 		// populate any settings being passed through by url params
 		const urlParams = new URLSearchParams(window.location.search);
 		let headscaleApiKeyParam = urlParams.get('apikey');
@@ -33,8 +34,8 @@
 			persistentAppSettings.headscaleURL = headscaleUrlParam;
 		}
 
-		// perform an initial API test
-		getAPIKeys();
+		// do an initial authentication check
+		checkAuth();
 
 		// delay load until page is hydrated
 		appSettings.appLoaded = true;
