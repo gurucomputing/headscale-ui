@@ -54,19 +54,19 @@ fi
 
 # run the dev processes in tmux and the 'main' process as the initialisation.
 
-# vscode server
-echo "-- starting openvscode server in tmux as subprocess. Use 'tmux a -t openvscode-server' to see logs. ctrl+b -> d to disconnect --"
-if [ "$USE_CONNECTION_TOKEN" = "false" ]
-then
-    tmux new-session -s "openvscode-server" -d '/opt/openvscode-server/bin/openvscode-server --port 8081 --without-connection-token; bash -i'
-else
-    tmux new-session -s "openvscode-server" -d "/opt/openvscode-server/bin/openvscode-server --port 8081 --connection-token=${CONNECTION_TOKEN}; bash -i"
-fi
+# caddy
+echo "-- starting caddy in tmux as subprocess. Use 'tmux a -t caddy' to see logs. ctrl+b -> d to disconnect --"
+tmux new-session -s "caddy" -d 'caddy run --adapter caddyfile --config /staging/configurations/Caddyfile; bash -i'
 
 # pocketbase
 echo "-- starting pocketbase server in tmux as subprocess. Use 'tmux a -t pocketbase' to see logs. ctrl+b -> d to disconnect --"
 tmux new-session -s "pocketbase" -d 'pocketbase serve --http=0.0.0.0:8082; bash -i'
 
-# caddy, this is our "main" process
-echo "-- starting caddy reverse proxy --"
-caddy run --adapter caddyfile --config /staging/configurations/Caddyfile
+# openvscodeserver, this is our "main" process. Note that caddy is the primary port (8080), not openvscode server (8081)
+# if $USE_CONNECTION_TOKEN, the token will be printed in the 
+if [ "$USE_CONNECTION_TOKEN" = "false" ]
+then
+    /opt/openvscode-server/bin/openvscode-server --port 8081 --without-connection-token
+else
+    /opt/openvscode-server/bin/openvscode-server --port 8081 --connection-token=${CONNECTION_TOKEN}
+fi
