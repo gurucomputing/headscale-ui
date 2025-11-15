@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { appSettings } from '$lib/components/common/state.svelte';
 	import { fade } from 'svelte/transition';
-	import { loginOrRegister } from '$lib/components/login/auth-functions.svelte';
+	import { loginOrRegister } from '$lib/components/login/page-functions.svelte';
 	import { onMount } from 'svelte';
-	import Login from '$lib/components/login/login.svelte';
+	import Login from '$lib/components/login/registration.svelte';
 
 	appSettings.navbarTitle = 'Login';
 	appSettings.sidebarDrawerOpen = false;
