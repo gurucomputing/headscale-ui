@@ -15,16 +15,16 @@
 		}
 		
 		if(!validLogin) {
-			// attempt to authenticate with default credentials and redirect to first registration screen
-			try {
-				let authData = await appSettings.pb.collection("_superusers").authWithPassword('superadmin@breakglass.local', 'firsttimepasswordchangeme');
-				if (authData) {
-					appSettings.pb.authStore.clear();
-					goto(resolve(`/firstregistration.html`));
-				}
-			} catch (error) {
-				goto(resolve(`/login.html`))
-			}
+			goto(resolve(`/login.html`));
 		}
 	}
+// try {
+// 				let authData = await appSettings.pb.collection("_superusers").authWithPassword('superadmin@breakglass.local', 'firsttimepasswordchangeme');
+// 				if (authData) {
+// 					appSettings.pb.authStore.clear();
+// 					goto(resolve(`/firstregistration.html`));
+// 				}
+// 			} catch (error) {
+// 				goto(resolve(`/login.html`))
+// 			}
 </script>
