@@ -22,6 +22,9 @@ const config = {
 		}
 	},
 	compilerOptions: {
+		experimental: {
+			async: true
+		},
 		runes: true
 	}
 };

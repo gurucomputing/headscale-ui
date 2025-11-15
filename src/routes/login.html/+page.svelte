@@ -2,13 +2,16 @@
 	import { appSettings } from '$lib/components/common/state.svelte';
 	import { fade } from 'svelte/transition';
 	import { loginOrRegister } from '$lib/components/login/auth-functions.svelte';
+	import { onMount } from 'svelte';
 
 	appSettings.navbarTitle = 'Login';
 	appSettings.sidebarDrawerOpen = false;
-
 	let loginType = $state('none');
-	loginOrRegister().then(function (loginResult) {
-		loginType = loginResult;
+
+	onMount(() => {
+		loginOrRegister().then(function (loginResult) {
+			loginType = loginResult;
+		});
 	});
 </script>
 
