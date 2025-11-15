@@ -13,7 +13,7 @@
 		"stage": "/usr/bin/caddy run --adapter caddyfile --config ./caddyfile"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^6",
+		"@sveltejs/adapter-auto": "^7",
 		"@sveltejs/adapter-static": "^3.0.6",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^6",
@@ -24,7 +24,7 @@
 		"pocketbase": "^0.26.2",
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
-		"prettier-plugin-tailwindcss": "^0.6.11",
+		"prettier-plugin-tailwindcss": "^0",
 		"svelecte": "^5.1.5",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
