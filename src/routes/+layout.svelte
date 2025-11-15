@@ -35,7 +35,7 @@
 		}
 
 		// do an initial authentication check
-		checkAuth();
+		await checkAuth();
 
 		// delay load until page is hydrated
 		appSettings.appLoaded = true;
