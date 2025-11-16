@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
+	import { appSettings } from '../common/state.svelte';
+	import { newPBUser } from '../common/classes.svelte';
+	import { registerFirstUser } from './registration-functions.svelte';
 	let inputEmail = $state('');
 	let inputPassword = $state('');
 	let inputRepeatPassword = $state('');
@@ -9,10 +12,21 @@
 	let hasAtLeastEightCharacters = $derived(inputPassword.length >= 8);
 	let doesPasswordsMatch = $derived(inputPassword == inputRepeatPassword);
 	let isFormValid = $derived(validEmail && hasOneCapital && hasOneNumberOrSymbol && hasAtLeastEightCharacters && doesPasswordsMatch);
+
+	function registerFirstUserSubmit() {
+		var newUserData = new newPBUser({
+			email: inputEmail,
+			emailVisibility: true,
+			password: inputPassword,
+			passwordConfirm: inputRepeatPassword,
+			verified: true
+		});
+		registerFirstUser(newUserData).then(() => {});
+	}
 </script>
 
 <div in:fade class="flex items-center justify-center">
-	<form action="">
+	<form onsubmit={registerFirstUserSubmit}>
 		<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 			<legend class="fieldset-legend">First Time Registration</legend>
 			<label class="label" for="email">Email</label>

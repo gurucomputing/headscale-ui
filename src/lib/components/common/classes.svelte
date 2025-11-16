@@ -68,6 +68,19 @@
 		}
 	}
 
+	// used for describing a new pocketbase user
+	export class newPBUser {
+		email = '';
+		emailVisibility = true;
+		password = '';
+		passwordConfirm = '';
+		verified = false;
+
+		public constructor(init?: Partial<newPBUser>) {
+			Object.assign(this, init);
+		}
+	}
+
 	// used for describing keys associated with a user
 	export class preauthkey {
 		user = new user();
