@@ -15,7 +15,6 @@
 	<form action="">
 		<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 			<legend class="fieldset-legend">First Time Registration</legend>
-			<p class="label">The first account will also be created as a superadmin<br> in the pocketbase back end</p>
 			<label class="label" for="email">Email</label>
 			<input type="email" bind:value={inputEmail} required class="input" id="email" placeholder="Email" />
 			<p class="label">
