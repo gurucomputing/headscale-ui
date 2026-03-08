@@ -4,9 +4,7 @@ export class Device {
 	public givenName: string = '';
 	public lastSeen: string = '';
 	public ipAddresses: string[] = [];
-	public forcedTags: string[] = [];
-	public validTags: string[] = [];
-	public invalidTags: string[] = [];
+	public tags: string[] = [];
 	public approvedRoutes: string[] = [];
 	public availableRoutes: string[] = [];
 	public subnetRoutes: string[] = [];

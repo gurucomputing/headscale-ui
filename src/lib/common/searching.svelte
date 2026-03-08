@@ -23,7 +23,7 @@
     // only run if we have search contents set
 		if (get(deviceSearchStore)) {
 			let searcher = new Fuse(get(deviceStore), {
-				keys: ['id', 'givenName', 'name', 'forcedTags', 'validTags', 'user.name']
+				keys: ['id', 'givenName', 'name', 'tags', 'user.name']
 			});
 
       // search using the searchstore term, and take the resultant array contents and set it to userFilterStore
