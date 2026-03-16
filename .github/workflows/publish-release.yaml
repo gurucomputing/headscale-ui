@@ -56,7 +56,7 @@ jobs:
           context: ./docker/production
           tags: |
             ${{ env.TAGS }}
-          platforms: linux/amd64,linux/arm/v7l,linux/arm64/v8
+          platforms: linux/amd64,linux/arm/v7l,linux/arm64
           push: true
 
       - name: Extract build out of docker image
