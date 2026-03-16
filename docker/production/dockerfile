@@ -1,4 +1,4 @@
-FROM node:lts AS build
+FROM node:24 AS build
 
 # arguments
 ARG VERSION="master"
